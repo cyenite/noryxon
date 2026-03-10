@@ -12,16 +12,18 @@
           NORYXON
         </Link>
         <nav class="hidden md:flex items-center gap-8 font-mono text-xs tracking-wider text-text-muted">
+          <ThemeToggle />
           <Link href="/pricing" class="text-pulse transition-colors font-bold">PRICING</Link>
           <a href="https://docs.noryxon.com" target="_blank" class="hover:text-pulse transition-colors">DOCUMENTATION</a>
-          <a href="https://dev.noryxon.com" target="_blank" class="hover:text-pulse transition-colors">DEVELOPER_PORTAL</a>
-          <a href="https://app.noryxon.com/login" class="hover:text-pulse transition-colors">DASHBOARD_LOGIN</a>
-          <a href="https://app.noryxon.com/register" class="text-void bg-pulse px-4 py-2 font-bold hover:shadow-[0_0_15px_#00ffa3] transition-all">GET_STARTED</a>
+          <a href="/developer" class="hover:text-pulse transition-colors">DEVELOPER_PORTAL</a>
+          <a href="/dashboard" class="hover:text-pulse transition-colors">DASHBOARD_LOGIN</a>
+          <a href="/dashboard" class="text-void bg-pulse px-4 py-2 font-bold hover:shadow-[0_0_15px] hover:shadow-pulse transition-all">GET_STARTED</a>
         </nav>
       </div>
     </header>
 
     <main class="pt-32 pb-24 max-w-7xl mx-auto px-6">
+      <ToastContainer />
       
       <!-- Pricing Header -->
       <div class="mb-20 text-center">
@@ -43,21 +45,26 @@
       <!-- Pricing Cards -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-20">
         <!-- Developer Tier -->
-        <div class="bg-[#050505] border border-ledger-border p-1 relative shadow-[0_0_30px_rgba(0,0,0,1)] hover:border-node transition-colors duration-500">
-          <div class="border border-ledger-border bg-[#0a0a0a] p-8 h-full flex flex-col justify-between">
+        <div class="bg-void border border-ledger-border p-1 relative shadow-2xl hover:border-node transition-colors duration-500">
+          <div class="border border-ledger-border bg-ledger p-8 h-full flex flex-col justify-between">
             <div>
               <div class="flex justify-between items-start mb-6">
                 <h3 class="text-2xl font-black uppercase tracking-widest text-text-primary">Developer</h3>
-                <span class="bg-void border border-ledger-border text-text-muted px-2 py-1 font-mono text-[10px]">PAY_AS_YOU_GO</span>
+                <span 
+                  class="bg-void border border-ledger-border text-text-muted px-2 py-1 font-mono text-[10px] cursor-pointer select-none transition-all duration-300"
+                  :class="{'text-pulse border-pulse shadow-[0_0_10px_var(--theme-pulse)]': freeTierLimit > 10000}"
+                  @click="handleEasterEgg"
+                  title="Payment Method"
+                >PAY_AS_YOU_GO</span>
               </div>
               
               <div class="mb-8 border-b border-ledger-border pb-8">
                 <div class="flex items-baseline gap-2 mb-2">
-                  <span class="text-4xl font-black text-white">Free</span>
-                  <span class="text-text-muted font-mono text-xs uppercase tracking-widest">upto $10,000 / mo</span>
+                  <span class="text-4xl font-black text-text-primary">Free</span>
+                  <span class="text-text-muted font-mono text-xs uppercase tracking-widest">upto ${{ freeTierLimit.toLocaleString() }} / mo</span>
                 </div>
                 <div class="flex items-baseline gap-2">
-                  <span class="text-2xl font-black text-white opacity-50">1.0%</span>
+                  <span class="text-2xl font-black text-text-primary opacity-50">1.0%</span>
                   <span class="text-text-muted font-mono text-[10px] uppercase">/ TXN past threshold</span>
                 </div>
                 <p class="text-[10px] text-text-muted font-mono mt-3">> ON_SUCCESSFUL_SETTLEMENTS_ONLY</p>
@@ -92,18 +99,18 @@
               </ul>
             </div>
 
-            <a href="https://app.noryxon.com/register" class="block w-full text-center bg-void border border-node text-node font-bold px-6 py-4 uppercase tracking-widest hover:bg-node hover:text-void transition-all shadow-[inset_0_0_10px_rgba(0,209,255,0.2)]">
+            <a href="/dashboard" class="block w-full text-center bg-void border border-node text-node font-bold px-6 py-4 uppercase tracking-widest hover:bg-node hover:text-void transition-all shadow-[inset_0_0_10px] shadow-node/20">
               [ INITIATE_DEPLOYMENT ]
             </a>
           </div>
         </div>
 
         <!-- Enterprise Tier -->
-        <div class="bg-[#050505] border border-pulse p-1 relative shadow-[0_0_30px_rgba(0,255,163,0.15)] hover:shadow-[0_0_40px_rgba(0,255,163,0.25)] transition-all">
+        <div class="bg-void border border-pulse p-1 relative shadow-[0_0_30px] shadow-pulse/15 hover:shadow-[0_0_40px] hover:shadow-pulse/25 transition-all">
           <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-pulse text-void font-bold text-[10px] px-3 py-1 uppercase tracking-widest z-20">
             RECOMMENDED_FOR_SCALE
           </div>
-          <div class="border border-ledger-border bg-[#0a0a0a] p-8 h-full flex flex-col justify-between relative z-10">
+          <div class="border border-ledger-border bg-ledger p-8 h-full flex flex-col justify-between relative z-10">
             <div>
               <div class="flex justify-between items-start mb-6">
                 <h3 class="text-2xl font-black uppercase tracking-widest text-pulse">Node Operator</h3>
@@ -112,7 +119,7 @@
               
               <div class="mb-8 border-b border-ledger-border pb-8">
                 <div class="flex items-baseline gap-2 mb-2">
-                  <span class="text-4xl font-black text-white">Custom</span>
+                  <span class="text-4xl font-black text-text-primary">Custom</span>
                 </div>
                 <div class="flex items-baseline gap-2">
                    <span class="text-2xl font-black opacity-0">_</span>
@@ -124,7 +131,7 @@
               <ul class="space-y-3 font-mono text-xs text-text-muted mb-12">
                 <li class="flex items-center gap-3">
                   <div class="w-1.5 h-1.5 border border-pulse"></div>
-                  <span class="text-white">Custom transaction fee tiering</span>
+                  <span class="text-text-primary">Custom transaction fee tiering</span>
                 </li>
                 <li class="flex items-center gap-3">
                   <div class="w-1.5 h-1.5 border border-pulse"></div>
@@ -149,7 +156,7 @@
               </ul>
             </div>
 
-            <a href="mailto:sales@noryxon.com" class="block w-full text-center bg-pulse text-void font-black px-6 py-4 uppercase tracking-widest hover:bg-white hover:text-void transition-colors shadow-[0_0_15px_rgba(0,255,163,0.4)] hover:shadow-[0_0_25px_rgba(0,255,163,0.6)]">
+            <a href="mailto:sales@noryxon.com" class="block w-full text-center bg-pulse text-void font-black px-6 py-4 uppercase tracking-widest hover:bg-white hover:text-void transition-colors shadow-[0_0_15px] shadow-pulse/40 hover:shadow-[0_0_25px] hover:shadow-pulse/60">
               [ CONTACT_SYSOPS ]
             </a>
           </div>
@@ -214,13 +221,48 @@
       <div class="mt-4 flex justify-center gap-6">
          <Link href="/pricing" class="hover:text-pulse transition-colors">Pricing</Link>
          <a href="https://docs.noryxon.com" target="_blank" class="hover:text-pulse transition-colors">Docs</a>
-         <a href="https://dev.noryxon.com" class="hover:text-pulse transition-colors">Dev Portal</a>
-         <a href="https://app.noryxon.com" class="hover:text-pulse transition-colors">Dashboard</a>
+         <a href="/developer" class="hover:text-pulse transition-colors">Dev Portal</a>
+         <a href="/dashboard" class="hover:text-pulse transition-colors">Dashboard</a>
       </div>
     </footer>
   </div>
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
+import ThemeToggle from '@/Components/ThemeToggle.vue';
+import ToastContainer from '@/Components/ToastContainer.vue';
+import { useNotifications } from '@/Composables/useNotifications';
+
+const { addNotification } = useNotifications();
+const freeTierLimit = ref(10000);
+let clickCount = 0;
+
+onMounted(() => {
+    if (typeof window !== 'undefined') {
+        const isPro = localStorage.getItem('noryxon-pro-developer');
+        if (isPro === 'true') {
+            freeTierLimit.value = 15000;
+        }
+    }
+});
+
+const handleEasterEgg = () => {
+    if (freeTierLimit.value === 15000) return; // Already unlocked
+
+    clickCount++;
+    if (clickCount >= 3) {
+        freeTierLimit.value = 15000;
+        if (typeof window !== 'undefined') {
+            localStorage.setItem('noryxon-pro-developer', 'true');
+        }
+        addNotification(
+            'Pro Developer Perk Unlocked',
+            'Curiosity rewarded. You now have $15,000 in free monthly volume instead of $10,000. Enjoy building.',
+            'success',
+            8000
+        );
+    }
+};
 </script>

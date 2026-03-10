@@ -5,20 +5,20 @@
     
     <div class="max-w-7xl mx-auto px-6 relative z-10">
       <div class="mb-16 text-center">
-        <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tighter text-text-primary drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]">Real-Time Execution</h2>
+        <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tighter text-text-primary drop-shadow-lg">Real-Time Execution</h2>
         <p class="text-pulse font-mono mt-4 text-sm tracking-widest uppercase">stateless_monitoring // instant_validation</p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch relative">
         
         <!-- Connecting Line between the two sections -->
-        <div class="hidden lg:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-px bg-pulse z-0 shadow-[0_0_10px_#00ffa3]"></div>
+        <div class="hidden lg:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-px bg-pulse z-0 shadow-[0_0_10px] shadow-pulse"></div>
 
         <!-- Terminal Side -->
-        <div class="bg-[#0a0a0a] border border-ledger-border p-1 shadow-[0_0_30px_rgba(0,0,0,1)] flex flex-col min-h-[450px] relative group">
+        <div class="bg-ledger border border-ledger-border p-1 shadow-2xl flex flex-col min-h-[450px] relative group">
           <div class="absolute inset-0 border border-pulse/30 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"></div>
           
-          <div class="bg-[#111] p-2 flex items-center justify-between border-b border-ledger-border">
+          <div class="bg-ledger-light p-2 flex items-center justify-between border-b border-ledger-border">
             <div class="flex items-center gap-2">
               <div class="w-3 h-3 bg-ledger-border rounded-full flex items-center justify-center"><div class="w-1 h-1 bg-void rounded-full"></div></div>
               <div class="w-3 h-3 bg-ledger-border rounded-full flex items-center justify-center"><div class="w-1 h-1 bg-void rounded-full"></div></div>
@@ -36,9 +36,9 @@
               <p class="ml-4">-H <span class="text-pulse/90">"Authorization: Bearer sk_live_7x9a..."</span> \</p>
               <p class="ml-4">-H <span class="text-pulse/90">"Content-Type: application/json"</span> \</p>
               <p class="ml-4">-d '{</p>
-              <p class="ml-8 text-[#e6e6e6]">"amount": "{{ currentAmount }}",</p>
-              <p class="ml-8 text-[#e6e6e6]">"currency": "{{ currentCurrency }}",</p>
-              <p class="ml-8 text-[#e6e6e6]">"chain": "{{ currentChain }}"</p>
+              <p class="ml-8 text-text-primary/90">"amount": "{{ currentAmount }}",</p>
+              <p class="ml-8 text-text-primary/90">"currency": "{{ currentCurrency }}",</p>
+              <p class="ml-8 text-text-primary/90">"chain": "{{ currentChain }}"</p>
               <p class="ml-4">}'</p>
               
               <div class="mt-8 border-t border-dashed border-ledger-border pt-4">
@@ -53,12 +53,12 @@
                 
                 <div v-if="isComplete" class="text-pulse text-xs leading-relaxed">
                    > HTTP/1.1 200 OK<br>
-                   > <span class="text-white">{</span><br>
+                   > <span class="text-text-primary">{</span><br>
                    > &nbsp;&nbsp;"id": "{{ currentSessionId }}",<br>
                    > &nbsp;&nbsp;"received": "{{ currentAmount }} {{ currentCurrency }}",<br>
                    > &nbsp;&nbsp;"status": "settled_to_cold_storage",<br>
                    > &nbsp;&nbsp;"fee_charged": "0.00"<br>
-                   > <span class="text-white">}</span>
+                   > <span class="text-text-primary">}</span>
                 </div>
               </div>
             </div>
@@ -66,19 +66,19 @@
         </div>
 
         <!-- Hosted Checkout Replica -->
-        <div class="bg-[#050505] border border-ledger-border p-1 flex flex-col justify-center items-center relative min-h-[450px] shadow-[0_0_30px_rgba(0,0,0,1)] group">
+        <div class="bg-void border border-ledger-border p-1 flex flex-col justify-center items-center relative min-h-[450px] shadow-2xl group">
           <!-- Scanning beam -->
           <div class="absolute inset-0 overflow-hidden pointer-events-none">
-            <div class="w-full h-1 bg-node/40 shadow-[0_0_15px_#00c2ff] translate-y-[-10px] group-hover:animate-[scan_2s_ease-in-out_infinite]"></div>
+            <div class="w-full h-1 bg-node/40 shadow-[0_0_15px] shadow-node translate-y-[-10px] group-hover:animate-[scan_2s_ease-in-out_infinite]"></div>
           </div>
           
           <div class="absolute top-4 right-4 flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full" :class="isComplete ? 'bg-pulse shadow-[0_0_8px_#00ffa3]' : 'bg-node shadow-[0_0_8px_#00c2ff] animate-pulse'"></span>
+            <span class="w-2 h-2 rounded-full" :class="isComplete ? 'bg-pulse shadow-[0_0_8px] shadow-pulse' : 'bg-node shadow-[0_0_8px] shadow-node animate-pulse'"></span>
             <span class="font-mono text-[10px] tracking-widest text-text-muted">SESSION_ACTIVE</span>
           </div>
           
           <div class="text-center mt-8 z-10 w-full px-8">
-            <h3 class="text-2xl font-black uppercase tracking-widest mb-1 drop-shadow-[2px_2px_0_rgba(0,255,163,0.3)]">
+            <h3 class="text-2xl font-black uppercase tracking-widest mb-1 drop-shadow-[2px_2px_0_var(--theme-pulse)] opacity-80" :style="isComplete ? '' : 'filter: drop-shadow(2px 2px 0px var(--theme-pulse)); opacity: 1;'">
               {{ isComplete ? 'Payment Secured' : 'Awaiting Deposit' }}
             </h3>
             <p class="font-mono text-text-muted mb-8 text-xs border-b border-ledger-border pb-4 w-full">TRANSFER_EXPECTED: {{ currentAmount }} {{ currentCurrency }} ({{ currentChain.toUpperCase() }})</p>
@@ -99,7 +99,7 @@
 
               <!-- Success Checkmark Overlay over QR block -->
               <div v-if="isComplete" class="absolute inset-0 flex items-center justify-center">
-                <div class="w-16 h-16 bg-pulse text-void rounded-full flex items-center justify-center animate-[popIn_0.5s_cubic-bezier(0.175,0.885,0.32,1.275)] shadow-[0_0_30px_#00ffa3]">
+                <div class="w-16 h-16 bg-pulse text-void rounded-full flex items-center justify-center animate-[popIn_0.5s_cubic-bezier(0.175,0.885,0.32,1.275)] shadow-[0_0_30px] shadow-pulse">
                   <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                   </svg>
@@ -107,12 +107,12 @@
               </div>
             </div>
             
-            <div class="font-mono bg-[#111] border border-ledger-border px-4 py-3 w-full max-w-sm mx-auto truncate text-white/90 text-xs tracking-wider relative overflow-hidden group/addr">
+            <div class="font-mono bg-ledger-light border border-ledger-border px-4 py-3 w-full max-w-sm mx-auto truncate text-text-primary/90 text-xs tracking-wider relative overflow-hidden group/addr">
               <div class="absolute inset-0 bg-pulse/10 translate-y-full group-hover/addr:translate-y-0 transition-transform"></div>
               <span class="relative z-10">{{ isComplete ? 'SETTLEMENT_COMPLETE' : currentAddress }}</span>
             </div>
             
-            <div class="mt-8 mx-auto font-mono text-[10px] uppercase font-bold px-6 py-3 tracking-widest text-center border" :class="isComplete ? 'border-node text-node shadow-[0_0_15px_rgba(0,194,255,0.3)]' : 'border-pulse/50 text-pulse/80'">
+            <div class="mt-8 mx-auto font-mono text-[10px] uppercase font-bold px-6 py-3 tracking-widest text-center border" :class="isComplete ? 'border-node text-node shadow-[0_0_15px] shadow-node/30' : 'border-pulse/50 text-pulse/80'">
               {{ isComplete ? '[ TRANSACTION_SETTLED ]' : (isSimulating ? '[ AWAITING_CONFIRMATIONS ]' : '[ REALTIME_MONITORING_ACTIVE ]') }}
             </div>
           </div>

@@ -1,7 +1,7 @@
 <template>
   <section class="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden border-b border-ledger-border bg-void">
     <!-- Dynamic grid background with moving light beam -->
-    <div class="absolute inset-0 bg-[linear-gradient(to_right,#161616_1px,transparent_1px),linear-gradient(to_bottom,#161616_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,var(--theme-ledger-border)_1px,transparent_1px),linear-gradient(to_bottom,var(--theme-ledger-border)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
     <div class="absolute inset-0 bg-gradient-to-b from-pulse/5 to-transparent opacity-50 pointer-events-none"></div>
     
     <div class="relative z-10 w-full max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mt-16 pb-16">
@@ -9,7 +9,7 @@
       <div class="text-left">
         <div class="inline-flex items-center gap-2 px-3 py-1 bg-void font-mono text-xs text-node border border-ledger-border mb-6 select-none relative overflow-hidden group">
           <div class="absolute inset-0 bg-gradient-to-r from-transparent via-node/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
-          <span class="w-1.5 h-1.5 rounded-full bg-pulse animate-pulse shadow-[0_0_8px_#00ffa3]"></span>
+          <span class="w-1.5 h-1.5 rounded-full bg-pulse animate-pulse shadow-[0_0_8px] shadow-pulse"></span>
           99.99% UPTIME GUARANTEED
         </div>
         
@@ -17,7 +17,7 @@
           The Uncompromising <br/> 
           <span class="relative inline-block">
             <span class="absolute -inset-1 blur-xl bg-pulse/20 opacity-50 animate-pulse"></span>
-            <span class="relative text-transparent bg-clip-text bg-gradient-to-r from-pulse via-white to-node">On-Chain Bridge.</span>
+            <span class="relative text-transparent bg-clip-text bg-gradient-to-r from-pulse via-text-primary to-node">On-Chain Bridge.</span>
           </span>
         </h1>
         
@@ -26,7 +26,7 @@
         </p>
         
         <div class="flex flex-col sm:flex-row items-center justify-start gap-4">
-          <a href="https://app.noryxon.com/register" class="w-full sm:w-auto inline-block text-center relative group bg-pulse text-void font-bold px-8 py-4 uppercase tracking-wider overflow-hidden shadow-[0_0_20px_rgba(0,255,163,0.3)] transition-all hover:shadow-[0_0_40px_rgba(0,255,163,0.6)] hover:scale-[1.02]">
+          <a href="/dashboard" class="w-full sm:w-auto inline-block text-center relative group bg-pulse text-void font-bold px-8 py-4 uppercase tracking-wider overflow-hidden shadow-[0_0_20px] shadow-pulse/30 transition-all hover:shadow-[0_0_40px] hover:shadow-pulse/60 hover:scale-[1.02]">
             <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 -translate-x-[150%] skew-x-[-45deg] group-hover:animate-[flash_1s_ease-in-out_infinite]"></div>
             Start Accepting Crypto
           </a>
@@ -58,12 +58,12 @@
         <div class="flex-1 flex flex-col justify-between relative z-10 pt-4 pb-2">
           
           <!-- Node 1: Customer Wallet -->
-          <div class="flex items-center gap-4 transition-all duration-500" :class="{'opacity-100 drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]': step >= 1, 'opacity-40': step < 1}">
-            <div class="w-12 h-12 border flex items-center justify-center transition-colors duration-300" :class="step >= 1 ? 'border-white bg-white/10 text-white' : 'border-ledger-border bg-ledger text-text-muted'">
+          <div class="flex items-center gap-4 transition-all duration-500" :class="{'opacity-100 drop-shadow-lg': step >= 1, 'opacity-40': step < 1}">
+            <div class="w-12 h-12 border flex items-center justify-center transition-colors duration-300" :class="step >= 1 ? 'border-text-primary bg-text-primary/10 text-text-primary' : 'border-ledger-border bg-ledger text-text-muted'">
               <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
             </div>
             <div class="font-mono text-sm">
-              <div class="text-white font-bold tracking-wide">User Pays for Product <span v-if="step===1" class="text-xs ml-2 text-pulse animate-pulse">Sending Funds...</span></div>
+              <div class="text-text-primary font-bold tracking-wide">User Pays for Product <span v-if="step===1" class="text-xs ml-2 text-pulse animate-pulse">Sending Funds...</span></div>
               <div class="text-xs mt-1 transition-colors" :class="{'text-pulse': step >= 1, 'text-text-muted': step < 1}">
                 Customer Wallet: <span :class="{'font-bold': step >= 1}">{{ displayHash }}</span>
               </div>
@@ -73,8 +73,8 @@
           <!-- Vertical connection pipeline -->
           <div class="absolute left-6 top-16 bottom-16 w-px bg-ledger-border">
             <!-- Data packet flowing down -->
-            <div v-if="step === 2" class="absolute w-1.5 h-8 bg-pulse -left-[2.5px] rounded-full shadow-[0_0_10px_#00ffa3] animate-[flowDown_1.5s_linear_infinite]"></div>
-            <div v-if="step >= 3" class="absolute top-0 bottom-0 left-0 w-full bg-pulse shadow-[0_0_10px_rgba(0,255,163,0.5)]"></div>
+            <div v-if="step === 2" class="absolute w-1.5 h-8 bg-pulse -left-[2.5px] rounded-full shadow-[0_0_10px] shadow-pulse animate-[flowDown_1.5s_linear_infinite]"></div>
+            <div v-if="step >= 3" class="absolute top-0 bottom-0 left-0 w-full bg-pulse shadow-[0_0_10px] shadow-pulse/50"></div>
           </div>
 
           <!-- Node 2: Noryxon Bridge -->
@@ -97,7 +97,7 @@
           </div>
 
           <!-- Node 3: Cold Storage -->
-          <div class="flex items-center gap-4 transition-all duration-500" :class="{'opacity-100 drop-shadow-[0_0_15px_rgba(0,194,255,0.2)]': step >= 3, 'opacity-40': step < 3}">
+          <div class="flex items-center gap-4 transition-all duration-500" :class="{'opacity-100 drop-shadow-xl': step >= 3, 'opacity-40': step < 3}">
             <div class="w-12 h-12 border flex items-center justify-center transition-colors duration-300 relative overflow-hidden" :class="step >= 3 ? 'border-node bg-node/10 text-node' : 'border-ledger-border bg-ledger text-text-muted'">
               <div v-if="step === 3" class="absolute inset-0 bg-node/20 animate-ping"></div>
               <svg class="w-6 h-6 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>

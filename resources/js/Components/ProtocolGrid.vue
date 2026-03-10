@@ -1,7 +1,7 @@
 <template>
   <section class="py-32 bg-void relative overflow-hidden border-b border-ledger-border">
     <!-- Grid lines -->
-    <div class="absolute inset-0 bg-[linear-gradient(to_right,#111_1px,transparent_1px),linear-gradient(to_bottom,#111_1px,transparent_1px)] bg-[size:100px_100px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_0%,#000_10%,transparent_100%)] pointer-events-none"></div>
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,var(--theme-ledger-border)_1px,transparent_1px),linear-gradient(to_bottom,var(--theme-ledger-border)_1px,transparent_1px)] bg-[size:100px_100px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_0%,#000_10%,transparent_100%)] pointer-events-none"></div>
 
     <div class="max-w-7xl mx-auto px-6 relative z-10">
       <div class="mb-20">
@@ -9,8 +9,8 @@
           <span class="w-1.5 h-1.5 bg-pulse animate-pulse"></span>
           <span class="font-mono text-xs text-pulse uppercase tracking-widest">System_Architecture</span>
         </div>
-        <h2 class="text-4xl md:text-5xl font-black uppercase text-text-primary tracking-tighter drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">The Protocol Engine</h2>
-        <div class="h-1 w-32 bg-pulse mt-8 shadow-[0_0_15px_#00ffa3]"></div>
+        <h2 class="text-4xl md:text-5xl font-black uppercase text-text-primary tracking-tighter drop-shadow-lg">The Protocol Engine</h2>
+        <div class="h-1 w-32 bg-pulse mt-8 shadow-[0_0_15px] shadow-pulse"></div>
       </div>
       
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
@@ -18,11 +18,11 @@
         <div class="absolute top-1/2 left-0 right-0 h-px bg-ledger-border/50 hidden md:block z-0 pointer-events-none"></div>
 
         <!-- Feature 1 -->
-        <div class="group relative bg-[#050505] border border-ledger-border p-8 transition-all duration-300 hover:border-pulse/80 hover:bg-[#0a0a0a] hover:-translate-y-2 hover:shadow-[0_10px_40px_rgba(0,255,163,0.1)] z-10">
+        <div class="group relative bg-void border border-ledger-border p-8 transition-all duration-300 hover:border-pulse/80 hover:bg-ledger hover:-translate-y-2 hover:shadow-2xl hover:shadow-pulse/10 z-10">
           <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-pulse to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
           
           <div class="flex justify-between items-start mb-8">
-            <div class="w-14 h-14 border border-ledger-border flex items-center justify-center text-node group-hover:border-pulse group-hover:bg-pulse/10 group-hover:text-pulse transition-all duration-300 shadow-[inset_0_0_10px_rgba(0,0,0,1)]">
+            <div class="w-14 h-14 border border-ledger-border flex items-center justify-center text-node group-hover:border-pulse group-hover:bg-pulse/10 group-hover:text-pulse transition-all duration-300 shadow-[inset_0_0_10px_var(--theme-ledger-border)]">
               <!-- Brutalist padlock -->
               <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
@@ -41,16 +41,16 @@
           </p>
           
           <div class="mt-8 font-mono text-xs text-text-muted border-t border-ledger-border pt-4 group-hover:border-pulse/30 transition-colors">
-            > SECURE_ENCLAVE: <span class="text-white group-hover:text-pulse transition-colors">ACTIVE</span>
+            > SECURE_ENCLAVE: <span class="text-text-primary group-hover:text-pulse transition-colors">ACTIVE</span>
           </div>
         </div>
 
         <!-- Feature 2 -->
-        <div class="group relative bg-[#050505] border border-ledger-border p-8 transition-all duration-300 hover:border-pulse/80 hover:bg-[#0a0a0a] hover:-translate-y-2 hover:shadow-[0_10px_40px_rgba(0,255,163,0.1)] z-10">
+        <div class="group relative bg-void border border-ledger-border p-8 transition-all duration-300 hover:border-pulse/80 hover:bg-ledger hover:-translate-y-2 hover:shadow-2xl hover:shadow-pulse/10 z-10">
           <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-pulse to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 delay-75"></div>
           
           <div class="flex justify-between items-start mb-8">
-            <div class="w-14 h-14 border border-ledger-border flex items-center justify-center text-node group-hover:border-pulse group-hover:bg-pulse/10 group-hover:text-pulse transition-all duration-300 shadow-[inset_0_0_10px_rgba(0,0,0,1)]">
+            <div class="w-14 h-14 border border-ledger-border flex items-center justify-center text-node group-hover:border-pulse group-hover:bg-pulse/10 group-hover:text-pulse transition-all duration-300 shadow-[inset_0_0_10px_var(--theme-ledger-border)]">
               <!-- Brutalist network graph -->
               <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -69,16 +69,16 @@
           </p>
 
           <div class="mt-8 font-mono text-xs text-text-muted border-t border-ledger-border pt-4 group-hover:border-pulse/30 transition-colors">
-            > LATENCY: <span class="text-white group-hover:text-pulse transition-colors">~45ms</span>
+            > LATENCY: <span class="text-text-primary group-hover:text-pulse transition-colors">~45ms</span>
           </div>
         </div>
 
         <!-- Feature 3 -->
-        <div class="group relative bg-[#050505] border border-ledger-border p-8 transition-all duration-300 hover:border-pulse/80 hover:bg-[#0a0a0a] hover:-translate-y-2 hover:shadow-[0_10px_40px_rgba(0,255,163,0.1)] z-10">
+        <div class="group relative bg-void border border-ledger-border p-8 transition-all duration-300 hover:border-pulse/80 hover:bg-ledger hover:-translate-y-2 hover:shadow-2xl hover:shadow-pulse/10 z-10">
           <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-pulse to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500 delay-150"></div>
           
           <div class="flex justify-between items-start mb-8">
-            <div class="w-14 h-14 border border-ledger-border flex items-center justify-center text-node group-hover:border-pulse group-hover:bg-pulse/10 group-hover:text-pulse transition-all duration-300 shadow-[inset_0_0_10px_rgba(0,0,0,1)]">
+            <div class="w-14 h-14 border border-ledger-border flex items-center justify-center text-node group-hover:border-pulse group-hover:bg-pulse/10 group-hover:text-pulse transition-all duration-300 shadow-[inset_0_0_10px_var(--theme-ledger-border)]">
               <!-- Brutalist global distribution -->
               <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
@@ -97,7 +97,7 @@
           </p>
 
           <div class="mt-8 font-mono text-xs text-text-muted border-t border-ledger-border pt-4 group-hover:border-pulse/30 transition-colors">
-            > NETWORKS: <span class="text-white group-hover:text-pulse transition-colors">12 SYNCED</span>
+            > NETWORKS: <span class="text-text-primary group-hover:text-pulse transition-colors">12 SYNCED</span>
           </div>
         </div>
       </div>

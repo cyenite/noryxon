@@ -1,8 +1,8 @@
 <template>
-  <div class="bg-[#020202] border-b border-ledger-border overflow-hidden py-2 relative">
+  <div class="bg-void border-b border-ledger-border overflow-hidden py-2 relative">
     <!-- Overlay gradients for fade effect on edges -->
-    <div class="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#020202] to-transparent z-10 pointer-events-none"></div>
-    <div class="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#020202] to-transparent z-10 pointer-events-none"></div>
+    <div class="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-void to-transparent z-10 pointer-events-none"></div>
+    <div class="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-void to-transparent z-10 pointer-events-none"></div>
 
     <div class="relative flex overflow-x-hidden group">
       <div class="animate-marquee whitespace-nowrap flex items-center gap-12 group-hover:[animation-play-state:paused] pr-12">
