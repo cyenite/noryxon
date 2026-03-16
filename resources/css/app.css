@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  --color-void: #050505;
-  --color-ledger: #111111;
-  --color-ledger-light: #161616;
-  --color-ledger-border: #222222;
-  --color-pulse: #00FFA3;
-  --color-node: #00D1FF;
-  --color-text-primary: #F3F4F6;
-  --color-text-muted: #8B949E;
+  --color-void: #0B0E11;
+  --color-ledger: #161A1E;
+  --color-ledger-light: #1E2329;
+  --color-ledger-border: #2B3139;
+  --color-pulse: #F0B90B;
+  --color-node: #F8D06B;
+  --color-text-primary: #EAECEF;
+  --color-text-muted: #848E9C;
   
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
@@ -18,5 +18,39 @@
   body {
     background-color: var(--color-void);
     color: var(--color-text-primary);
+  }
+
+  [data-theme='corporate'] {
+    --color-void: #ffffff;
+    --color-ledger: #f3f4f6;
+    --color-ledger-light: #e5e7eb;
+    --color-ledger-border: #d1d5db;
+    --color-pulse: #2563eb;
+    --color-node: #3b82f6;
+    --color-text-primary: #111827;
+    --color-text-muted: #6b7280;
+  }
+
+  [data-theme='terminal'] {
+    --color-void: #000000;
+    --color-ledger: #0a0a0a;
+    --color-ledger-light: #111111;
+    --color-ledger-border: #33ff00;
+    --color-pulse: #33ff00;
+    --color-node: #00cc00;
+    --color-text-primary: #33ff00;
+    --color-text-muted: #008800;
+    --font-sans: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  }
+
+  [data-theme='neon'] {
+    --color-void: #0b0710;
+    --color-ledger: #120b1f;
+    --color-ledger-light: #1c1130;
+    --color-ledger-border: #7928ca;
+    --color-pulse: #ff0080;
+    --color-node: #7928ca;
+    --color-text-primary: #f8f8f8;
+    --color-text-muted: #a19ba8;
   }
 }

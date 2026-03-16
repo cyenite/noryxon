@@ -19,7 +19,8 @@
           <Link href="/pricing" class="hover:text-pulse transition-colors">PRICING</Link>
           <a href="https://docs.noryxon.com" target="_blank" class="hover:text-pulse transition-colors">DOCUMENTATION</a>
           <a href="/developer" class="hover:text-pulse transition-colors">DEVELOPER_PORTAL</a>
-          <a href="/dashboard" class="hover:text-pulse transition-colors">DASHBOARD_LOGIN</a>
+          <a href="/login" class="hover:text-pulse transition-colors">LOGIN</a>
+          <a href="/register" class="hover:text-pulse transition-colors">REGISTER</a>
           <a href="/dashboard" class="text-void bg-pulse px-4 py-2 font-bold hover:shadow-[0_0_15px] hover:shadow-pulse transition-all">GET_STARTED</a>
         </nav>
       </div>
@@ -35,7 +36,7 @@
     </main>
     
     <footer class="bg-void border-t border-ledger-border py-8 text-center font-mono text-xs text-text-muted">
-      NORYXON BRIDGE PROTOCOL &copy; 2026. ALL EXECUTIONS FINAL.
+      NORYXON BRIDGE PROTOCOL &copy; {{ new Date().getFullYear() }}. ALL EXECUTIONS FINAL.
       <div class="mt-4 flex justify-center gap-6">
          <Link href="/pricing" class="hover:text-pulse transition-colors">Pricing</Link>
          <a href="https://docs.noryxon.com" target="_blank" class="hover:text-pulse transition-colors">Docs</a>

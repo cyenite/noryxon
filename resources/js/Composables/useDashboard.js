@@ -31,6 +31,58 @@ const formatCurrency = (value) => {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(value);
 };
 
+// Generates mock daily volume data for chart display
+const generateDailyVolume = (days = 30) => {
+  const data = [];
+  const now = new Date();
+  let baseVolume = 20000 + Math.random() * 30000;
+  for (let i = days - 1; i >= 0; i--) {
+    const date = new Date(now);
+    date.setDate(date.getDate() - i);
+    baseVolume = Math.max(5000, baseVolume + (Math.random() - 0.45) * 8000);
+    data.push({
+      date: date.toISOString().split('T')[0],
+      volume: Math.round(baseVolume),
+      transactions: Math.floor(20 + Math.random() * 180),
+    });
+  }
+  return data;
+};
+
+// Generates a breakdown of volume by chain for analytics
+const generateChainBreakdown = () => {
+  const chainData = [
+    { id: 'eth', name: 'Ethereum', symbol: 'ETH', color: '#627EEA', volume: 285000 + Math.random() * 50000 },
+    { id: 'btc', name: 'Bitcoin', symbol: 'BTC', color: '#F7931A', volume: 210000 + Math.random() * 40000 },
+    { id: 'sol', name: 'Solana', symbol: 'SOL', color: '#9945FF', volume: 95000 + Math.random() * 20000 },
+    { id: 'bnb', name: 'BNB Chain', symbol: 'BNB', color: '#F3BA2F', volume: 72000 + Math.random() * 15000 },
+    { id: 'arb', name: 'Arbitrum', symbol: 'ARB', color: '#28A0F0', volume: 55000 + Math.random() * 10000 },
+    { id: 'matic', name: 'Polygon', symbol: 'MATIC', color: '#8247E5', volume: 38000 + Math.random() * 8000 },
+  ];
+  const total = chainData.reduce((s, c) => s + c.volume, 0);
+  return chainData
+    .map(c => ({ ...c, volume: Math.round(c.volume), percentage: Math.round((c.volume / total) * 100) }))
+    .sort((a, b) => b.volume - a.volume);
+};
+
+// Generates a breakdown of volume by asset for analytics
+const generateAssetBreakdown = () => {
+  const assets = [
+    { symbol: 'USDC', volume: 320000 + Math.random() * 60000, color: '#2775CA' },
+    { symbol: 'USDT', volume: 198000 + Math.random() * 40000, color: '#26A17B' },
+    { symbol: 'ETH', volume: 145000 + Math.random() * 30000, color: '#627EEA' },
+    { symbol: 'BTC', volume: 112000 + Math.random() * 20000, color: '#F7931A' },
+    { symbol: 'SOL', volume: 67000 + Math.random() * 15000, color: '#9945FF' },
+    { symbol: 'Other', volume: 45000 + Math.random() * 10000, color: '#848E9C' },
+  ];
+  const total = assets.reduce((s, a) => s + a.volume, 0);
+  return assets.map(a => ({
+    ...a,
+    volume: Math.round(a.volume),
+    percentage: Math.round((a.volume / total) * 100),
+  }));
+};
+
 export function useDashboard() {
   // ===== Utilities =====
   const getChainConfig = (chainId) => {
@@ -56,5 +108,9 @@ export function useDashboard() {
     generateHash,
     generateShortHash,
     getChainConfig,
+    // Chart helpers
+    generateDailyVolume,
+    generateChainBreakdown,
+    generateAssetBreakdown,
   };
 }

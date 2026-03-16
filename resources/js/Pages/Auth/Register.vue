@@ -24,6 +24,12 @@ const submit = () => {
     <GuestLayout>
         <Head title="Register" />
 
+        <!-- Form header -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-black tracking-tight text-text-primary">Create account</h2>
+            <p class="mt-1 text-sm text-text-muted">Join the Noryxon payment protocol</p>
+        </div>
+
         <form @submit.prevent="submit">
             <div>
                 <InputLabel for="name" value="Name" />
@@ -92,22 +98,23 @@ const submit = () => {
                 />
             </div>
 
-            <div class="mt-4 flex items-center justify-end">
-                <Link
-                    :href="route('login')"
-                    class="rounded-md text-sm text-gray-600 underline hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-                >
-                    Already registered?
-                </Link>
-
+            <div class="mt-6 flex items-center justify-end">
                 <PrimaryButton
-                    class="ms-4"
+                    class="w-full justify-center"
                     :class="{ 'opacity-25': form.processing }"
                     :disabled="form.processing"
                 >
-                    Register
+                    Create Account
                 </PrimaryButton>
             </div>
         </form>
+
+        <!-- Login link -->
+        <div class="mt-6 text-center text-sm text-text-muted">
+            Already have an account?
+            <Link :href="route('login')" class="text-pulse font-semibold hover:text-pulse/80 transition-colors ml-1">
+                Sign in
+            </Link>
+        </div>
     </GuestLayout>
 </template>
