@@ -53,13 +53,13 @@ const generateHash = () => Array.from({length: 8}, () => Math.floor(Math.random(
 const generateBlock = (base) => base + Math.floor(Math.random() * 100);
 
 const tickerItems = ref([
-  { chain: 'BTC', status: 'operational', block: '840,122', hash: generateHash(), feature: 'NATIVE LIGHTNING' },
-  { chain: 'ETH', status: 'operational', block: '19,432,001', hash: generateHash(), feature: 'ZERO GAS FEES' },
-  { chain: 'SOL', status: 'operational', block: '254,110,892', hash: generateHash(), feature: 'INSTANT SETTLEMENT' },
-  { chain: 'ARB', status: 'operational', block: '188,432,100', hash: generateHash(), feature: 'DIRECT ROUTING' },
-  { chain: 'TRX', status: 'operational', block: '59,882,109', hash: generateHash(), feature: 'NO WRAPPED TOKENS' },
-  { chain: 'POL', status: 'operational', block: '54,345,992', hash: generateHash(), feature: 'NON-CUSTODIAL' },
-  { chain: 'OPT', status: 'operational', block: '117,832,111', hash: generateHash(), feature: 'NO SETUP FEES' },
+  { chain: 'BTC', status: 'operational', block: '840,122', hash: generateHash(), feature: 'TX VERIFIED' },
+  { chain: 'ETH', status: 'operational', block: '19,432,001', hash: generateHash(), feature: 'INVOICE READY' },
+  { chain: 'SOL', status: 'operational', block: '254,110,892', hash: generateHash(), feature: 'DOCUMENTED' },
+  { chain: 'ARB', status: 'operational', block: '188,432,100', hash: generateHash(), feature: 'TAX REPORTED' },
+  { chain: 'TRX', status: 'operational', block: '59,882,109', hash: generateHash(), feature: 'TRACKED' },
+  { chain: 'POL', status: 'operational', block: '54,345,992', hash: generateHash(), feature: 'NO CUSTODY' },
+  { chain: 'OPT', status: 'operational', block: '117,832,111', hash: generateHash(), feature: 'SDK READY' },
 ]);
 
 onMounted(() => {

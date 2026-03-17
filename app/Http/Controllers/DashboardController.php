@@ -15,9 +15,9 @@ class DashboardController extends Controller
     {
         $user = $request->user();
 
-        // Get recent payments
+        // Get recent documented transactions
         $recentPayments = $user->payments()
-            ->with('xpub:id,label,chain_id') // Eager load minimal xpub info
+            ->with('wallet:id,label,chain_id,type,provider') // Eager load minimal wallet info
             ->orderByDesc('created_at')
             ->limit(25)
             ->get()
@@ -37,21 +37,21 @@ class DashboardController extends Controller
                 ];
             });
 
-        // Calculate stats
-        $totalVolume = (float)$user->payments()->where('status', 'confirmed')->sum('amount'); // Simplification for demo
-        $activeXpubs = $user->xpubs()->where('status', 'synced')->count();
+        // Calculate invoice/documentation stats
+        $totalVolume = (float)$user->payments()->where('status', 'confirmed')->sum('amount');
+        $activeWallets = $user->wallets()->active()->count();
         $pendingPayments = $user->payments()->where('status', 'pending')->count();
-        $successfulSettlements = $user->payments()->where('status', 'confirmed')->count();
+        $invoicesGenerated = $user->payments()->where('status', 'confirmed')->count();
 
         return Inertia::render('Dashboard/Overview', [
             'recentPayments' => $recentPayments,
             'stats' => [
                 'totalVolume' => $totalVolume ?: 749088.00, // Fallback to mock value if zero for demo effect
                 'totalVolumeChange' => 12.4, // Static for now
-                'activeXpubs' => $activeXpubs ?: 8,
+                'activeWallets' => $activeWallets ?: 8,
                 'pendingPayments' => $pendingPayments ?: 14,
                 'pendingPaymentsChange' => -3.2,
-                'successfulSettlements' => $successfulSettlements ?: 2847,
+                'successfulSettlements' => $invoicesGenerated ?: 2847,
                 'successfulSettlementsChange' => 8.7,
                 'avgConfirmationTime' => '4.2m',
             ],

@@ -1,7 +1,7 @@
 <template>
   <DashboardLayout pageTitle="Invoices" breadcrumb="SYSTEM > COMMERCE > INVOICES" dashboardType="merchant">
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-      <div class="text-sm font-medium text-text-muted">Generate payment links and crypto invoices for your customers.</div>
+      <div class="text-sm font-medium text-text-muted">Generate tax-compliant invoices and documentation for on-chain transactions. Each invoice includes a DAT tax report.</div>
       <button @click="showModal = true" class="flex items-center gap-2 bg-pulse text-void font-bold px-4 py-2 rounded-lg text-sm hover:shadow-[0_0_15px] hover:shadow-pulse/40 transition-all">
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
         Create Invoice
@@ -10,9 +10,9 @@
 
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
       <StatCard label="Total Invoiced" :value="formatCurrency(totalInvoiced)" subtitle="All Time" />
-      <StatCard label="Paid" :value="paidCount" subtitle="Settled on Chain" />
-      <StatCard label="Pending" :value="pendingCount" subtitle="Awaiting Payment" />
-      <StatCard label="Expired" :value="expiredCount" subtitle="Past Deadline" />
+      <StatCard label="Verified" :value="paidCount" subtitle="TAX_DOCUMENTED" />
+      <StatCard label="Pending" :value="pendingCount" subtitle="AWAITING_VERIFICATION" />
+      <StatCard label="Expired" :value="expiredCount" subtitle="PAST_DEADLINE" />
     </div>
 
     <DataTable title="Invoice Registry" :columns="columns" :rows="initialInvoices" :perPage="10">
@@ -35,7 +35,18 @@
         <span class="text-text-muted">{{ value }}</span>
       </template>
       <template #cell-paymentLink="{ value }">
-        <button @click="copyLink(value)" class="text-node hover:text-pulse transition-colors">{{ value }}</button>
+        <button @click="copyLink(value)" class="text-node hover:text-pulse transition-colors text-xs">{{ value }}</button>
+      </template>
+      <template #cell-taxReport="{ row }">
+        <div class="flex items-center gap-2">
+          <button v-if="row.status === 'paid'" class="px-2 py-1 rounded border border-pulse/30 text-pulse text-[10px] font-semibold hover:bg-pulse/10 transition-colors">
+            PDF
+          </button>
+          <button v-if="row.status === 'paid'" class="px-2 py-1 rounded border border-node/30 text-node text-[10px] font-semibold hover:bg-node/10 transition-colors">
+            Off-Ramp
+          </button>
+          <span v-if="row.status !== 'paid'" class="text-text-muted text-[10px]">—</span>
+        </div>
       </template>
       <template #cell-customerEmail="{ value }">
         <span class="text-text-muted">{{ value }}</span>
@@ -79,9 +90,26 @@
                 <div v-if="form.errors.customer_email" class="text-red-500 text-xs mt-1">{{ form.errors.customer_email }}</div>
               </div>
               <div>
-                <label class="block text-xs font-semibold text-text-muted mb-1.5">Description</label>
-                <input v-model="form.memo" type="text" placeholder="What is this payment for?" class="w-full bg-void border border-ledger-border rounded-lg px-4 py-2 text-sm text-text-primary placeholder:text-text-muted/50 focus:border-pulse focus:ring-1 focus:ring-pulse focus:outline-none transition-all" />
+                <label class="block text-xs font-semibold text-text-muted mb-1.5">Transaction Purpose</label>
+                <select v-model="form.purpose" class="w-full bg-void border border-ledger-border rounded-lg px-4 py-2 text-sm text-text-primary focus:border-pulse focus:ring-1 focus:ring-pulse focus:outline-none appearance-none cursor-pointer transition-all">
+                  <option value="freelance_payment">Freelance / Contract Payment</option>
+                  <option value="investment_return">Investment Return</option>
+                  <option value="trading_profit">Trading Profit</option>
+                  <option value="propfirm_payout">Prop Firm Payout</option>
+                  <option value="digital_service">Digital Service Payment</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-text-muted mb-1.5">Description / Memo</label>
+                <input v-model="form.memo" type="text" placeholder="e.g., Invoice for web development services" class="w-full bg-void border border-ledger-border rounded-lg px-4 py-2 text-sm text-text-primary placeholder:text-text-muted/50 focus:border-pulse focus:ring-1 focus:ring-pulse focus:outline-none transition-all" />
                 <div v-if="form.errors.memo" class="text-red-500 text-xs mt-1">{{ form.errors.memo }}</div>
+              </div>
+              <div class="px-4 py-3 bg-pulse/5 border border-pulse/20 rounded-lg">
+                <div class="flex items-center gap-2 text-xs text-pulse font-medium">
+                  <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                  A DAT-compliant tax report will be auto-generated when this invoice is verified on-chain.
+                </div>
               </div>
             </div>
             <div class="flex justify-end gap-3 px-6 py-4 border-t border-ledger-border bg-void/50">
@@ -112,7 +140,7 @@ const { formatDate, formatCurrency } = useDashboard();
 const { addNotification } = useNotifications();
 
 const showModal = ref(false);
-const form = useForm({ amount: '', currency: 'USDC', customer_email: '', memo: '' });
+const form = useForm({ amount: '', currency: 'USDC', customer_email: '', purpose: 'freelance_payment', memo: '' });
 
 const totalInvoiced = computed(() => props.initialInvoices.reduce((s, i) => s + i.amount, 0));
 const paidCount = computed(() => props.initialInvoices.filter(i => i.status === 'paid').length);
@@ -125,6 +153,7 @@ const columns = [
   { key: 'status', label: 'Status' },
   { key: 'memo', label: 'Description' },
   { key: 'paymentLink', label: 'Payment Link' },
+  { key: 'taxReport', label: 'Tax Report' },
   { key: 'customerEmail', label: 'Customer' },
   { key: 'createdAt', label: 'Created' },
 ];

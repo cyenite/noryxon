@@ -1,47 +1,67 @@
 # Noryxon Product Features
 
-Noryxon provides a comprehensive suite of features designed to make accepting crypto natively as frictionless as possible.
+Noryxon is a **digital asset invoicing and documentation platform**. It generates compliant invoices and tax reports for on-chain transactions, enabling users to off-ramp through licensed partners with proper Digital Asset Tax (DAT) classification — avoiding the 30% "unexplained income" tax applied to undocumented crypto withdrawals.
 
-## 1. Zero-Custody Settlement Engine
-- **XPUB Integration:** Merchants provide Master Public Keys. Noryxon derives unique receiving addresses for every transaction.
-- **Hardware Wallet Compatibility:** Works seamlessly with Ledger, Trezor, ColdCard, and any BIP-44/49/84 compliant wallet.
-- **Direct On-Chain Deposits:** Funds go directly from the customer's wallet to the merchant's wallet. Noryxon never touches the money.
-- **No Withdrawal Fees:** Because Noryxon never holds the funds, merchants never pay withdrawal or pooling fees. Gas is paid by the customer.
+**We never custody funds. We never handle off-ramping. We generate documentation.**
 
-## 2. Multi-Chain, Omni-Asset Support
-- **12+ Native Blockchains:** Bitcoin (including Lightning Network), Ethereum, Solana, Polygon, Avalanche, BNB Chain, Tron, Near, Ton, Stellar, Ripple (XRP), and more.
-- **Layer 2 Scalability:** Support for Arbitrum, Optimism, and Base for low-fee ETH and stablecoin settlements.
-- **5,000+ Tokens:** From blue-chips (USDC, USDT, DAI) to any liquid liquid ERC-20, SPL, or TRC-20 token.
-- **Lightning Network:** Instant, zero-fee Bitcoin payments via integrated LND nodes.
+---
 
-## 3. Real-Time transaction Monitoring
-- **Global Node Redundancy:** Noryxon runs its own full nodes backed by enterprise indexers to guarantee 99.99% uptime.
-- **Customizable Confirmation Thresholds:** Merchants dictate their risk tolerance. Accept 0-conf for digital goods, or wait for 6 confirmations on large physical orders.
-- **Underpayment/Overpayment Handling:** The system automatically flags partial payments and overpayments, exposing them in the API and Dashboard for merchant resolution.
+## 1. Invoice Engine (Zero-Custody Documentation)
+- **Transaction-Linked Invoices:** Every invoice is cryptographically linked to an on-chain transaction hash. Tamper-proof and verifiable.
+- **Payer Details & Purpose:** Invoices include payer information, transaction purpose, amount, chain, and KES equivalent for local tax compliance.
+- **Universal Wallet System:** Connect any wallet type — exchange accounts (Binance, Coinbase, Kraken, KuCoin, Bybit, OKX via read-only API keys), software wallets (MetaMask, Trust Wallet, Phantom, Rabby, Rainbow via address), hardware wallets (Ledger, Trezor, ColdCard via xpub/ypub/zpub), or any manual blockchain address.
+- **XPub Derivation:** For hardware wallets, Noryxon derives unique receiving addresses using BIP-44/49/84 standards — never stores private keys.
+- **Exchange API Monitoring:** Read-only API connections to major exchanges. API credentials encrypted at rest. Noryxon never has withdrawal permissions.
+- **Zero Custody:** Funds flow directly between parties. Noryxon only observes and documents.
 
-## 4. Merchant Dashboard (`app.noryxon.com`)
-- **XPUB Vault:** Securely manage public keys across endless blockchains.
-- **Live Terminal:** Watch payments arrive in real-time as blocks confirm.
-- **Payment Links & Invoices:** Generate static Payment Links (e.g., `pay.noryxon.com/merchant_name`) or dynamic, itemized crypto invoices with custom branding.
-- **Analytics & Export:** View revenue by asset, conversion rates, and export tax-ready CSV/PDF reports of all on-chain activity.
-- **Role-Based Access Control (RBAC):** Invite team members (e.g., Accountants with view-only, Developers with API key access).
+## 2. Multi-Chain Verification
+- **12+ Native Blockchains:** Bitcoin, Ethereum, Solana, Polygon, Avalanche, BNB Chain, Tron, Near, Ton, Stellar, Ripple (XRP), and more.
+- **Layer 2 Support:** Arbitrum, Optimism, and Base for low-fee stablecoin transactions.
+- **5,000+ Tokens:** All major stablecoins (USDC, USDT, DAI) plus any liquid ERC-20, SPL, or TRC-20 token.
+- **Real-Time Monitoring:** Transactions detected and verified in ~45ms average latency via redundant full nodes and enterprise indexers.
+- **Configurable Confirmation Thresholds:** Users dictate risk tolerance per transaction.
 
-## 5. Developer Experience (`dev.noryxon.com`)
-- **RESTful API:** Clean, intuitive endpoints (`/payments/create`, `/subscriptions`).
-- **Instant Webhooks:** Highly reliable `POST` callbacks with cryptographically signed payloads (HMAC-SHA256) and exponential backoff retries.
-- **Testnet Sandbox:** A fully segmented environment. Generate testnet addresses and mock webhooks without touching mainnet funds.
-- **WebSocket Feed:** Subscribe to live payment streams via WSS for instant UI updates.
-- **Official SDKs:** TypeScript, Python, Node.js, Go, PHP.
+## 3. Tax-Ready Documentation
+- **Digital Asset Tax (DAT) Reports:** Auto-generated tax reports compliant with Kenya Revenue Authority (KRA) requirements.
+- **Export Formats:** PDF and CSV reports ready for tax authority filing.
+- **Multi-Jurisdiction Support:** Enterprise tier includes multi-jurisdiction tax report formats for international operations.
+- **Transaction Classification:** Proper DAT classification prevents crypto from being taxed as "unexplained income" at 30%.
 
-## 6. Plug-and-Play Integrations
-- **E-commerce Plugins:** One-click installations for WooCommerce, Shopify, Magento 2, BigCommerce, PrestaShop, and WHMCS.
-- **No-Code Workflows:** Zapier and Make.com integrations to trigger downstream actions (e.g., "When payment confirmed, send Discord message and unlock digital download").
+## 4. Off-Ramp Partner Redirects
+- **No VASP Required:** Noryxon generates documentation only — it never processes withdrawals or handles fiat conversion.
+- **Licensed Partner Network:** Invoice + tax report are attached to the off-ramp redirect, enabling compliant withdrawal through licensed partners.
+- **API-Driven Redirects:** `offramp_redirect` URL included in invoice API responses for seamless integration.
 
-## 7. Subscription & Recurring Billing (Crypto-Native)
-- **Time-Based Address Generation:** `POST /subscriptions` creates a recurring schedule. Noryxon automatically issues the customer a new payment address when their cycle renews.
-- **Dunning Management:** Automated email reminders sent to customers when their crypto subscription is due for renewal.
+## 5. Invoice Dashboard (`app.noryxon.com`)
+- **Invoice Vault:** Central repository of all generated invoices and documentation.
+- **Wallets:** Manage connected wallets across multiple blockchains — exchange accounts, software wallets, hardware wallets (XPUB), and manual addresses. Card grid UI with multi-step connect modal.
+- **Documented Volume Analytics:** View total documented volume, pending invoices, and generation history.
+- **Recent Documented Transactions:** Real-time feed of invoice activity.
+- **Quick Actions:** Generate invoice, manage wallets, access developer portal, view tax reports.
+- **Role-Based Access Control (RBAC):** Invite team members with appropriate permission levels.
 
-## 8. Compliance & Security (The Cypherpunk Way)
-- **Zero Fiat, Zero KYC (For standard use):** Because Noryxon does not touch the money or interact with fiat rails, it sits outside the VASP regulatory framework in most jurisdictions.
-- **No Off-Ramps:** Pure crypto-to-crypto bridging.
-- **Audit Logs:** Every API request, webhook delivery, and dashboard login is immutably logged for the merchant's security review.
+## 6. Developer Experience (`dev.noryxon.com`)
+- **RESTful Invoice API:** Clean endpoints — `POST /v1/invoices`, `GET /v1/invoices/:id`, `GET /v1/invoices/:id/tax-report`, `GET /v1/wallets`.
+- **Instant Signed Webhooks:** Events include `invoice.generated`, `invoice.verified`, `transaction.detected`, `transaction.confirmed`, `tax_report.ready`. HMAC-SHA256 signed with exponential backoff retries.
+- **Official SDKs:** TypeScript/Node.js (`@noryxon/sdk`), Python (`noryxon`), Go (`noryxon.com/sdk`), PHP (`noryxon/sdk`).
+- **Testnet Sandbox:** Full invoice simulation environment — generate test invoices, trigger mock webhooks, test SDK integrations without touching mainnet.
+- **API Playground:** Interactive endpoint testing with mock responses.
+
+## 7. SDK Integration
+- **npm:** `npm install @noryxon/sdk`
+- **pip:** `pip install noryxon`
+- **go:** `go get noryxon.com/sdk`
+- **composer:** `composer require noryxon/sdk`
+- SDKs wrap the REST API for invoice creation, retrieval, tax report generation, and webhook verification.
+
+## 8. Compliance & Security
+- **Zero Custody:** Noryxon never touches, holds, or routes user funds. Documentation only.
+- **No VASP Licensing Required:** By design, the platform generates documentation and redirects to licensed off-ramp partners — avoiding VASP regulatory requirements.
+- **Audit Logs:** Every API request, webhook delivery, invoice generation, and dashboard action is immutably logged.
+- **Key Isolation:** API Keys and Webhook Secrets encrypted at rest.
+- **Rate Limiting:** Token Bucket algorithm, 100 req/min default for free tier.
+
+## 9. Pricing
+- **Developer Tier:** Free up to $10,000/mo documented volume, then 1% per transaction. Includes all core features, SDKs, sandbox, and off-ramp redirects.
+- **Node Operator Tier:** Custom volume-based pricing for high-throughput integrators. Includes white-label invoice templates, multi-jurisdiction tax formats, priority support, and custom SDK builds.
+- **No setup fees. No monthly subscriptions.**

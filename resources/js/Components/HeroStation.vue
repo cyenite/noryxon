@@ -1,223 +1,366 @@
 <template>
-  <section class="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden border-b border-ledger-border bg-void">
-    <!-- Dynamic grid background with moving light beam -->
-    <div class="absolute inset-0 bg-[linear-gradient(to_right,var(--theme-ledger-border)_1px,transparent_1px),linear-gradient(to_bottom,var(--theme-ledger-border)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]"></div>
-    <div class="absolute inset-0 bg-gradient-to-b from-pulse/5 to-transparent opacity-50 pointer-events-none"></div>
-    
-    <div class="relative z-10 w-full max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mt-16 pb-16">
-      <!-- Left text content -->
-      <div class="text-left">
-        <div class="inline-flex items-center gap-2 px-3 py-1 bg-void font-mono text-xs text-node border border-ledger-border mb-6 select-none relative overflow-hidden group">
-          <div class="absolute inset-0 bg-gradient-to-r from-transparent via-node/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
-          <span class="w-1.5 h-1.5 rounded-full bg-pulse animate-pulse shadow-[0_0_8px] shadow-pulse"></span>
-          99.99% UPTIME GUARANTEED
+  <section class="relative min-h-[95vh] flex flex-col items-center justify-center overflow-hidden border-b border-ledger-border bg-void">
+    <!-- Animated grid with perspective -->
+    <div class="absolute inset-0 bg-[linear-gradient(to_right,var(--color-ledger-border)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-ledger-border)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_50%,#000_40%,transparent_100%)] opacity-40"></div>
+
+    <!-- Radial glow behind invoice -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-pulse/8 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[40%] w-[300px] h-[300px] bg-node/5 rounded-full blur-[80px] pointer-events-none"></div>
+
+    <!-- Floating chain particles -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden">
+      <div v-for="(particle, i) in particles" :key="i"
+        class="absolute font-mono text-[10px] font-bold opacity-0 tracking-wider"
+        :class="particle.color"
+        :style="{
+          left: particle.x + '%',
+          top: particle.y + '%',
+          animation: `float-particle ${particle.duration}s ease-in-out ${particle.delay}s infinite`,
+        }"
+      >{{ particle.label }}</div>
+    </div>
+
+    <div class="relative z-10 w-full max-w-6xl mx-auto px-6 flex flex-col items-center text-center pt-20 pb-16">
+
+      <!-- Tagline chip -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-void font-mono text-xs text-node border border-ledger-border mb-8 select-none relative overflow-hidden group">
+        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-node/10 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></div>
+        <span class="w-1.5 h-1.5 rounded-full bg-pulse animate-pulse shadow-[0_0_8px] shadow-pulse"></span>
+        ZERO CUSTODY // FULL DOCUMENTATION
+      </div>
+
+      <!-- Main headline -->
+      <h1 class="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-text-primary mb-6 uppercase leading-[0.95]">
+        Your crypto deserves<br/>
+        <span class="relative inline-block">
+          <span class="absolute -inset-2 blur-2xl bg-pulse/15 opacity-60 animate-pulse"></span>
+          <span class="relative text-transparent bg-clip-text bg-gradient-to-r from-pulse via-node to-pulse">a paper trail.</span>
+        </span>
+      </h1>
+
+      <p class="text-lg md:text-xl text-text-muted max-w-2xl mb-12 font-medium leading-relaxed">
+        Because "trust me bro" isn't a tax strategy. Generate compliant invoices for every on-chain transaction across 12+ networks. Integrate in minutes. Off-ramp without the audit anxiety.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-20">
+        <a href="/dashboard" class="w-full sm:w-auto inline-block text-center relative group bg-pulse text-void font-bold px-10 py-4 uppercase tracking-wider overflow-hidden shadow-[0_0_25px] shadow-pulse/30 transition-all hover:shadow-[0_0_50px] hover:shadow-pulse/60 hover:scale-[1.02]">
+          <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 -translate-x-[150%] skew-x-[-45deg] group-hover:animate-[flash_1s_ease-in-out_infinite]"></div>
+          Start Documenting
+        </a>
+        <a href="https://docs.noryxon.com" target="_blank" class="w-full sm:w-auto inline-block text-center relative group bg-void border border-ledger-border text-text-primary font-bold px-10 py-4 uppercase tracking-wider overflow-hidden hover:border-pulse transition-colors">
+          <div class="absolute inset-0 bg-ledger/50 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
+          <span class="relative z-10 group-hover:text-pulse transition-colors">Read the Docs</span>
+        </a>
+      </div>
+
+      <!-- Interactive Invoice Assembly -->
+      <div class="relative w-full max-w-3xl mx-auto">
+        <!-- Orbiting chain icons -->
+        <div class="absolute -inset-8 pointer-events-none hidden lg:block">
+          <div v-for="(orbit, i) in orbitChains" :key="'orbit-'+i"
+            class="absolute w-10 h-10 border border-ledger-border bg-void flex items-center justify-center font-mono text-[10px] font-bold shadow-lg"
+            :class="orbit.active ? 'border-pulse/60 text-pulse shadow-pulse/20' : 'text-text-muted'"
+            :style="{
+              left: orbit.posX + '%',
+              top: orbit.posY + '%',
+              transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
+            }"
+          >
+            {{ orbit.chain }}
+            <span v-if="orbit.active" class="absolute -top-1 -right-1 w-2 h-2 bg-pulse rounded-full animate-ping"></span>
+          </div>
         </div>
-        
-        <h1 class="text-5xl md:text-7xl font-black tracking-tighter text-text-primary mb-6 uppercase leading-[1.1]">
-          The Uncompromising <br/> 
-          <span class="relative inline-block">
-            <span class="absolute -inset-1 blur-xl bg-pulse/20 opacity-50 animate-pulse"></span>
-            <span class="relative text-transparent bg-clip-text bg-gradient-to-r from-pulse via-text-primary to-node">On-Chain Bridge.</span>
+
+        <!-- The Invoice Document -->
+        <div class="relative border border-ledger-border bg-void/90 backdrop-blur-xl shadow-2xl shadow-pulse/5 overflow-hidden group">
+          <!-- Scan line -->
+          <div class="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-pulse/60 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-[scan_3s_ease-in-out_infinite]" style="top: -1px;"></div>
+
+          <!-- Header bar -->
+          <div class="flex items-center justify-between px-6 py-3 bg-ledger border-b border-ledger-border">
+            <div class="flex items-center gap-3">
+              <div class="w-3 h-3 rounded-full bg-red-500/70"></div>
+              <div class="w-3 h-3 rounded-full bg-amber-400/70"></div>
+              <div class="w-3 h-3 rounded-full bg-green-500/70"></div>
+              <span class="text-[10px] font-mono text-text-muted ml-2 tracking-wider">NORYXON_INVOICE_ENGINE</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full" :class="phase > 0 ? 'bg-pulse animate-pulse' : 'bg-text-muted'"></span>
+              <span class="font-mono text-[10px] text-text-muted tracking-wider">{{ phase > 0 ? 'GENERATING...' : 'STANDBY' }}</span>
+            </div>
+          </div>
+
+          <!-- Invoice Body -->
+          <div class="p-6 md:p-8 font-mono text-sm">
+            <!-- Row 1: Invoice ID & Status -->
+            <div class="flex justify-between items-start mb-6 pb-4 border-b border-dashed border-ledger-border">
+              <div>
+                <div class="text-[10px] text-text-muted tracking-widest mb-1">INVOICE</div>
+                <div class="text-lg font-black tracking-tight transition-all duration-500" :class="phase >= 1 ? 'text-text-primary' : 'text-text-muted/30'">
+                  {{ phase >= 1 ? currentInvoiceId : 'INV-XXXXXXXX' }}
+                </div>
+              </div>
+              <div class="text-right">
+                <div class="text-[10px] text-text-muted tracking-widest mb-1">STATUS</div>
+                <div class="px-3 py-1 text-xs font-bold tracking-wider transition-all duration-500"
+                  :class="phase >= 4 ? 'bg-pulse/10 text-pulse border border-pulse/30' : phase >= 1 ? 'bg-node/10 text-node border border-node/30' : 'bg-ledger text-text-muted border border-ledger-border'">
+                  {{ phase >= 4 ? 'DOCUMENTED' : phase >= 2 ? 'PROCESSING' : 'PENDING' }}
+                </div>
+              </div>
+            </div>
+
+            <!-- Row 2: Transaction details -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+              <div class="transition-all duration-500" :class="phase >= 1 ? 'opacity-100' : 'opacity-20'">
+                <div class="text-[10px] text-text-muted tracking-widest mb-1">AMOUNT</div>
+                <div class="text-text-primary font-bold">{{ currentAmount }} <span class="text-pulse">{{ currentToken }}</span></div>
+              </div>
+              <div class="transition-all duration-500" :class="phase >= 1 ? 'opacity-100' : 'opacity-20'">
+                <div class="text-[10px] text-text-muted tracking-widest mb-1">CHAIN</div>
+                <div class="text-text-primary font-bold">{{ currentChain }}</div>
+              </div>
+              <div class="transition-all duration-500" :class="phase >= 2 ? 'opacity-100' : 'opacity-20'">
+                <div class="text-[10px] text-text-muted tracking-widest mb-1">TX HASH</div>
+                <div class="text-node text-xs truncate">{{ displayHash }}</div>
+              </div>
+              <div class="transition-all duration-500" :class="phase >= 3 ? 'opacity-100' : 'opacity-20'">
+                <div class="text-[10px] text-text-muted tracking-widest mb-1">TAX CLASS</div>
+                <div class="text-pulse font-bold">DAT</div>
+              </div>
+            </div>
+
+            <!-- Row 3: Progress bar -->
+            <div class="mb-6">
+              <div class="flex justify-between text-[10px] text-text-muted tracking-widest mb-2">
+                <span>INVOICE GENERATION</span>
+                <span>{{ progressPercent }}%</span>
+              </div>
+              <div class="h-1 bg-ledger-border overflow-hidden">
+                <div class="h-full bg-pulse transition-all duration-700 ease-out shadow-[0_0_10px] shadow-pulse/50"
+                  :style="{ width: progressPercent + '%' }"></div>
+              </div>
+            </div>
+
+            <!-- Row 4: Steps log -->
+            <div class="space-y-2">
+              <div v-for="(logEntry, idx) in visibleLogs" :key="idx"
+                class="flex items-center gap-3 text-xs transition-all duration-300"
+                :class="idx === visibleLogs.length - 1 ? 'text-pulse' : 'text-text-muted'">
+                <span class="w-4 text-center">{{ logEntry.done ? '>' : '~' }}</span>
+                <span>{{ logEntry.text }}</span>
+                <span v-if="!logEntry.done" class="animate-pulse">_</span>
+              </div>
+            </div>
+
+            <!-- Row 5: Final output -->
+            <div v-if="phase >= 4" class="mt-6 pt-4 border-t border-ledger-border flex items-center justify-between animate-[fadeIn_0.5s_ease-out]">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 bg-pulse/10 border border-pulse/30 flex items-center justify-center">
+                  <svg class="w-4 h-4 text-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                </div>
+                <div>
+                  <div class="text-xs text-pulse font-bold tracking-wider">INVOICE + TAX REPORT READY</div>
+                  <div class="text-[10px] text-text-muted">Compliant documentation generated in {{ latency }}ms</div>
+                </div>
+              </div>
+              <div class="text-[10px] text-text-muted font-mono hidden md:block">
+                PDF_URL: /invoices/{{ currentInvoiceId }}.pdf
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trust badges below invoice -->
+        <div class="flex items-center justify-center gap-6 mt-6 font-mono text-[10px] text-text-muted tracking-widest">
+          <span class="flex items-center gap-1.5">
+            <span class="w-1 h-1 bg-pulse rounded-full"></span>
+            12+ CHAINS
           </span>
-        </h1>
-        
-        <p class="text-lg md:text-xl text-text-muted max-w-xl mb-8 font-medium leading-relaxed">
-          Accept 5,000+ cryptocurrencies seamlessly without intermediaries. Zero custody. Zero fiat constraints. Land payments directly into your cold storage instantly.
-        </p>
-        
-        <div class="flex flex-col sm:flex-row items-center justify-start gap-4">
-          <a href="/dashboard" class="w-full sm:w-auto inline-block text-center relative group bg-pulse text-void font-bold px-8 py-4 uppercase tracking-wider overflow-hidden shadow-[0_0_20px] shadow-pulse/30 transition-all hover:shadow-[0_0_40px] hover:shadow-pulse/60 hover:scale-[1.02]">
-            <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/30 to-white/0 -translate-x-[150%] skew-x-[-45deg] group-hover:animate-[flash_1s_ease-in-out_infinite]"></div>
-            Start Accepting Crypto
-          </a>
-          
-          <a href="https://docs.noryxon.com" target="_blank" class="w-full sm:w-auto inline-block text-center relative group bg-void border border-ledger-border text-text-primary font-bold px-8 py-4 uppercase tracking-wider overflow-hidden hover:border-pulse transition-colors">
-            <div class="absolute inset-0 bg-ledger/50 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
-            <span class="relative z-10 group-hover:text-pulse transition-colors">View Documentation</span>
-          </a>
+          <span class="flex items-center gap-1.5">
+            <span class="w-1 h-1 bg-node rounded-full"></span>
+            5,000+ TOKENS
+          </span>
+          <span class="flex items-center gap-1.5">
+            <span class="w-1 h-1 bg-pulse rounded-full"></span>
+            ZERO CUSTODY
+          </span>
+          <span class="hidden sm:flex items-center gap-1.5">
+            <span class="w-1 h-1 bg-node rounded-full"></span>
+            ~45ms LATENCY
+          </span>
         </div>
       </div>
-
-      <!-- Right: Interactive Platform Simulation -->
-      <div class="relative w-full aspect-square md:aspect-video lg:aspect-square max-w-lg mx-auto border border-ledger-border bg-void/80 backdrop-blur-xl p-6 overflow-hidden flex flex-col justify-between group shadow-2xl">
-        
-        <!-- Scanning line effect over the box -->
-        <div class="absolute left-0 right-0 h-1 bg-gradient-to-r from-transparent via-pulse/50 to-transparent -top-1 blur-[1px] opacity-0 group-hover:opacity-100 group-hover:animate-[scan_3s_ease-in-out_infinite]"></div>
-        
-        <div class="flex justify-between items-center border-b border-ledger-border pb-4 mb-4 relative z-10">
-          <div class="font-mono text-xs text-text-muted tracking-widest flex items-center gap-2">
-            <svg class="w-4 h-4 text-node" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
-            PAYMENT FLOW DEMO
-          </div>
-          <div class="text-xs font-mono text-pulse/80 px-3 py-1.5 flex items-center gap-2 border border-pulse/30 bg-pulse/5">
-            <span class="w-1.5 h-1.5 rounded-full" :class="isSimulating ? 'bg-pulse animate-[ping_1s_cubic-bezier(0,0,0.2,1)_infinite]' : 'bg-text-muted'"></span>
-            {{ isSimulating ? '[ ROUTING_FUNDS ]' : '[ SYSTEM_STANDBY ]' }}
-          </div>
-        </div>
-
-        <div class="flex-1 flex flex-col justify-between relative z-10 pt-4 pb-2">
-          
-          <!-- Node 1: Customer Wallet -->
-          <div class="flex items-center gap-4 transition-all duration-500" :class="{'opacity-100 drop-shadow-lg': step >= 1, 'opacity-40': step < 1}">
-            <div class="w-12 h-12 border flex items-center justify-center transition-colors duration-300" :class="step >= 1 ? 'border-text-primary bg-text-primary/10 text-text-primary' : 'border-ledger-border bg-ledger text-text-muted'">
-              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
-            </div>
-            <div class="font-mono text-sm">
-              <div class="text-text-primary font-bold tracking-wide">User Pays for Product <span v-if="step===1" class="text-xs ml-2 text-pulse animate-pulse">Sending Funds...</span></div>
-              <div class="text-xs mt-1 transition-colors" :class="{'text-pulse': step >= 1, 'text-text-muted': step < 1}">
-                Customer Wallet: <span :class="{'font-bold': step >= 1}">{{ displayHash }}</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Vertical connection pipeline -->
-          <div class="absolute left-6 top-16 bottom-16 w-px bg-ledger-border">
-            <!-- Data packet flowing down -->
-            <div v-if="step === 2" class="absolute w-1.5 h-8 bg-pulse -left-[2.5px] rounded-full shadow-[0_0_10px] shadow-pulse animate-[flowDown_1.5s_linear_infinite]"></div>
-            <div v-if="step >= 3" class="absolute top-0 bottom-0 left-0 w-full bg-pulse shadow-[0_0_10px] shadow-pulse/50"></div>
-          </div>
-
-          <!-- Node 2: Noryxon Bridge -->
-          <div class="flex items-center gap-4 pl-16 transition-all duration-500 relative" :class="{'opacity-100 scale-105 transform': step === 2, 'opacity-100': step >= 3, 'opacity-40': step < 2}">
-            <div class="w-12 h-12 border flex items-center justify-center relative transition-colors duration-300" :class="step >= 2 ? 'border-pulse bg-pulse/10 text-pulse' : 'border-ledger-border bg-ledger text-text-muted'">
-              <!-- Cypherpunk rotating rings -->
-              <div v-if="step === 2" class="absolute -inset-2 border border-dashed border-pulse/50 rounded-full animate-[spin_4s_linear_infinite]"></div>
-              <div v-if="step === 2" class="absolute -inset-4 border border-dotted border-node/30 rounded-full animate-[spin_3s_linear_infinite_reverse]"></div>
-              
-              <svg class="w-6 h-6 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
-            </div>
-            <div class="font-mono text-sm relative">
-              <div class="font-bold tracking-wide transition-colors" :class="step >= 2 ? 'text-pulse shadow-pulse/50 drop-shadow-md' : 'text-text-muted'">
-                Noryxon Gateway (Zero Fees)
-              </div>
-              <div class="text-xs mt-1" :class="step === 2 ? 'text-node animate-pulse' : 'text-text-muted'">
-                {{ step === 2 ? 'Routing Instantly to You >>' : 'Standby' }}
-              </div>
-            </div>
-          </div>
-
-          <!-- Node 3: Cold Storage -->
-          <div class="flex items-center gap-4 transition-all duration-500" :class="{'opacity-100 drop-shadow-xl': step >= 3, 'opacity-40': step < 3}">
-            <div class="w-12 h-12 border flex items-center justify-center transition-colors duration-300 relative overflow-hidden" :class="step >= 3 ? 'border-node bg-node/10 text-node' : 'border-ledger-border bg-ledger text-text-muted'">
-              <div v-if="step === 3" class="absolute inset-0 bg-node/20 animate-ping"></div>
-              <svg class="w-6 h-6 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
-            </div>
-            <div class="font-mono text-sm">
-              <div class="font-bold tracking-wide transition-colors" :class="step >= 3 ? 'text-node' : 'text-text-primary'">Your Hardware Wallet</div>
-              <div class="text-xs mt-1 transition-all duration-300" :class="step >= 3 ? 'text-node font-bold text-[13px]' : 'text-text-muted'">
-                {{ step >= 3 ? `+ ${currentAmount} ${currentToken} (NO CUSTODY)` : 'Waiting for funds...' }}
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
     </div>
   </section>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
 
-const step = ref(0);
-const isSimulating = ref(false);
-const displayHash = ref('awaiting_connection...');
+// Floating particles
+const particles = [
+  { label: 'ETH', x: 8, y: 20, color: 'text-text-muted/40', duration: 6, delay: 0 },
+  { label: 'BTC', x: 88, y: 15, color: 'text-pulse/30', duration: 7, delay: 1 },
+  { label: 'SOL', x: 15, y: 70, color: 'text-node/30', duration: 5, delay: 2 },
+  { label: 'USDC', x: 82, y: 65, color: 'text-text-muted/30', duration: 8, delay: 0.5 },
+  { label: 'DAI', x: 5, y: 45, color: 'text-pulse/20', duration: 6, delay: 3 },
+  { label: 'ARB', x: 92, y: 40, color: 'text-node/20', duration: 7, delay: 1.5 },
+  { label: 'TRX', x: 25, y: 85, color: 'text-text-muted/20', duration: 5.5, delay: 2.5 },
+  { label: 'POL', x: 75, y: 80, color: 'text-pulse/20', duration: 6.5, delay: 0.8 },
+];
+
+// Orbiting chain badges
+const orbitChains = ref([
+  { chain: 'ETH', posX: -5, posY: 20, active: false },
+  { chain: 'BTC', posX: 95, posY: 15, active: false },
+  { chain: 'SOL', posX: -5, posY: 70, active: false },
+  { chain: 'ARB', posX: 95, posY: 60, active: false },
+  { chain: 'POL', posX: 40, posY: -8, active: false },
+  { chain: 'OPT', posX: 60, posY: 105, active: false },
+]);
+
+// Invoice simulation state
+const phase = ref(0);
+const currentInvoiceId = ref('INV-00000000');
 const currentAmount = ref('0.00');
 const currentToken = ref('USDC');
-let finalHash = 'awaiting...';
+const currentChain = ref('Ethereum');
+const displayHash = ref('0x0000...0000');
+const latency = ref('0');
+const visibleLogs = ref([]);
 
-let timeoutStep1 = null;
-let timeoutStep2 = null;
-let timeoutStep3 = null;
-let timeoutReset = null;
-let mainLoopInfo = null;
+const progressPercent = computed(() => {
+  if (phase.value === 0) return 0;
+  if (phase.value === 1) return 25;
+  if (phase.value === 2) return 50;
+  if (phase.value === 3) return 75;
+  return 100;
+});
+
+const hexChars = 'ABCDEFabcdef0123456789';
+const tokens = ['USDC', 'USDT', 'ETH', 'BTC', 'DAI', 'SOL'];
+const chains = ['Ethereum', 'Solana', 'Polygon', 'Arbitrum', 'Optimism', 'Bitcoin'];
+
+const generateHash = () => '0x' + Array.from({ length: 8 }, () => hexChars[Math.floor(Math.random() * hexChars.length)]).join('') + '...' + Array.from({ length: 4 }, () => hexChars[Math.floor(Math.random() * hexChars.length)]).join('');
+const generateInvoiceId = () => 'INV-' + Math.random().toString(36).substring(2, 10).toUpperCase();
+
+const logs = [
+  'Detecting on-chain transaction...',
+  'Verifying block confirmations...',
+  'Cross-referencing wallet addresses...',
+  'Generating compliant invoice document...',
+  'Computing Digital Asset Tax classification...',
+  'Attaching tax report to invoice...',
+];
+
+let timeouts = [];
+
+const clearAllTimeouts = () => {
+  timeouts.forEach(t => clearTimeout(t));
+  timeouts = [];
+};
+
+const runSimulation = () => {
+  clearAllTimeouts();
+  phase.value = 0;
+  visibleLogs.value = [];
+
+  const chainIdx = Math.floor(Math.random() * chains.length);
+  currentToken.value = tokens[Math.floor(Math.random() * tokens.length)];
+  currentChain.value = chains[chainIdx];
+  currentAmount.value = (Math.random() * 9500 + 100).toFixed(2);
+  currentInvoiceId.value = generateInvoiceId();
+  displayHash.value = '0x0000...0000';
+  latency.value = (Math.random() * 30 + 35).toFixed(0);
+
+  // Activate a random orbit chain
+  orbitChains.value.forEach((o, i) => o.active = i === chainIdx % orbitChains.value.length);
+
+  // Phase 1: Transaction detected
+  timeouts.push(setTimeout(() => {
+    phase.value = 1;
+    visibleLogs.value = [{ text: logs[0], done: false }];
+  }, 600));
+
+  // Hash scramble
+  timeouts.push(setTimeout(() => {
+    scrambleHash();
+    visibleLogs.value = [{ text: logs[0], done: true }, { text: logs[1], done: false }];
+  }, 1200));
+
+  // Phase 2
+  timeouts.push(setTimeout(() => {
+    phase.value = 2;
+    visibleLogs.value = [
+      { text: logs[0], done: true },
+      { text: logs[1], done: true },
+      { text: logs[2], done: false },
+    ];
+  }, 2200));
+
+  // Phase 3
+  timeouts.push(setTimeout(() => {
+    phase.value = 3;
+    visibleLogs.value = [
+      { text: logs[0], done: true },
+      { text: logs[1], done: true },
+      { text: logs[2], done: true },
+      { text: logs[3], done: true },
+      { text: logs[4], done: false },
+    ];
+  }, 3500));
+
+  // Phase 4: Complete
+  timeouts.push(setTimeout(() => {
+    phase.value = 4;
+    visibleLogs.value = [
+      { text: logs[0], done: true },
+      { text: logs[1], done: true },
+      { text: logs[2], done: true },
+      { text: logs[3], done: true },
+      { text: logs[4], done: true },
+      { text: logs[5], done: true },
+    ];
+    orbitChains.value.forEach(o => o.active = false);
+  }, 5000));
+
+  // Reset and loop
+  timeouts.push(setTimeout(() => {
+    runSimulation();
+  }, 9000));
+};
+
 let scrambleInterval = null;
-
-const chars = 'ABCDEF0123456789abcdef';
-const tokens = ['USDC', 'USDT', 'DAI', 'BTC', 'ETH', 'SOL'];
-
-const generateRandomHash = () => '0x' + Array.from({length: 16}, () => chars[Math.floor(Math.random() * chars.length)]).join('') + '...';
-
-const scrambleHashText = () => {
+const scrambleHash = () => {
+  const finalHash = generateHash();
   let iterations = 0;
-  const maxIterations = 20;
-  
   clearInterval(scrambleInterval);
   scrambleInterval = setInterval(() => {
-    const stringFinal = finalHash || '0xunknown...';
-    displayHash.value = stringFinal.split('').map((char, index) => {
-      if(index < iterations / 2) return stringFinal[index] || '';
-      return chars[Math.floor(Math.random() * chars.length)];
+    displayHash.value = finalHash.split('').map((c, i) => {
+      if (i < iterations / 2 || c === '.' || c === 'x') return c;
+      return hexChars[Math.floor(Math.random() * hexChars.length)];
     }).join('');
-    
     iterations++;
-    if(iterations >= maxIterations) {
+    if (iterations >= 30) {
       clearInterval(scrambleInterval);
       displayHash.value = finalHash;
     }
-  }, 40);
-};
-
-const triggerSim = () => {
-  if (isSimulating.value) return;
-  isSimulating.value = true;
-  step.value = 0;
-  displayHash.value = 'awaiting_connection...';
-  
-  currentToken.value = tokens[Math.floor(Math.random() * tokens.length)];
-  currentAmount.value = (Math.random() * 9500 + 50).toFixed(2);
-  finalHash = generateRandomHash();
-  
-  clearTimeout(timeoutStep1);
-  clearTimeout(timeoutStep2);
-  clearTimeout(timeoutStep3);
-  clearTimeout(timeoutReset);
-  clearInterval(scrambleInterval);
-  
-  timeoutStep1 = setTimeout(() => {
-    step.value = 1;
-    scrambleHashText();
-  }, 500);
-  
-  timeoutStep2 = setTimeout(() => {
-    step.value = 2;
-  }, 1800);
-  
-  timeoutStep3 = setTimeout(() => {
-    step.value = 3;
-    timeoutReset = setTimeout(() => {
-      isSimulating.value = false;
-      step.value = 0;
-      displayHash.value = 'awaiting_connection...';
-    }, 2500);
-  }, 4000);
-};
-
-const loopSim = () => {
-  triggerSim();
-  mainLoopInfo = setTimeout(loopSim, Math.random() * 4000 + 8500);
+  }, 35);
 };
 
 onMounted(() => {
-  mainLoopInfo = setTimeout(loopSim, 1000);
+  timeouts.push(setTimeout(runSimulation, 800));
 });
 
 onUnmounted(() => {
-  clearTimeout(timeoutStep1);
-  clearTimeout(timeoutStep2);
-  clearTimeout(timeoutStep3);
-  clearTimeout(timeoutReset);
-  clearTimeout(mainLoopInfo);
+  clearAllTimeouts();
   clearInterval(scrambleInterval);
 });
 </script>
 
 <style>
 @keyframes shimmer {
-  100% {
-    transform: translateX(100%);
-  }
+  100% { transform: translateX(100%); }
 }
 @keyframes flash {
   0%, 100% { transform: translateX(-150%) skewX(-45deg); }
@@ -229,10 +372,14 @@ onUnmounted(() => {
   90% { opacity: 1; }
   100% { top: 105%; opacity: 0; }
 }
-@keyframes flowDown {
-  0% { top: 0; opacity: 0; }
-  20% { opacity: 1; }
-  80% { opacity: 1; }
-  100% { top: 100%; opacity: 0; }
+@keyframes float-particle {
+  0%, 100% { opacity: 0; transform: translateY(0px); }
+  20% { opacity: 0.6; }
+  50% { transform: translateY(-20px); opacity: 0.4; }
+  80% { opacity: 0.6; }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>

@@ -3,7 +3,7 @@
     <!-- Vault Header -->
     <div class="flex items-center justify-between mb-6">
       <div>
-        <div class="text-sm font-medium text-text-muted mb-1">Registered hardware wallet public keys. Noryxon never stores private keys.</div>
+        <div class="text-sm font-medium text-text-muted mb-1">Link wallet public keys for automatic transaction detection and invoice generation. Private keys never leave your device.</div>
       </div>
       <button 
         @click="showAddModal = true"

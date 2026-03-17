@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\WalletController;
 use App\Http\Controllers\XpubController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PaymentController;
@@ -33,10 +34,10 @@ Route::get('/pricing', function () {
 Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
     
-    Route::get('/xpub-vault', [XpubController::class, 'index'])->name('xpub-vault');
-    Route::post('/xpub-vault', [XpubController::class, 'store'])->name('xpub-vault.store');
-    Route::patch('/xpub-vault/{xpub}/status', [XpubController::class, 'update'])->name('xpub-vault.update');
-    Route::delete('/xpub-vault/{xpub}', [XpubController::class, 'destroy'])->name('xpub-vault.destroy');
+    Route::get('/wallets', [WalletController::class, 'index'])->name('wallets');
+    Route::post('/wallets', [WalletController::class, 'store'])->name('wallets.store');
+    Route::patch('/wallets/{wallet}/status', [WalletController::class, 'update'])->name('wallets.update');
+    Route::delete('/wallets/{wallet}', [WalletController::class, 'destroy'])->name('wallets.destroy');
 
     Route::get('/live-monitor', [PaymentController::class, 'index'])->name('live-monitor');
     

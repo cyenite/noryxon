@@ -23,6 +23,7 @@ class PaymentFactory extends Factory
         return [
             'user_id' => User::factory(),
             'xpub_id' => null,
+            'wallet_id' => null,
             'tx_hash' => '0x' . $this->faker->unique()->regexify('[a-f0-9]{64}'),
             'amount' => $this->faker->randomFloat(8, 5, 15000),
             'token' => $this->faker->randomElement($tokens),

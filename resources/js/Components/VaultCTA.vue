@@ -17,15 +17,15 @@
         <svg class="w-4 h-4 text-pulse animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
         </svg>
-        <span class="font-mono text-xs text-pulse tracking-widest">READY FOR PRODUCTION</span>
+        <span class="font-mono text-xs text-pulse tracking-widest">READY TO DOCUMENT</span>
       </div>
 
       <h2 class="text-4xl md:text-6xl font-black uppercase text-text-primary tracking-tighter mb-4 relative drop-shadow-xl">
-        Start Accepting Crypto.
+        Stop Winging It.
       </h2>
-      
+
       <p class="text-sm md:text-base text-text-muted font-mono mb-12 max-w-2xl mx-auto border-b border-ledger-border pb-8">
-        Stop paying high payment gateway fees and giving up custody of your revenue. Join thousands of merchants routing payments directly to their cold storage.
+        That 30% "unexplained income" tax? Explained. Generate compliant invoices, attach them to every transaction, and off-ramp like a professional — not a gambler.
       </p>
       
       <form action="/dashboard" method="GET" class="flex flex-col sm:flex-row max-w-2xl mx-auto border border-ledger-border focus-within:border-pulse transition-all shadow-xl focus-within:shadow-[0_0_30px] focus-within:shadow-pulse/10 relative">
@@ -49,7 +49,7 @@
       </form>
 
       <div class="mt-8 font-mono text-[10px] text-text-muted/50 tracking-widest">
-        WARNING: ON-CHAIN TRANSACTIONS ARE IMMUTABLE.
+        NORYXON DOES NOT CUSTODY FUNDS. WE GENERATE DOCUMENTATION ONLY.
       </div>
     </div>
   </section>

@@ -31,14 +31,13 @@
           <svg class="w-4 h-4 text-node" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
-          <span class="font-mono text-xs text-node uppercase tracking-widest">TRANSACTION_COSTS</span>
+          <span class="font-mono text-xs text-node uppercase tracking-widest">INVOICING_COSTS</span>
         </div>
         <h1 class="text-5xl md:text-6xl font-black uppercase tracking-tighter drop-shadow-[0_0_15px_rgba(255,255,255,0.1)]">
-          Predictable Settlement.
+          Boring Pricing. Exciting Savings.
         </h1>
         <p class="text-text-muted font-mono mt-6 max-w-2xl mx-auto text-sm md:text-base">
-          No setup fees. No recurring monthly subscriptions. Zero withdrawal costs because you hold your own keys. 
-          Focus on building; we'll handle the infrastructure.
+          No setup fees. No monthly subscriptions. No hidden "convenience" charges. We generate your invoices and tax docs — you keep the other 30% the taxman was eyeing. Simple.
         </p>
       </div>
 
@@ -67,22 +66,22 @@
                   <span class="text-2xl font-black text-text-primary opacity-50">1.0%</span>
                   <span class="text-text-muted font-mono text-[10px] uppercase">/ TXN past threshold</span>
                 </div>
-                <p class="text-[10px] text-text-muted font-mono mt-3">> ON_SUCCESSFUL_SETTLEMENTS_ONLY</p>
+                <p class="text-[10px] text-text-muted font-mono mt-3">> PER_DOCUMENTED_TRANSACTION</p>
               </div>
 
               <div class="font-mono text-xs text-text-primary mb-3">CORE FEATURES INCLUDED:</div>
               <ul class="space-y-3 font-mono text-xs text-text-muted mb-12">
                 <li class="flex items-center gap-3">
                   <div class="w-1 h-1 bg-node rounded-full"></div>
-                  <span>Instant settlement to hardware wallets (XPUB)</span>
+                  <span>Unlimited invoice generation & tax reports</span>
                 </li>
                 <li class="flex items-center gap-3">
                   <div class="w-1 h-1 bg-node rounded-full"></div>
-                  <span>12+ Blockchains & 5,000+ Assets Supported</span>
+                  <span>12+ Blockchains & 5,000+ Assets Documented</span>
                 </li>
                 <li class="flex items-center gap-3">
                   <div class="w-1 h-1 bg-node rounded-full"></div>
-                  <span>API Integration & Instant Signed Webhooks</span>
+                  <span>REST API, SDKs & Instant Signed Webhooks</span>
                 </li>
                 <li class="flex items-center gap-3">
                   <div class="w-1 h-1 bg-node rounded-full"></div>
@@ -90,11 +89,11 @@
                 </li>
                 <li class="flex items-center gap-3">
                   <div class="w-1 h-1 bg-node rounded-full"></div>
-                  <span>Native Lightning Network (BTC) Capabilities</span>
+                  <span>Off-ramp partner redirects (no VASP required)</span>
                 </li>
                 <li class="flex items-center gap-3">
                   <div class="w-1 h-1 bg-node rounded-full"></div>
-                  <span>Automated E-commerce Plugins (Shopify, Woo)</span>
+                  <span>TypeScript, Python, Go, PHP & Node.js SDKs</span>
                 </li>
               </ul>
             </div>
@@ -131,15 +130,15 @@
               <ul class="space-y-3 font-mono text-xs text-text-muted mb-12">
                 <li class="flex items-center gap-3">
                   <div class="w-1.5 h-1.5 border border-pulse"></div>
-                  <span class="text-text-primary">Custom transaction fee tiering</span>
+                  <span class="text-text-primary">Custom documentation fee tiering</span>
                 </li>
                 <li class="flex items-center gap-3">
                   <div class="w-1.5 h-1.5 border border-pulse"></div>
-                  <span>Dedicated bare-metal RPC nodes globally</span>
+                  <span>White-label invoice templates & branding</span>
                 </li>
                 <li class="flex items-center gap-3">
                   <div class="w-1.5 h-1.5 border border-pulse"></div>
-                  <span>99.99% Guaranteed Setup SLA</span>
+                  <span>99.99% Guaranteed Uptime SLA</span>
                 </li>
                 <li class="flex items-center gap-3">
                   <div class="w-1.5 h-1.5 border border-pulse"></div>
@@ -147,11 +146,11 @@
                 </li>
                 <li class="flex items-center gap-3">
                   <div class="w-1.5 h-1.5 border border-pulse"></div>
-                  <span>Role-Based Access Control (RBAC) overrides</span>
+                  <span>Multi-jurisdiction tax report formats</span>
                 </li>
                 <li class="flex items-center gap-3">
                   <div class="w-1.5 h-1.5 border border-pulse"></div>
-                  <span>Priority engineering support</span>
+                  <span>Priority engineering support & custom SDK builds</span>
                 </li>
               </ul>
             </div>
@@ -166,47 +165,47 @@
       <!-- Extended Feature Breakdown -->
       <div class="max-w-5xl mx-auto border-t border-ledger-border pt-16 mt-16 pb-12">
         <h2 class="text-3xl font-black uppercase tracking-widest mb-12 text-center text-text-primary">
-          Platform Capabilities
+          What's Under the Hood
         </h2>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
           
           <!-- Category 1 -->
           <div>
-            <h4 class="text-pulse font-mono tracking-widest text-sm mb-4 border-b border-ledger-border pb-2">_ZERO CUSTODY ENGINE</h4>
+            <h4 class="text-pulse font-mono tracking-widest text-sm mb-4 border-b border-ledger-border pb-2">_INVOICE ENGINE</h4>
             <ul class="space-y-2 font-mono text-sm text-text-muted">
-              <li>- Direct on-chain deposits. No middlemen.</li>
-              <li>- BIP-44/49/84 Hardware Wallet Compatibility.</li>
-              <li>- Zero withdrawal or pooling fees.</li>
+              <li>- Tamper-proof invoices linked to on-chain TXs. Try forging one. We dare you.</li>
+              <li>- Payer details, purpose, and KES equivalent — all auto-generated.</li>
+              <li>- Zero custody. Your funds are none of our business. Literally.</li>
             </ul>
           </div>
 
           <!-- Category 2 -->
           <div>
-            <h4 class="text-node font-mono tracking-widest text-sm mb-4 border-b border-ledger-border pb-2">_MULTI-CHAIN DEPLOYMENTS</h4>
+            <h4 class="text-node font-mono tracking-widest text-sm mb-4 border-b border-ledger-border pb-2">_MULTI-CHAIN VERIFICATION</h4>
             <ul class="space-y-2 font-mono text-sm text-text-muted">
-              <li>- 12+ Native L1s including BTC, ETH, SOL, AVAX.</li>
-              <li>- Arbitrum, Optimism, & Base Layer 2 scaling.</li>
-              <li>- Any liquid ERC-20, SPL, or TRC-20 token support.</li>
+              <li>- 12+ L1s including BTC, ETH, SOL, AVAX. We don't play favorites.</li>
+              <li>- Arbitrum, Optimism, & Base L2 support — because gas matters.</li>
+              <li>- Any liquid ERC-20, SPL, or TRC-20 token. Yes, that one too.</li>
             </ul>
           </div>
 
           <!-- Category 3 -->
           <div>
-            <h4 class="text-node font-mono tracking-widest text-sm mb-4 border-b border-ledger-border pb-2">_DEVELOPER EXPERIENCE</h4>
+            <h4 class="text-node font-mono tracking-widest text-sm mb-4 border-b border-ledger-border pb-2">_SDK & DEVELOPER TOOLS</h4>
             <ul class="space-y-2 font-mono text-sm text-text-muted">
-              <li>- Idempotent REST API & signed Instant Webhooks.</li>
-              <li>- Sandboxed Testnet Environment.</li>
-              <li>- Typescript, Go, Python, Node.js, PHP SDKs.</li>
+              <li>- Idempotent REST API & signed webhooks. Ship with confidence.</li>
+              <li>- SDKs in 5 languages. Pick your weapon.</li>
+              <li>- Sandboxed testnet — break things without consequences.</li>
             </ul>
           </div>
 
           <!-- Category 4 -->
           <div>
-            <h4 class="text-pulse font-mono tracking-widest text-sm mb-4 border-b border-ledger-border pb-2">_MERCHANT VAULT DASHBOARD</h4>
+            <h4 class="text-pulse font-mono tracking-widest text-sm mb-4 border-b border-ledger-border pb-2">_TAX & COMPLIANCE</h4>
             <ul class="space-y-2 font-mono text-sm text-text-muted">
-              <li>- Analytics mapping revenue by asset & chain.</li>
-              <li>- Live Terminal to watch transaction mempools.</li>
-              <li>- Manage subscriptions & recurring billing (crypto-native).</li>
+              <li>- Digital Asset Tax (DAT) reports. KRA-ready, no drama.</li>
+              <li>- Off-ramp partner redirects — withdraw like a grown-up.</li>
+              <li>- Exportable reports your accountant will actually understand.</li>
             </ul>
           </div>
 
@@ -217,7 +216,7 @@
 
     <!-- Footer -->
     <footer class="bg-void border-t border-ledger-border py-8 text-center font-mono text-xs text-text-muted">
-      NORYXON BRIDGE PROTOCOL &copy; 2026. ALL EXECUTIONS FINAL.
+      NORYXON INVOICE PROTOCOL &copy; 2026. DOCUMENTATION ONLY — NO CUSTODY.
       <div class="mt-4 flex justify-center gap-6">
          <Link href="/pricing" class="hover:text-pulse transition-colors">Pricing</Link>
          <a href="https://docs.noryxon.com" target="_blank" class="hover:text-pulse transition-colors">Docs</a>

@@ -16,10 +16,10 @@
 
       <footer class="border-t border-ledger-border px-6 py-5 flex items-center justify-between text-sm text-text-muted bg-void">
         <div>
-          &copy; {{ new Date().getFullYear() }} Noryxon Treasury Systems
+          &copy; {{ new Date().getFullYear() }} Noryxon Invoice Systems
         </div>
         <div class="font-medium text-text-primary">
-          {{ dashboardType === 'merchant' ? 'Merchant Vault v2.1.0' : 'Dev Portal v2.1.0' }}
+          {{ dashboardType === 'merchant' ? 'Invoice Vault v2.1.0' : 'Dev Portal v2.1.0' }}
         </div>
       </footer>
     </div>

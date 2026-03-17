@@ -9,7 +9,7 @@
           <span class="w-1.5 h-1.5 bg-pulse animate-pulse"></span>
           <span class="font-mono text-xs text-pulse uppercase tracking-widest">System_Architecture</span>
         </div>
-        <h2 class="text-4xl md:text-5xl font-black uppercase text-text-primary tracking-tighter drop-shadow-lg">The Protocol Engine</h2>
+        <h2 class="text-4xl md:text-5xl font-black uppercase text-text-primary tracking-tighter drop-shadow-lg">Built Different. Documented Better.</h2>
         <div class="h-1 w-32 bg-pulse mt-8 shadow-[0_0_15px] shadow-pulse"></div>
       </div>
       
@@ -34,14 +34,14 @@
             </div>
           </div>
 
-          <h3 class="text-2xl font-black uppercase tracking-widest mb-4 group-hover:text-pulse transition-colors" @mouseenter="decodeText($event, 'Never Hand Over Keys')">Never Hand Over Keys</h3>
-          
+          <h3 class="text-2xl font-black uppercase tracking-widest mb-4 group-hover:text-pulse transition-colors" @mouseenter="decodeText($event, 'Tamper-Proof Invoices')">Tamper-Proof Invoices</h3>
+
           <p class="text-text-muted text-sm leading-relaxed font-mono">
-            Your funds go directly from the user's wallet to your hardware ledger. We never hold your crypto, meaning zero counterparty risk and instant access to revenue.
+            Your funds? None of our business. Literally. We cryptographically link every invoice to an on-chain transaction and generate verifiable docs for tax-compliant off-ramping. Your keys, your coins, our paperwork.
           </p>
-          
+
           <div class="mt-8 font-mono text-xs text-text-muted border-t border-ledger-border pt-4 group-hover:border-pulse/30 transition-colors">
-            > SECURE_ENCLAVE: <span class="text-text-primary group-hover:text-pulse transition-colors">ACTIVE</span>
+            > DOCUMENT_INTEGRITY: <span class="text-text-primary group-hover:text-pulse transition-colors">VERIFIED</span>
           </div>
         </div>
 
@@ -62,10 +62,10 @@
             </div>
           </div>
 
-          <h3 class="text-2xl font-black uppercase tracking-widest mb-4 group-hover:text-pulse transition-colors" @mouseenter="decodeText($event, '99.99% Uptime SLA')">99.99% Uptime SLA</h3>
-          
+          <h3 class="text-2xl font-black uppercase tracking-widest mb-4 group-hover:text-pulse transition-colors" @mouseenter="decodeText($event, 'Multi-Chain Verify')">Multi-Chain Verify</h3>
+
           <p class="text-text-muted text-sm leading-relaxed font-mono">
-            Our enterprise-grade infrastructure guarantees your platform stays online. Webhooks fire instantly upon payment detection, letting you deliver products without delay.
+            One invoice engine to rule them all. Verify transactions across 12+ chains in real-time — webhooks fire on detection, invoices generate themselves, and your tax docs write themselves. You're welcome.
           </p>
 
           <div class="mt-8 font-mono text-xs text-text-muted border-t border-ledger-border pt-4 group-hover:border-pulse/30 transition-colors">
@@ -90,14 +90,14 @@
             </div>
           </div>
 
-          <h3 class="text-2xl font-black uppercase tracking-widest mb-4 group-hover:text-pulse transition-colors" @mouseenter="decodeText($event, 'Accept 5,000+ Assets')">Accept 5,000+ Assets</h3>
-          
+          <h3 class="text-2xl font-black uppercase tracking-widest mb-4 group-hover:text-pulse transition-colors" @mouseenter="decodeText($event, 'Tax-Ready Reports')">Tax-Ready Reports</h3>
+
           <p class="text-text-muted text-sm leading-relaxed font-mono">
-            Accept payments in Bitcoin, Ethereum, Solana, and thousands of ERC-20 tokens. No wrapped assets or complex bridging required for your users.
+            Tax season doesn't have to feel like a horror movie. Export-ready reports with Digital Asset Tax calculations for BTC, ETH, SOL, and thousands of tokens. Your accountant will think you hired someone.
           </p>
 
           <div class="mt-8 font-mono text-xs text-text-muted border-t border-ledger-border pt-4 group-hover:border-pulse/30 transition-colors">
-            > NETWORKS: <span class="text-text-primary group-hover:text-pulse transition-colors">12 SYNCED</span>
+            > ASSETS_TRACKED: <span class="text-text-primary group-hover:text-pulse transition-colors">5,000+</span>
           </div>
         </div>
       </div>

@@ -2,10 +2,10 @@
   <DashboardLayout pageTitle="Developer Portal" breadcrumb="SYSTEM > DEV > OVERVIEW" dashboardType="developer">
     <!-- Stats -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-      <StatCard label="API Requests (24h)" :value="apiStats?.totalRequests?.toLocaleString() || '0'" :change="apiStats?.requestsChange || 0" subtitle="CALLS_TO_GATEWAY" />
+      <StatCard label="API Requests (24h)" :value="apiStats?.totalRequests?.toLocaleString() || '0'" :change="apiStats?.requestsChange || 0" subtitle="CALLS_TO_INVOICE_API" />
       <StatCard label="Active Webhooks" :value="apiStats?.activeWebhooks || 0" subtitle="ENDPOINTS_REGISTERED" />
-      <StatCard label="Test Transactions" :value="apiStats?.testTransactions?.toLocaleString() || '0'" :change="apiStats?.testTransactionsChange || 0" subtitle="SANDBOX_EXECUTIONS" />
-      <StatCard label="Avg Response Time" :value="(apiStats?.avgResponseTime || 0) + 'ms'" subtitle="P95_API_LATENCY" />
+      <StatCard label="Test Invoices" :value="apiStats?.testTransactions?.toLocaleString() || '0'" :change="apiStats?.testTransactionsChange || 0" subtitle="SANDBOX_INVOICES" />
+      <StatCard label="SDK Downloads" :value="apiStats?.sdkDownloads?.toLocaleString() || '3,241'" subtitle="NPM_+_PYPI_+_GO" />
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
@@ -21,9 +21,9 @@
           <button @click="copyCurl" class="text-xs font-semibold text-text-muted hover:text-pulse transition-colors">Copy</button>
         </div>
         <div class="p-4 font-mono text-xs leading-relaxed overflow-x-auto">
-          <div class="text-text-muted"># Create a payment using the Noryxon API</div>
+          <div class="text-text-muted"># Generate an invoice using the Noryxon API</div>
           <div class="mt-2">
-            <span class="text-node">curl</span> <span class="text-text-muted">-X POST</span> <span class="text-pulse">https://api.noryxon.com/v1/payments</span> <span class="text-text-muted">\</span>
+            <span class="text-node">curl</span> <span class="text-text-muted">-X POST</span> <span class="text-pulse">https://api.noryxon.com/v1/invoices</span> <span class="text-text-muted">\</span>
           </div>
           <div class="pl-4">
             <span class="text-text-muted">-H</span> <span class="text-amber-400">"Authorization: Bearer sk_live_xxxxxxxx"</span> <span class="text-text-muted">\</span>
@@ -35,7 +35,8 @@
           <div class="pl-8"><span class="text-node">"amount"</span>: <span class="text-pulse">99.99</span>,</div>
           <div class="pl-8"><span class="text-node">"currency"</span>: <span class="text-amber-400">"USDC"</span>,</div>
           <div class="pl-8"><span class="text-node">"chain"</span>: <span class="text-amber-400">"ethereum"</span>,</div>
-          <div class="pl-8"><span class="text-node">"webhook_url"</span>: <span class="text-amber-400">"https://your-site.com/webhook"</span></div>
+          <div class="pl-8"><span class="text-node">"payer"</span>: <span class="text-amber-400">"client@example.com"</span>,</div>
+          <div class="pl-8"><span class="text-node">"purpose"</span>: <span class="text-amber-400">"Digital asset payment"</span></div>
           <div class="pl-4 text-text-muted">}'</div>
         </div>
       </div>
@@ -75,6 +76,38 @@
             </div>
           </Link>
         </div>
+      </div>
+    </div>
+
+    <!-- SDK Quick Install -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div class="border border-ledger-border bg-void p-4 rounded-xl shadow-sm hover:border-pulse/50 transition-colors">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-xs font-bold text-amber-400">JS</span>
+          <span class="text-xs font-semibold text-text-primary">TypeScript / Node.js</span>
+        </div>
+        <div class="font-mono text-[11px] text-text-muted bg-ledger p-2 rounded">npm install @noryxon/sdk</div>
+      </div>
+      <div class="border border-ledger-border bg-void p-4 rounded-xl shadow-sm hover:border-node/50 transition-colors">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-xs font-bold text-node">PY</span>
+          <span class="text-xs font-semibold text-text-primary">Python</span>
+        </div>
+        <div class="font-mono text-[11px] text-text-muted bg-ledger p-2 rounded">pip install noryxon</div>
+      </div>
+      <div class="border border-ledger-border bg-void p-4 rounded-xl shadow-sm hover:border-blue-400/50 transition-colors">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-xs font-bold text-blue-400">GO</span>
+          <span class="text-xs font-semibold text-text-primary">Go</span>
+        </div>
+        <div class="font-mono text-[11px] text-text-muted bg-ledger p-2 rounded">go get noryxon.com/sdk</div>
+      </div>
+      <div class="border border-ledger-border bg-void p-4 rounded-xl shadow-sm hover:border-purple-400/50 transition-colors">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-xs font-bold text-purple-400">PHP</span>
+          <span class="text-xs font-semibold text-text-primary">PHP / Laravel</span>
+        </div>
+        <div class="font-mono text-[11px] text-text-muted bg-ledger p-2 rounded">composer require noryxon/sdk</div>
       </div>
     </div>
 

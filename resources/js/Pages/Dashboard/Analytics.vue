@@ -15,18 +15,24 @@
           {{ period.label }}
         </button>
       </div>
-      <button class="flex items-center gap-2 px-4 py-2 rounded-lg border border-ledger-border text-text-muted text-sm font-semibold hover:border-pulse hover:text-pulse hover:bg-ledger transition-colors">
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-        Export CSV
-      </button>
+      <div class="flex items-center gap-2">
+        <button class="flex items-center gap-2 px-4 py-2 rounded-lg border border-ledger-border text-text-muted text-sm font-semibold hover:border-pulse hover:text-pulse hover:bg-ledger transition-colors">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          Export CSV
+        </button>
+        <button class="flex items-center gap-2 px-4 py-2 rounded-lg border border-pulse/50 text-pulse text-sm font-semibold hover:bg-pulse hover:text-void transition-colors">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          Generate Tax Report
+        </button>
+      </div>
     </div>
 
     <!-- Top Stats -->
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-      <StatCard label="Total Volume" :value="formatCurrency(totalVolume)" :change="12.4" subtitle="ALL_CHAINS_COMBINED" />
-      <StatCard label="Transactions" :value="totalTxns.toLocaleString()" :change="8.1" subtitle="SUCCESSFUL_SETTLEMENTS" />
-      <StatCard label="Avg. Confirmation" value="4.2 min" subtitle="ACROSS_12_NETWORKS" />
-      <StatCard label="Top Asset" value="USDC (38%)" subtitle="BY_VOLUME_SHARE" />
+      <StatCard label="Documented Volume" :value="formatCurrency(totalVolume)" :change="12.4" subtitle="ALL_CHAINS_COMBINED" />
+      <StatCard label="Invoices Generated" :value="totalTxns.toLocaleString()" :change="8.1" subtitle="TAX_DOCUMENTED" />
+      <StatCard label="Avg. Verification" value="4.2 min" subtitle="ACROSS_12_NETWORKS" />
+      <StatCard label="Top Asset" value="USDC (38%)" subtitle="BY_DOCUMENTED_VOLUME" />
     </div>
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
@@ -35,7 +41,7 @@
         <div class="flex items-center justify-between mb-6">
           <div class="text-sm font-semibold text-text-primary flex items-center gap-2">
             <span class="w-2 h-2 rounded-full bg-pulse"></span>
-            Settlement Volume
+            Documented Volume
           </div>
         </div>
         <div class="flex items-end gap-1 h-48">

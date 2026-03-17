@@ -10,6 +10,7 @@ use App\Models\TeamMember;
 use App\Models\User;
 use App\Models\WebhookDelivery;
 use App\Models\WebhookEndpoint;
+use App\Models\Wallet;
 use App\Models\Xpub;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -27,13 +28,21 @@ class DatabaseSeeder extends Seeder
             'webhook_url' => 'https://api.merchant.com/webhooks/noryxon',
         ]);
 
-        // Seed XPUBs
+        // Seed XPUBs (legacy)
         $xpubs = Xpub::factory()->count(8)->create(['user_id' => $user->id]);
 
-        // Seed Payments (link some to XPUBs)
+        // Seed Wallets (mixed types)
+        $wallets = collect();
+        $wallets = $wallets->merge(Wallet::factory()->count(2)->exchange()->create(['user_id' => $user->id]));
+        $wallets = $wallets->merge(Wallet::factory()->count(3)->software()->create(['user_id' => $user->id]));
+        $wallets = $wallets->merge(Wallet::factory()->count(2)->xpub()->create(['user_id' => $user->id]));
+        $wallets = $wallets->merge(Wallet::factory()->count(1)->manual()->create(['user_id' => $user->id]));
+
+        // Seed Payments (link to wallets)
         Payment::factory()->count(50)->create([
             'user_id' => $user->id,
             'xpub_id' => fn () => $xpubs->random()->id,
+            'wallet_id' => fn () => $wallets->random()->id,
         ]);
 
         // Seed Invoices

@@ -1,28 +1,28 @@
 <template>
   <DashboardLayout pageTitle="Dashboard" breadcrumb="SYSTEM > OVERVIEW" dashboardType="merchant">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-      <StatCard 
-        label="Total Volume (30d)"
+      <StatCard
+        label="Documented Volume (30d)"
         :value="formatCurrency(stats.totalVolume)"
         :change="stats.totalVolumeChange"
         subtitle="ACROSS_ALL_CHAINS"
       />
-      <StatCard 
-        label="Active XPUBs"
-        :value="stats.activeXpubs"
-        subtitle="HARDWARE_WALLETS_LINKED"
+      <StatCard
+        label="Connected Wallets"
+        :value="stats.activeWallets"
+        subtitle="WALLETS_LINKED"
       />
-      <StatCard 
-        label="Pending Payments"
+      <StatCard
+        label="Pending Invoices"
         :value="stats.pendingPayments"
         :change="stats.pendingPaymentsChange"
-        subtitle="AWAITING_CONFIRMATION"
+        subtitle="AWAITING_VERIFICATION"
       />
-      <StatCard 
-        label="Settlements (30d)"
+      <StatCard
+        label="Invoices Generated (30d)"
         :value="stats.successfulSettlements.toLocaleString()"
         :change="stats.successfulSettlementsChange"
-        subtitle="CONFIRMED_ON_CHAIN"
+        subtitle="TAX_DOCUMENTED"
       />
     </div>
 
@@ -81,19 +81,19 @@
             </div>
             <div>
               <div class="text-sm text-text-primary font-semibold">Create Invoice</div>
-              <div class="text-xs text-text-muted mt-0.5">Generate a payment link</div>
+              <div class="text-xs text-text-muted mt-0.5">Generate tax-compliant documentation</div>
             </div>
           </Link>
-          <Link 
-            href="/dashboard/vault" 
+          <Link
+            href="/dashboard/wallets"
             class="flex items-center gap-4 p-3 border border-ledger-border rounded-xl hover:border-node hover:bg-ledger transition-all group/action"
           >
             <div class="w-10 h-10 rounded-full border border-ledger-border bg-void flex items-center justify-center text-text-muted group-hover/action:border-node group-hover/action:text-node group-hover/action:bg-node/5 transition-colors">
-              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a2.25 2.25 0 00-2.25-2.25H15a3 3 0 110-6h5.25A2.25 2.25 0 0121 6v6zm0 0v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18V6a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 6m-3 6h.008v.008H18V12z"/></svg>
             </div>
             <div>
-              <div class="text-sm text-text-primary font-semibold">Add XPUB</div>
-              <div class="text-xs text-text-muted mt-0.5">Link a hardware wallet</div>
+              <div class="text-sm text-text-primary font-semibold">Connect Wallet</div>
+              <div class="text-xs text-text-muted mt-0.5">Link a wallet or exchange for tracking</div>
             </div>
           </Link>
           <Link 
@@ -105,7 +105,7 @@
             </div>
             <div>
               <div class="text-sm text-text-primary font-semibold">Live Monitor</div>
-              <div class="text-xs text-text-muted mt-0.5">Watch payments arrive</div>
+              <div class="text-xs text-text-muted mt-0.5">Watch transactions to document</div>
             </div>
           </Link>
         </div>
@@ -114,7 +114,7 @@
 
     <!-- Recent Transactions -->
     <DataTable 
-      title="Recent Settlements"
+      title="Recent Documented Transactions"
       :columns="txColumns"
       :rows="recentPayments"
       :perPage="8"

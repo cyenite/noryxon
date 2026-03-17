@@ -8,7 +8,7 @@
         </div>
         <div>
           <div class="text-sm font-bold text-amber-500">Testnet Sandbox Active</div>
-          <div class="text-xs font-medium text-text-muted mt-0.5">All operations here use testnet networks. No real funds are involved.</div>
+          <div class="text-xs font-medium text-text-muted mt-0.5">All operations here use testnet data. No real transactions are documented.</div>
         </div>
       </div>
       <div class="flex items-center gap-2 bg-void px-3 py-1.5 rounded-full border border-amber-500/20">
@@ -22,7 +22,7 @@
       <div class="lg:col-span-2 border border-ledger-border bg-void rounded-xl p-6 shadow-sm">
         <div class="text-sm font-semibold text-text-primary mb-6 flex items-center gap-2">
           <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-          Payment Simulator
+          Invoice Simulator
         </div>
         
         <div class="grid grid-cols-2 gap-5 mb-6">
@@ -44,7 +44,7 @@
           class="w-full py-3 rounded-lg bg-amber-500/10 border-2 border-dashed border-amber-500/50 text-amber-500 font-bold text-sm hover:bg-amber-500 hover:text-void hover:border-amber-500 hover:shadow-[0_0_15px] hover:shadow-amber-500/40 transition-all disabled:opacity-50 flex items-center justify-center gap-2 mb-6"
         >
           <svg v-if="simulating" class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
-          {{ simulating ? simulationStatus : 'Simulate Payment' }}
+          {{ simulating ? simulationStatus : 'Simulate Invoice Generation' }}
         </button>
 
         <!-- Simulation Log -->
@@ -155,15 +155,15 @@ const simulatePayment = async () => {
   const hash = generateHash(32);
   
   const steps = [
-    { msg: `> POST /v1/payments {"amount": ${simAmount.value}, "currency": "${simToken.value}"}`, color: 'text-node', delay: 300 },
-    { msg: `> Payment created. Address: 0x${generateHash(20)}`, color: 'text-text-primary', delay: 500 },
-    { msg: `> Awaiting transaction in mempool...`, color: 'text-text-muted', delay: 1200 },
+    { msg: `> POST /v1/invoices {"amount": ${simAmount.value}, "currency": "${simToken.value}"}`, color: 'text-node', delay: 300 },
+    { msg: `> Monitoring wallet for transaction...`, color: 'text-text-primary', delay: 500 },
+    { msg: `> Scanning mempool on testnet...`, color: 'text-text-muted', delay: 1200 },
     { msg: `> TX DETECTED: ${hash}`, color: 'text-amber-400', delay: 800 },
     { msg: `> Confirmation 1/3 — Block #${Math.floor(Math.random() * 1000000 + 19000000)}`, color: 'text-text-muted', delay: 600 },
     { msg: `> Confirmation 2/3 — Block #${Math.floor(Math.random() * 1000000 + 19000001)}`, color: 'text-text-muted', delay: 600 },
     { msg: `> Confirmation 3/3 — CONFIRMED`, color: 'text-pulse', delay: 400 },
-    { msg: `> Webhook dispatched → payment.confirmed`, color: 'text-node', delay: 300 },
-    { msg: `> Settlement complete: +${simAmount.value} ${simToken.value} to your testnet wallet`, color: 'text-pulse font-bold', delay: 200 },
+    { msg: `> Webhook dispatched → invoice.generated`, color: 'text-node', delay: 300 },
+    { msg: `> Invoice created: ${simAmount.value} ${simToken.value} documented with tax report`, color: 'text-pulse font-bold', delay: 200 },
   ];
 
   for (const step of steps) {
@@ -180,7 +180,7 @@ const simulatePayment = async () => {
     preserveScroll: true,
     onSuccess: () => {
       simulating.value = false;
-      addNotification('Test Payment Confirmed', `${simAmount.value} ${simToken.value} successfully settled in sandbox.`, 'success', 5000);
+      addNotification('Test Invoice Generated', `${simAmount.value} ${simToken.value} invoice documented in sandbox.`, 'success', 5000);
     },
     onError: () => {
       simulating.value = false;

@@ -36,7 +36,7 @@
     </main>
     
     <footer class="bg-void border-t border-ledger-border py-8 text-center font-mono text-xs text-text-muted">
-      NORYXON BRIDGE PROTOCOL &copy; {{ new Date().getFullYear() }}. ALL EXECUTIONS FINAL.
+      NORYXON INVOICE PROTOCOL &copy; {{ new Date().getFullYear() }}. DOCUMENTATION ONLY — NO CUSTODY.
       <div class="mt-4 flex justify-center gap-6">
          <Link href="/pricing" class="hover:text-pulse transition-colors">Pricing</Link>
          <a href="https://docs.noryxon.com" target="_blank" class="hover:text-pulse transition-colors">Docs</a>

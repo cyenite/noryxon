@@ -117,11 +117,11 @@ import { useDashboard } from '@/Composables/useDashboard';
 const { generateHash, generateShortHash } = useDashboard();
 
 const endpoints = [
-  { path: '/v1/payments', method: 'POST', desc: 'Create payment' },
-  { path: '/v1/payments/:id', method: 'GET', desc: 'Get payment' },
-  { path: '/v1/subscriptions', method: 'POST', desc: 'Create subscription' },
+  { path: '/v1/invoices', method: 'POST', desc: 'Create invoice' },
+  { path: '/v1/invoices/:id', method: 'GET', desc: 'Get invoice' },
+  { path: '/v1/invoices/:id/tax-report', method: 'GET', desc: 'Get tax report' },
   { path: '/v1/webhooks', method: 'GET', desc: 'List webhooks' },
-  { path: '/v1/xpubs', method: 'GET', desc: 'List XPUBs' },
+  { path: '/v1/wallets', method: 'GET', desc: 'List tracked wallets' },
 ];
 
 const selectedMethod = ref('POST');
@@ -133,11 +133,12 @@ const requestBody = ref(JSON.stringify({
   amount: 99.99,
   currency: "USDC",
   chain: "ethereum",
-  description: "Test payment",
+  payer: "client@example.com",
+  purpose: "Digital asset payment",
   webhook_url: "https://your-site.com/webhook",
   metadata: {
     order_id: "ORD-12345",
-    customer_email: "customer@example.com"
+    tx_hash: "0x..."
   }
 }, null, 2));
 
@@ -150,8 +151,8 @@ const executeRequest = async () => {
   
   await new Promise(r => setTimeout(r, 800 + Math.random() * 600));
   
-  if (selectedEndpoint.value.path === '/v1/payments' && selectedMethod.value === 'POST') {
-    const paymentId = generateHash(12);
+  if (selectedEndpoint.value.path === '/v1/invoices' && selectedMethod.value === 'POST') {
+    const invoiceId = 'INV-' + generateHash(8).toUpperCase();
     response.value = {
       status: 200,
       statusText: 'OK',
@@ -159,17 +160,17 @@ const executeRequest = async () => {
       requestId: generateHash(16),
       signature: generateHash(32),
       body: JSON.stringify({
-        id: paymentId,
-        object: "payment",
-        status: "pending",
+        id: invoiceId,
+        object: "invoice",
+        status: "generated",
         amount: 99.99,
         currency: "USDC",
         chain: "ethereum",
-        address: '0x' + generateHash(40),
-        qr_url: `https://pay.noryxon.com/${paymentId}`,
-        expires_at: new Date(Date.now() + 1800000).toISOString(),
-        confirmations_required: 3,
-        webhook_url: "https://your-site.com/webhook",
+        payer: "client@example.com",
+        purpose: "Digital asset payment",
+        tax_report_url: `https://api.noryxon.com/v1/invoices/${invoiceId}/tax-report`,
+        pdf_url: `https://api.noryxon.com/v1/invoices/${invoiceId}/pdf`,
+        offramp_redirect: "https://yellowcard.io/sell",
         created_at: new Date().toISOString(),
       }, null, 2),
     };

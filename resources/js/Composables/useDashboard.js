@@ -21,6 +21,44 @@ const chains = [
 
 const tokens = ['USDC', 'USDT', 'DAI', 'BTC', 'ETH', 'SOL', 'AVAX', 'MATIC', 'WBTC', 'WETH'];
 
+// ─── Wallet Provider Configurations ───
+
+const walletProviders = {
+  exchanges: [
+    { id: 'binance', name: 'Binance', icon: '◆', requiresPassphrase: false, color: '#F3BA2F' },
+    { id: 'coinbase', name: 'Coinbase', icon: '◉', requiresPassphrase: true, color: '#0052FF' },
+    { id: 'kraken', name: 'Kraken', icon: '◈', requiresPassphrase: false, color: '#5741D9' },
+    { id: 'kucoin', name: 'KuCoin', icon: '⬡', requiresPassphrase: true, color: '#24AE8F' },
+    { id: 'bybit', name: 'Bybit', icon: '▲', requiresPassphrase: false, color: '#F7A600' },
+    { id: 'okx', name: 'OKX', icon: '⊕', requiresPassphrase: true, color: '#000000' },
+  ],
+  software: [
+    { id: 'metamask', name: 'MetaMask', icon: '🦊', chains: ['eth', 'bnb', 'matic', 'arb', 'op', 'base', 'avax'], color: '#E2761B' },
+    { id: 'trustwallet', name: 'Trust Wallet', icon: '🛡️', chains: ['eth', 'bnb', 'sol', 'trx', 'matic', 'btc'], color: '#3375BB' },
+    { id: 'phantom', name: 'Phantom', icon: '👻', chains: ['sol', 'eth', 'matic'], color: '#AB9FF2' },
+    { id: 'rabby', name: 'Rabby', icon: '🐰', chains: ['eth', 'bnb', 'matic', 'arb', 'op', 'base', 'avax'], color: '#8697FF' },
+    { id: 'rainbow', name: 'Rainbow', icon: '🌈', chains: ['eth', 'arb', 'op', 'base', 'matic'], color: '#001E59' },
+    { id: 'generic', name: 'Other Wallet', icon: '💼', chains: null, color: '#9CA3AF' },
+  ],
+};
+
+const getProviderConfig = (type, providerId) => {
+  const list = type === 'exchange' ? walletProviders.exchanges : walletProviders.software;
+  return list?.find(p => p.id === providerId) || { id: providerId, name: providerId, icon: '?', color: '#9CA3AF' };
+};
+
+const getWalletTypeLabel = (type) => {
+  return { exchange: 'Exchange', software: 'Software Wallet', xpub: 'XPub Key', manual: 'Manual Address' }[type] || type;
+};
+
+const getWalletTypeColor = (type) => {
+  return { exchange: 'text-pulse', software: 'text-blue-500', xpub: 'text-purple-500', manual: 'text-text-muted' }[type] || 'text-text-muted';
+};
+
+const getWalletTypeBg = (type) => {
+  return { exchange: 'bg-pulse/10', software: 'bg-blue-500/10', xpub: 'bg-purple-500/10', manual: 'bg-text-muted/10' }[type] || 'bg-text-muted/10';
+};
+
 
 const formatDate = (iso) => {
   const d = new Date(iso);
@@ -108,6 +146,12 @@ export function useDashboard() {
     generateHash,
     generateShortHash,
     getChainConfig,
+    // Wallet providers
+    walletProviders,
+    getProviderConfig,
+    getWalletTypeLabel,
+    getWalletTypeColor,
+    getWalletTypeBg,
     // Chart helpers
     generateDailyVolume,
     generateChainBreakdown,

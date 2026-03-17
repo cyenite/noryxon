@@ -13,6 +13,7 @@ class Payment extends Model
     protected $fillable = [
         'user_id',
         'xpub_id',
+        'wallet_id',
         'tx_hash',
         'amount',
         'token',
@@ -38,6 +39,14 @@ class Payment extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function wallet(): BelongsTo
+    {
+        return $this->belongsTo(Wallet::class);
+    }
+
+    /**
+     * @deprecated Use wallet() instead
+     */
     public function xpub(): BelongsTo
     {
         return $this->belongsTo(Xpub::class);

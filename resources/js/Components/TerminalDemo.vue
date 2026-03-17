@@ -5,8 +5,8 @@
     
     <div class="max-w-7xl mx-auto px-6 relative z-10">
       <div class="mb-16 text-center">
-        <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tighter text-text-primary drop-shadow-lg">Real-Time Execution</h2>
-        <p class="text-pulse font-mono mt-4 text-sm tracking-widest uppercase">stateless_monitoring // instant_validation</p>
+        <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tighter text-text-primary drop-shadow-lg">Watch It Happen. Live.</h2>
+        <p class="text-pulse font-mono mt-4 text-sm tracking-widest uppercase">one_api_call // zero_excuses</p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch relative">
@@ -31,19 +31,20 @@
             <div class="absolute inset-0 bg-[linear-gradient(rgba(0,255,163,0.03)_1px,transparent_1px)] bg-[size:100%_4px] pointer-events-none"></div>
             
             <div class="relative z-10">
-              <p class="mb-4 text-text-muted"># INIT_PAYMENT_REQUEST</p>
-              <p><span class="text-node font-bold">curl</span> -X POST https://api.noryxon.com/v1/payments \</p>
+              <p class="mb-4 text-text-muted"># CREATE_INVOICE_FOR_TRANSACTION</p>
+              <p><span class="text-node font-bold">curl</span> -X POST https://api.noryxon.com/v1/invoices \</p>
               <p class="ml-4">-H <span class="text-pulse/90">"Authorization: Bearer sk_live_7x9a..."</span> \</p>
               <p class="ml-4">-H <span class="text-pulse/90">"Content-Type: application/json"</span> \</p>
               <p class="ml-4">-d '{</p>
               <p class="ml-8 text-text-primary/90">"amount": "{{ currentAmount }}",</p>
               <p class="ml-8 text-text-primary/90">"currency": "{{ currentCurrency }}",</p>
-              <p class="ml-8 text-text-primary/90">"chain": "{{ currentChain }}"</p>
+              <p class="ml-8 text-text-primary/90">"chain": "{{ currentChain }}",</p>
+              <p class="ml-8 text-text-primary/90">"payer": "client@example.com"</p>
               <p class="ml-4">}'</p>
               
               <div class="mt-8 border-t border-dashed border-ledger-border pt-4">
                 <div v-if="!isSimulating && !isComplete" class="text-pulse animate-pulse">
-                  <span class="mr-2">_</span>READY_TO_RECEIVE_FUNDS
+                  <span class="mr-2">_</span>READY_TO_GENERATE_INVOICE
                 </div>
                 
                 <div v-if="isSimulating" class="text-node">
@@ -55,9 +56,9 @@
                    > HTTP/1.1 200 OK<br>
                    > <span class="text-text-primary">{</span><br>
                    > &nbsp;&nbsp;"id": "{{ currentSessionId }}",<br>
-                   > &nbsp;&nbsp;"received": "{{ currentAmount }} {{ currentCurrency }}",<br>
-                   > &nbsp;&nbsp;"status": "settled_to_cold_storage",<br>
-                   > &nbsp;&nbsp;"fee_charged": "0.00"<br>
+                   > &nbsp;&nbsp;"amount": "{{ currentAmount }} {{ currentCurrency }}",<br>
+                   > &nbsp;&nbsp;"status": "invoice_generated",<br>
+                   > &nbsp;&nbsp;"tax_report": "dat_compliant"<br>
                    > <span class="text-text-primary">}</span>
                 </div>
               </div>
@@ -79,7 +80,7 @@
           
           <div class="text-center mt-8 z-10 w-full px-8">
             <h3 class="text-2xl font-black uppercase tracking-widest mb-1 drop-shadow-[2px_2px_0_var(--theme-pulse)] opacity-80" :style="isComplete ? '' : 'filter: drop-shadow(2px 2px 0px var(--theme-pulse)); opacity: 1;'">
-              {{ isComplete ? 'Payment Secured' : 'Awaiting Deposit' }}
+              {{ isComplete ? 'Invoice Generated' : 'Awaiting Transaction' }}
             </h3>
             <p class="font-mono text-text-muted mb-8 text-xs border-b border-ledger-border pb-4 w-full">TRANSFER_EXPECTED: {{ currentAmount }} {{ currentCurrency }} ({{ currentChain.toUpperCase() }})</p>
             
@@ -109,11 +110,11 @@
             
             <div class="font-mono bg-ledger-light border border-ledger-border px-4 py-3 w-full max-w-sm mx-auto truncate text-text-primary/90 text-xs tracking-wider relative overflow-hidden group/addr">
               <div class="absolute inset-0 bg-pulse/10 translate-y-full group-hover/addr:translate-y-0 transition-transform"></div>
-              <span class="relative z-10">{{ isComplete ? 'SETTLEMENT_COMPLETE' : currentAddress }}</span>
+              <span class="relative z-10">{{ isComplete ? 'INVOICE_DOCUMENTED' : currentAddress }}</span>
             </div>
             
             <div class="mt-8 mx-auto font-mono text-[10px] uppercase font-bold px-6 py-3 tracking-widest text-center border" :class="isComplete ? 'border-node text-node shadow-[0_0_15px] shadow-node/30' : 'border-pulse/50 text-pulse/80'">
-              {{ isComplete ? '[ TRANSACTION_SETTLED ]' : (isSimulating ? '[ AWAITING_CONFIRMATIONS ]' : '[ REALTIME_MONITORING_ACTIVE ]') }}
+              {{ isComplete ? '[ INVOICE_COMPLETE ]' : (isSimulating ? '[ VERIFYING_TRANSACTION ]' : '[ REALTIME_MONITORING_ACTIVE ]') }}
             </div>
           </div>
         </div>
@@ -144,7 +145,7 @@ const tokens = ['USDC', 'USDT', 'ETH', 'BTC', 'DAI', 'SOL'];
 const hexChars = '0123456789aAbBcCdDeEfF';
 
 const generateMockAddress = () => '0x' + Array.from({length: 40}, () => hexChars[Math.floor(Math.random() * 22)]).join('');
-const generateMockId = () => 'pay_' + Math.random().toString(36).substring(2, 8);
+const generateMockId = () => 'inv_' + Math.random().toString(36).substring(2, 8);
 
 const runSimulation = () => {
   if (isSimulating.value) return;
@@ -160,13 +161,13 @@ const runSimulation = () => {
   simLogs.value = [];
   
   const logs = [
-    '99.99% UPTIME: Connecting to Noryxon Gateway...',
-    'NO SETUP FEES: Initializing merchant session...',
-    'POST /v1/payments (Payload: 89 bytes)',
-    'ZERO CUSTODY: Deriving isolated payout address...',
-    `USER PAYS FOR PRODUCT: Awaiting ${currentAmount.value} ${currentCurrency.value}...`,
-    'INSTANT SETTLEMENT: Route configured to cold storage.',
-    '200 OK - Secure payment session active.'
+    'Connecting to Noryxon Invoice Engine...',
+    'Verifying on-chain transaction...',
+    `POST /v1/invoices (Payload: 112 bytes)`,
+    `DETECTED: ${currentAmount.value} ${currentCurrency.value} on ${currentChain.value}...`,
+    'Generating compliant invoice with payer details...',
+    'Computing Digital Asset Tax documentation...',
+    '200 OK - Invoice generated. Tax report ready.'
   ];
   
   clearInterval(simInterval);

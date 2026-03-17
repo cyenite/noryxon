@@ -33,6 +33,14 @@ class User extends Authenticatable
         ];
     }
 
+    public function wallets(): HasMany
+    {
+        return $this->hasMany(Wallet::class);
+    }
+
+    /**
+     * @deprecated Use wallets() instead
+     */
     public function xpubs(): HasMany
     {
         return $this->hasMany(Xpub::class);

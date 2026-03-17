@@ -35,13 +35,13 @@ import { Link } from '@inertiajs/vue3';
             <!-- Center content -->
             <div class="relative z-10 space-y-8">
                 <div class="space-y-4">
-                    <div class="font-mono text-xs text-pulse tracking-[0.3em] uppercase">BRIDGE PROTOCOL v2</div>
+                    <div class="font-mono text-xs text-pulse tracking-[0.3em] uppercase">INVOICE PROTOCOL v2</div>
                     <h1 class="text-4xl xl:text-5xl font-black tracking-tight text-text-primary leading-tight">
-                        Enterprise Crypto<br>
-                        <span class="text-pulse">Payments</span> Infrastructure
+                        Digital Asset<br>
+                        <span class="text-pulse">Invoicing</span> Infrastructure
                     </h1>
                     <p class="text-text-muted text-base max-w-md leading-relaxed">
-                        Institutional-grade multi-chain settlement layer designed for scale. Zero-trust, always verified.
+                        The platform that turns "unexplained income" into "properly documented digital assets." Zero custody, zero excuses.
                     </p>
                 </div>
 
@@ -95,13 +95,13 @@ export default {
     data() {
         return {
             features: [
-                { label: 'Multi-chain settlement (BTC, ETH, SOL +20)' },
-                { label: 'Sub-second confirmation webhooks' },
-                { label: 'ISO 27001 compliant key management' },
-                { label: 'API-first with SDKs in 8 languages' },
+                { label: 'Multi-chain invoicing (BTC, ETH, SOL +12)' },
+                { label: 'Tax-compliant documentation & DAT reports' },
+                { label: 'Off-ramp partner redirects (no VASP needed)' },
+                { label: 'API-first with SDKs in 5 languages' },
             ],
             stats: [
-                { value: '$4.2B+', label: 'SETTLED' },
+                { value: '$4.2B+', label: 'DOCUMENTED' },
                 { value: '99.99%', label: 'UPTIME' },
                 { value: '180+', label: 'COUNTRIES' },
             ]

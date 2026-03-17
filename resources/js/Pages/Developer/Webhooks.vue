@@ -156,8 +156,8 @@ const form = useForm({
 const showSecret = ref(false);
 const inspectedDelivery = ref(null);
 
-const availableEvents = ['payment.confirmed', 'payment.pending', 'payment.expired', 'subscription.renewed', 'subscription.cancelled'];
-const subscribedEvents = ref(['payment.confirmed', 'payment.pending', 'payment.expired']);
+const availableEvents = ['invoice.generated', 'invoice.verified', 'transaction.detected', 'transaction.confirmed', 'tax_report.ready'];
+const subscribedEvents = ref(['invoice.generated', 'transaction.confirmed', 'tax_report.ready']);
 
 const columns = [
   { key: 'event', label: 'Event' },
