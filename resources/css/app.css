@@ -12,6 +12,28 @@
   
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Stitch "Illuminated Ledger" tokens */
+  --color-surface: #faf8ff;
+  --color-on-surface: #131b2e;
+  --color-primary: #855300;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #f59e0b;
+  --color-primary-fixed: #ffddb8;
+  --color-on-primary-container: #613b00;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f2f3ff;
+  --color-surface-container: #eaedff;
+  --color-surface-container-high: #e2e7ff;
+  --color-surface-container-highest: #dae2fd;
+  --color-on-surface-variant: #534434;
+  --color-outline-variant: #d8c3ad;
+  --color-outline: #867461;
+  --color-tertiary: #006c49;
+  --color-tertiary-container: #30c88f;
+  --color-on-tertiary-container: #004e34;
+  --color-tertiary-fixed: #6ffbbe;
+  --color-error: #ba1a1a;
 }
 
 @layer base {
@@ -53,4 +75,27 @@
     --color-text-primary: #f8f8f8;
     --color-text-muted: #a19ba8;
   }
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.cta-gradient {
+  background: linear-gradient(135deg, #855300 0%, #f59e0b 100%);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(24px);
+}
+
+.glass-nav {
+  background: rgba(250, 248, 255, 0.72);
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+}
+
+.noise-overlay {
+  background-image: url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22n%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/%3E%3C/svg%3E');
 }

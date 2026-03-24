@@ -26,20 +26,23 @@ const verificationLinkSent = computed(
         <Head title="Email Verification" />
 
         <div class="mb-8">
-            <div class="flex items-center gap-2 mb-3">
-                <div class="w-2 h-2 rounded-full bg-node animate-pulse"></div>
-                <span class="font-mono text-[10px] text-node tracking-widest uppercase">EMAIL_VERIFICATION</span>
+            <div class="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-full bg-primary/5 border border-primary/15">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-container opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-primary-container"></span>
+                </span>
+                <span class="font-mono text-[10px] text-primary tracking-widest uppercase font-bold">Email Verification</span>
             </div>
-            <h2 class="text-2xl font-black tracking-tight text-text-primary">Check your inbox</h2>
-            <p class="mt-2 text-sm text-text-muted leading-relaxed">
+            <h2 class="text-3xl font-extrabold tracking-tighter text-on-surface font-headline">Check your inbox</h2>
+            <p class="mt-2 text-sm text-on-surface-variant leading-relaxed">
                 We sent a verification link to your email. Click it to activate your account and start generating invoices. If you don't see it, check your spam folder.
             </p>
         </div>
 
-        <div v-if="verificationLinkSent" class="mb-6 px-4 py-3 border border-pulse/30 bg-pulse/5 rounded-lg">
+        <div v-if="verificationLinkSent" class="mb-6 px-4 py-3 border border-tertiary/30 bg-tertiary/5 rounded-xl">
             <div class="flex items-center gap-2">
-                <svg class="w-4 h-4 text-pulse shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                <span class="text-sm font-medium text-pulse">A fresh verification link has been sent to your email.</span>
+                <svg class="w-4 h-4 text-tertiary shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-sm font-medium text-tertiary">A fresh verification link has been sent to your email.</span>
             </div>
         </div>
 
@@ -61,7 +64,7 @@ const verificationLinkSent = computed(
                     :href="route('logout')"
                     method="post"
                     as="button"
-                    class="w-full text-center py-3 rounded-md border border-ledger-border text-sm text-text-muted font-medium hover:border-text-muted hover:text-text-primary transition-colors"
+                    class="w-full text-center py-3 rounded-xl border border-outline-variant/30 text-sm text-on-surface-variant font-medium hover:border-primary/30 hover:text-on-surface transition-colors"
                 >
                     Sign Out
                 </Link>
@@ -69,3 +72,7 @@ const verificationLinkSent = computed(
         </form>
     </GuestLayout>
 </template>
+
+<style scoped>
+.font-headline { font-family: 'Manrope', sans-serif; }
+</style>

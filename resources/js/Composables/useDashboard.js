@@ -52,11 +52,11 @@ const getWalletTypeLabel = (type) => {
 };
 
 const getWalletTypeColor = (type) => {
-  return { exchange: 'text-pulse', software: 'text-blue-500', xpub: 'text-purple-500', manual: 'text-text-muted' }[type] || 'text-text-muted';
+  return { exchange: 'text-primary', software: 'text-blue-500', xpub: 'text-purple-500', manual: 'text-on-surface-variant' }[type] || 'text-on-surface-variant';
 };
 
 const getWalletTypeBg = (type) => {
-  return { exchange: 'bg-pulse/10', software: 'bg-blue-500/10', xpub: 'bg-purple-500/10', manual: 'bg-text-muted/10' }[type] || 'bg-text-muted/10';
+  return { exchange: 'bg-primary/10', software: 'bg-blue-500/10', xpub: 'bg-purple-500/10', manual: 'bg-on-surface-variant/10' }[type] || 'bg-on-surface-variant/10';
 };
 
 

@@ -1,12 +1,12 @@
 <template>
-  <aside 
-    class="fixed left-0 top-0 h-screen border-r border-ledger-border bg-ledger z-40 flex flex-col transition-all duration-300 select-none shadow-sm"
+  <aside
+    class="fixed left-0 top-0 h-screen border-r border-outline-variant/15 bg-surface-container-lowest z-40 flex flex-col transition-all duration-300 select-none"
     :class="collapsed ? 'w-16' : 'w-60'"
   >
     <!-- Logo -->
-    <div class="h-16 flex items-center border-b border-ledger-border px-4 shrink-0">
+    <div class="h-16 flex items-center border-b border-outline-variant/15 px-4 shrink-0">
       <Link :href="type === 'merchant' ? '/dashboard' : '/developer'" class="flex items-center gap-2 overflow-hidden w-full">
-        <div class="w-7 h-7 bg-pulse rounded-md flex items-center justify-center shrink-0 text-void font-bold text-sm">
+        <div class="w-7 h-7 cta-gradient rounded-lg flex items-center justify-center shrink-0 text-white font-bold text-sm shadow-sm shadow-primary/20">
           N
         </div>
         <Transition
@@ -18,8 +18,8 @@
           leave-to-class="opacity-0"
         >
           <div v-if="!collapsed" class="whitespace-nowrap ml-1">
-            <div class="font-semibold text-base text-text-primary leading-tight">Noryxon</div>
-            <div class="text-[11px] text-text-muted">
+            <div class="font-extrabold text-base text-on-surface leading-tight tracking-tight font-headline">Noryxon</div>
+            <div class="text-[11px] text-on-surface-variant font-medium">
               {{ type === 'merchant' ? 'Invoice Vault' : 'Dev Portal' }}
             </div>
           </div>
@@ -28,11 +28,11 @@
     </div>
 
     <!-- Testnet Banner -->
-    <div 
+    <div
       v-if="isTestnet"
-      class="mx-3 mt-3 py-1.5 text-center text-[11px] font-semibold rounded-md shrink-0 bg-amber-500/10 text-amber-500 border border-amber-500/20"
+      class="mx-3 mt-3 py-1.5 text-center text-[11px] font-semibold rounded-lg shrink-0 bg-primary-container/10 text-primary border border-primary-container/30"
     >
-      {{ collapsed ? '⚠' : 'Testnet Mode' }}
+      {{ collapsed ? '!' : 'Testnet Mode' }}
     </div>
 
     <!-- Navigation -->
@@ -41,10 +41,10 @@
         v-for="item in navItems"
         :key="item.href"
         :href="item.href"
-        class="flex items-center gap-3 px-3 py-2.5 text-sm rounded-lg transition-all duration-200 relative group/nav font-medium"
-        :class="isActive(item.href) 
-          ? 'text-pulse bg-pulse/10' 
-          : 'text-text-muted hover:text-text-primary hover:bg-ledger-light'"
+        class="flex items-center gap-3 px-3 py-2.5 text-sm rounded-xl transition-all duration-200 relative group/nav font-medium"
+        :class="isActive(item.href)
+          ? 'text-primary bg-primary/8 shadow-sm'
+          : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low'"
       >
         <div class="w-5 h-5 flex items-center justify-center shrink-0" v-html="item.icon"></div>
         <Transition
@@ -57,11 +57,14 @@
         >
           <span v-if="!collapsed" class="whitespace-nowrap">{{ item.label }}</span>
         </Transition>
-        
+
+        <!-- Active indicator -->
+        <div v-if="isActive(item.href)" class="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-5 rounded-l-full cta-gradient"></div>
+
         <!-- Tooltip for collapsed mode -->
-        <div 
+        <div
           v-if="collapsed"
-          class="absolute left-full ml-3 px-3 py-1.5 bg-void border border-ledger-border text-text-primary text-xs rounded shadow-lg whitespace-nowrap opacity-0 group-hover/nav:opacity-100 pointer-events-none transition-opacity z-50"
+          class="absolute left-full ml-3 px-3 py-1.5 bg-surface-container-lowest border border-outline-variant/20 text-on-surface text-xs rounded-lg shadow-lg whitespace-nowrap opacity-0 group-hover/nav:opacity-100 pointer-events-none transition-opacity z-50"
         >
           {{ item.label }}
         </div>
@@ -69,10 +72,10 @@
     </nav>
 
     <!-- Collapse Toggle -->
-    <div class="border-t border-ledger-border p-3 shrink-0">
-      <button 
+    <div class="border-t border-outline-variant/15 p-3 shrink-0">
+      <button
         @click="collapsed = !collapsed"
-        class="w-full flex items-center justify-center gap-2 px-3 py-2 text-sm text-text-muted hover:text-text-primary hover:bg-ledger-light rounded-lg transition-colors font-medium"
+        class="w-full flex items-center justify-center gap-2 px-3 py-2 text-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low rounded-xl transition-colors font-medium"
       >
         <svg class="w-4 h-4 transition-transform duration-300" :class="collapsed ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
@@ -89,7 +92,7 @@ import { Link, usePage } from '@inertiajs/vue3';
 import { useDashboard } from '@/Composables/useDashboard';
 
 const props = defineProps({
-  type: { type: String, default: 'merchant' }, // 'merchant' | 'developer'
+  type: { type: String, default: 'merchant' },
 });
 
 const { isTestnet } = useDashboard();
@@ -123,3 +126,7 @@ const developerNav = [
 
 const navItems = computed(() => props.type === 'merchant' ? merchantNav : developerNav);
 </script>
+
+<style scoped>
+.font-headline { font-family: 'Manrope', sans-serif; }
+</style>

@@ -3,11 +3,11 @@
     <!-- Vault Header -->
     <div class="flex items-center justify-between mb-6">
       <div>
-        <div class="text-sm font-medium text-text-muted mb-1">Link wallet public keys for automatic transaction detection and invoice generation. Private keys never leave your device.</div>
+        <div class="text-sm font-medium text-on-surface-variant mb-1">Link wallet public keys for automatic transaction detection and invoice generation. Private keys never leave your device.</div>
       </div>
       <button 
         @click="showAddModal = true"
-        class="flex items-center gap-2 bg-pulse text-void font-semibold px-5 py-2.5 rounded-lg text-sm hover:shadow-lg hover:shadow-pulse/20 transition-all hover:bg-[#E5C130]"
+        class="flex items-center gap-2 bg-primary text-void font-semibold px-5 py-2.5 rounded-lg text-sm hover:shadow-lg hover:shadow-pulse/20 transition-all hover:bg-[#E5C130]"
       >
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
         Add XPUB
@@ -31,17 +31,17 @@
       <template #cell-chain="{ row }">
         <span class="flex items-center gap-2">
           <span class="text-sm">{{ getChainConfig(row.chain).icon }}</span>
-          <span class="text-text-primary font-bold">{{ getChainConfig(row.chain).symbol }}</span>
+          <span class="text-on-surface font-bold">{{ getChainConfig(row.chain).symbol }}</span>
         </span>
       </template>
       <template #cell-keyTruncated="{ value }">
-        <span class="text-pulse font-mono text-xs cursor-pointer hover:underline transition-colors" @click="copyKey(value)">{{ value }}</span>
+        <span class="text-primary font-mono text-xs cursor-pointer hover:underline transition-colors" @click="copyKey(value)">{{ value }}</span>
       </template>
       <template #cell-label="{ value }">
-        <span class="text-text-primary font-medium">{{ value }}</span>
+        <span class="text-on-surface font-medium">{{ value }}</span>
       </template>
       <template #cell-derivationPath="{ value }">
-        <span class="text-text-muted font-mono font-medium text-xs">{{ value }}</span>
+        <span class="text-on-surface-variant font-mono font-medium text-xs">{{ value }}</span>
       </template>
       <template #cell-status="{ value }">
         <span 
@@ -49,7 +49,7 @@
           :class="{
             'text-green-500 bg-green-500/10': value === 'synced',
             'text-blue-500 bg-blue-500/10': value === 'watching',
-            'text-text-muted bg-text-muted/10': value === 'paused',
+            'text-on-surface-variant bg-text-muted/10': value === 'paused',
           }"
           style="text-transform: capitalize;"
         >
@@ -57,17 +57,17 @@
         </span>
       </template>
       <template #cell-totalReceived="{ value }">
-        <span class="text-text-primary font-bold">{{ formatCurrency(value) }}</span>
+        <span class="text-on-surface font-bold">{{ formatCurrency(value) }}</span>
       </template>
       <template #cell-addressesGenerated="{ value }">
-        <span class="text-text-muted font-medium">{{ value.toLocaleString() }}</span>
+        <span class="text-on-surface-variant font-medium">{{ value.toLocaleString() }}</span>
       </template>
       <template #cell-actions="{ row }">
         <div class="flex items-center gap-2">
-          <button @click="updateStatus(row)" class="px-3 py-1.5 rounded-md border border-ledger-border text-text-muted hover:border-blue-500 hover:text-blue-500 transition-colors text-xs font-medium">
+          <button @click="updateStatus(row)" class="px-3 py-1.5 rounded-md border border-outline-variant/15 text-on-surface-variant hover:border-blue-500 hover:text-blue-500 transition-colors text-xs font-medium">
             {{ row.status === 'paused' ? 'Resume' : 'Pause' }}
           </button>
-          <button @click="deleteXpub(row)" class="px-3 py-1.5 rounded-md border border-ledger-border text-text-muted hover:border-red-500 hover:text-red-500 transition-colors text-xs font-medium">
+          <button @click="deleteXpub(row)" class="px-3 py-1.5 rounded-md border border-outline-variant/15 text-on-surface-variant hover:border-red-500 hover:text-red-500 transition-colors text-xs font-medium">
             Delete
           </button>
         </div>
@@ -84,35 +84,35 @@
         leave-from-class="opacity-100"
         leave-to-class="opacity-0"
       >
-        <div v-if="showAddModal" class="fixed inset-0 z-50 flex items-center justify-center bg-void/80 backdrop-blur-sm" @click.self="showAddModal = false">
-          <div class="bg-ledger border border-ledger-border rounded-xl w-full max-w-lg mx-4 shadow-2xl overflow-hidden">
+        <div v-if="showAddModal" class="fixed inset-0 z-50 flex items-center justify-center bg-surface/80 backdrop-blur-sm" @click.self="showAddModal = false">
+          <div class="bg-surface-container-lowest border border-outline-variant/15 rounded-xl w-full max-w-lg mx-4 shadow-2xl overflow-hidden">
             <!-- Modal Header -->
-            <div class="flex items-center justify-between px-6 py-4 border-b border-ledger-border bg-void">
-              <div class="text-sm font-semibold text-text-primary flex items-center gap-2">
-                <span class="w-1.5 h-1.5 bg-pulse rounded-full"></span>
+            <div class="flex items-center justify-between px-6 py-4 border-b border-outline-variant/15 bg-surface">
+              <div class="text-sm font-semibold text-on-surface flex items-center gap-2">
+                <span class="w-1.5 h-1.5 bg-primary rounded-full"></span>
                 Add Extended Public Key
               </div>
-              <button @click="showAddModal = false" class="p-1 rounded-md text-text-muted hover:text-text-primary hover:bg-ledger-light transition-colors">
+              <button @click="showAddModal = false" class="p-1 rounded-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
               </button>
             </div>
             <!-- Modal Body -->
-            <div class="p-6 space-y-5 bg-void/50">
+            <div class="p-6 space-y-5 bg-surface/50">
               <div>
-                <label class="block text-xs font-semibold text-text-primary mb-2">Label</label>
+                <label class="block text-xs font-semibold text-on-surface mb-2">Label</label>
                 <input 
                   v-model="form.label"
                   type="text" 
                   placeholder="e.g. Main Business Wallet"
-                  class="w-full bg-void border border-ledger-border rounded-lg px-4 py-2.5 text-sm text-text-primary placeholder:text-text-muted/50 focus:border-pulse focus:ring-1 focus:ring-pulse focus:outline-none transition-all"
+                  class="w-full bg-surface border border-outline-variant/15 rounded-lg px-4 py-2.5 text-sm text-on-surface placeholder:text-on-surface-variant/50 focus:border-primary focus:ring-1 focus:ring-pulse focus:outline-none transition-all"
                 />
                 <div v-if="form.errors.label" class="text-red-500 text-xs mt-1">{{ form.errors.label }}</div>
               </div>
               <div>
-                <label class="block text-xs font-semibold text-text-primary mb-2">Blockchain</label>
+                <label class="block text-xs font-semibold text-on-surface mb-2">Blockchain</label>
                 <select 
                   v-model="form.chain_id"
-                  class="w-full bg-void border border-ledger-border rounded-lg px-4 py-2.5 text-sm text-text-primary focus:border-pulse focus:ring-1 focus:ring-pulse focus:outline-none transition-all cursor-pointer"
+                  class="w-full bg-surface border border-outline-variant/15 rounded-lg px-4 py-2.5 text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-pulse focus:outline-none transition-all cursor-pointer"
                 >
                   <option value="" disabled>Select chain...</option>
                   <option v-for="chain in chains" :key="chain.id" :value="chain.id">{{ chain.icon }} {{ chain.name }} ({{ chain.symbol }})</option>
@@ -120,43 +120,43 @@
                 <div v-if="form.errors.chain_id" class="text-red-500 text-xs mt-1">{{ form.errors.chain_id }}</div>
               </div>
               <div>
-                <label class="block text-xs font-semibold text-text-primary mb-2">Extended Public Key (XPUB)</label>
+                <label class="block text-xs font-semibold text-on-surface mb-2">Extended Public Key (XPUB)</label>
                 <textarea 
                   v-model="form.xpub_key"
                   rows="3"
                   placeholder="xpub6CUGRUonZSQ4TWtTMmzXdrXDtypWKi..."
-                  class="w-full bg-void border border-ledger-border rounded-lg px-4 py-2.5 font-mono text-xs text-text-primary placeholder:text-text-muted/50 focus:border-pulse focus:ring-1 focus:ring-pulse focus:outline-none transition-all resize-none"
+                  class="w-full bg-surface border border-outline-variant/15 rounded-lg px-4 py-2.5 font-mono text-xs text-on-surface placeholder:text-on-surface-variant/50 focus:border-primary focus:ring-1 focus:ring-pulse focus:outline-none transition-all resize-none"
                 ></textarea>
                 <div v-if="form.errors.xpub_key" class="text-red-500 text-xs mt-1">{{ form.errors.xpub_key }}</div>
                 <div class="flex items-center gap-2 mt-2">
                   <div class="w-2 h-2 rounded-full" :class="xpubValid ? 'bg-green-500' : 'bg-text-muted'"></div>
-                  <span class="text-[11px] font-medium" :class="xpubValid ? 'text-green-500' : 'text-text-muted'">
+                  <span class="text-[11px] font-medium" :class="xpubValid ? 'text-green-500' : 'text-on-surface-variant'">
                     {{ form.xpub_key.length > 0 ? (xpubValid ? 'Valid Checksum format' : 'Invalid Format') : 'Awaiting input...' }}
                   </span>
                 </div>
               </div>
               <div>
-                <label class="block text-xs font-semibold text-text-primary mb-2">Derivation Path</label>
+                <label class="block text-xs font-semibold text-on-surface mb-2">Derivation Path</label>
                 <input 
                   v-model="form.derivation_path"
                   type="text" 
-                  class="w-full bg-void border border-ledger-border rounded-lg px-4 py-2.5 text-sm font-mono text-text-primary placeholder:text-text-muted/50 focus:border-pulse focus:ring-1 focus:ring-pulse focus:outline-none transition-all"
+                  class="w-full bg-surface border border-outline-variant/15 rounded-lg px-4 py-2.5 text-sm font-mono text-on-surface placeholder:text-on-surface-variant/50 focus:border-primary focus:ring-1 focus:ring-pulse focus:outline-none transition-all"
                 />
                 <div v-if="form.errors.derivation_path" class="text-red-500 text-xs mt-1">{{ form.errors.derivation_path }}</div>
               </div>
             </div>
             <!-- Modal Footer -->
-            <div class="flex items-center justify-end gap-3 px-6 py-4 border-t border-ledger-border bg-void">
+            <div class="flex items-center justify-end gap-3 px-6 py-4 border-t border-outline-variant/15 bg-surface">
               <button 
                 @click="showAddModal = false"
-                class="px-5 py-2.5 rounded-lg border border-ledger-border text-text-muted text-sm font-semibold hover:bg-ledger transition-colors"
+                class="px-5 py-2.5 rounded-lg border border-outline-variant/15 text-on-surface-variant text-sm font-semibold hover:bg-surface-container-low transition-colors"
               >
                 Cancel
               </button>
               <button 
                 @click="addXpub"
                 :disabled="!xpubValid || form.processing"
-                class="px-5 py-2.5 rounded-lg bg-pulse text-void text-sm font-bold hover:shadow-lg hover:shadow-pulse/20 hover:bg-[#E5C130] transition-all disabled:opacity-30 disabled:cursor-not-allowed"
+                class="px-5 py-2.5 rounded-lg bg-primary text-void text-sm font-bold hover:shadow-lg hover:shadow-pulse/20 hover:bg-[#E5C130] transition-all disabled:opacity-30 disabled:cursor-not-allowed"
               >
                 Register Key
               </button>

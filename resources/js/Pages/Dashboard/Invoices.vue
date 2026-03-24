@@ -1,8 +1,8 @@
 <template>
   <DashboardLayout pageTitle="Invoices" breadcrumb="SYSTEM > COMMERCE > INVOICES" dashboardType="merchant">
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
-      <div class="text-sm font-medium text-text-muted">Generate tax-compliant invoices and documentation for on-chain transactions. Each invoice includes a DAT tax report.</div>
-      <button @click="showModal = true" class="flex items-center gap-2 bg-pulse text-void font-bold px-4 py-2 rounded-lg text-sm hover:shadow-[0_0_15px] hover:shadow-pulse/40 transition-all">
+      <div class="text-sm font-medium text-on-surface-variant">Generate tax-compliant invoices and documentation for on-chain transactions. Each invoice includes a DAT tax report.</div>
+      <button @click="showModal = true" class="flex items-center gap-2 bg-primary text-void font-bold px-4 py-2 rounded-lg text-sm hover:shadow-[0_0_15px] hover:shadow-pulse/40 transition-all">
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
         Create Invoice
       </button>
@@ -17,81 +17,81 @@
 
     <DataTable title="Invoice Registry" :columns="columns" :rows="initialInvoices" :perPage="10">
       <template #cell-invoiceNumber="{ value }">
-        <span class="text-text-primary font-bold">{{ value }}</span>
+        <span class="text-on-surface font-bold">{{ value }}</span>
       </template>
       <template #cell-amount="{ row }">
-        <span class="text-text-primary font-bold">{{ row.amount.toLocaleString() }}</span>
-        <span class="text-text-muted ml-1">{{ row.currency }}</span>
+        <span class="text-on-surface font-bold">{{ row.amount.toLocaleString() }}</span>
+        <span class="text-on-surface-variant ml-1">{{ row.currency }}</span>
       </template>
       <template #cell-status="{ value }">
         <span class="px-2 py-0.5 rounded-md text-[11px] font-semibold tracking-wide capitalize" :class="{
           'text-green-500 bg-green-500/10': value === 'paid',
           'text-amber-500 bg-amber-500/10': value === 'pending',
           'text-red-500 bg-red-500/10': value === 'expired',
-          'text-text-muted bg-text-muted/10': value === 'draft',
+          'text-on-surface-variant bg-text-muted/10': value === 'draft',
         }">{{ value }}</span>
       </template>
       <template #cell-memo="{ value }">
-        <span class="text-text-muted">{{ value }}</span>
+        <span class="text-on-surface-variant">{{ value }}</span>
       </template>
       <template #cell-paymentLink="{ value }">
-        <button @click="copyLink(value)" class="text-node hover:text-pulse transition-colors text-xs">{{ value }}</button>
+        <button @click="copyLink(value)" class="text-primary-container hover:text-primary transition-colors text-xs">{{ value }}</button>
       </template>
       <template #cell-taxReport="{ row }">
         <div class="flex items-center gap-2">
-          <button v-if="row.status === 'paid'" class="px-2 py-1 rounded border border-pulse/30 text-pulse text-[10px] font-semibold hover:bg-pulse/10 transition-colors">
+          <button v-if="row.status === 'paid'" class="px-2 py-1 rounded border border-primary/30 text-primary text-[10px] font-semibold hover:bg-primary/10 transition-colors">
             PDF
           </button>
-          <button v-if="row.status === 'paid'" class="px-2 py-1 rounded border border-node/30 text-node text-[10px] font-semibold hover:bg-node/10 transition-colors">
+          <button v-if="row.status === 'paid'" class="px-2 py-1 rounded border border-node/30 text-primary-container text-[10px] font-semibold hover:bg-node/10 transition-colors">
             Off-Ramp
           </button>
-          <span v-if="row.status !== 'paid'" class="text-text-muted text-[10px]">—</span>
+          <span v-if="row.status !== 'paid'" class="text-on-surface-variant text-[10px]">—</span>
         </div>
       </template>
       <template #cell-customerEmail="{ value }">
-        <span class="text-text-muted">{{ value }}</span>
+        <span class="text-on-surface-variant">{{ value }}</span>
       </template>
       <template #cell-createdAt="{ value }">
-        <span class="text-text-muted">{{ formatDate(value) }}</span>
+        <span class="text-on-surface-variant">{{ formatDate(value) }}</span>
       </template>
     </DataTable>
 
     <!-- Create Invoice Modal -->
     <Teleport to="body">
       <Transition enter-active-class="transition-all duration-200" enter-from-class="opacity-0" enter-to-class="opacity-100" leave-active-class="transition-all duration-150" leave-from-class="opacity-100" leave-to-class="opacity-0">
-        <div v-if="showModal" class="fixed inset-0 z-50 flex items-center justify-center bg-void/80 backdrop-blur-sm" @click.self="showModal = false">
-          <div class="bg-ledger border border-ledger-border w-full max-w-lg mx-4 shadow-2xl rounded-2xl overflow-hidden">
-            <div class="flex items-center justify-between px-6 py-4 border-b border-ledger-border bg-void/50">
-              <div class="text-sm font-semibold text-text-primary flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-pulse"></span> Create New Invoice
+        <div v-if="showModal" class="fixed inset-0 z-50 flex items-center justify-center bg-surface/80 backdrop-blur-sm" @click.self="showModal = false">
+          <div class="bg-surface-container-lowest border border-outline-variant/15 w-full max-w-lg mx-4 shadow-2xl rounded-2xl overflow-hidden">
+            <div class="flex items-center justify-between px-6 py-4 border-b border-outline-variant/15 bg-surface/50">
+              <div class="text-sm font-semibold text-on-surface flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-primary"></span> Create New Invoice
               </div>
-              <button @click="showModal = false" class="text-text-muted hover:text-text-primary transition-colors">
+              <button @click="showModal = false" class="text-on-surface-variant hover:text-on-surface transition-colors">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
               </button>
             </div>
             <div class="p-6 space-y-5">
               <div class="grid grid-cols-2 gap-4">
                 <div>
-                  <label class="block text-xs font-semibold text-text-muted mb-1.5">Amount</label>
-                  <input v-model="form.amount" type="number" placeholder="0.00" class="w-full bg-void border border-ledger-border rounded-lg px-4 py-2 text-sm text-text-primary placeholder:text-text-muted/50 focus:border-pulse focus:ring-1 focus:ring-pulse focus:outline-none transition-all" />
+                  <label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Amount</label>
+                  <input v-model="form.amount" type="number" placeholder="0.00" class="w-full bg-surface border border-outline-variant/15 rounded-lg px-4 py-2 text-sm text-on-surface placeholder:text-on-surface-variant/50 focus:border-primary focus:ring-1 focus:ring-pulse focus:outline-none transition-all" />
                   <div v-if="form.errors.amount" class="text-red-500 text-xs mt-1">{{ form.errors.amount }}</div>
                 </div>
                 <div>
-                  <label class="block text-xs font-semibold text-text-muted mb-1.5">Currency</label>
-                  <select v-model="form.currency" class="w-full bg-void border border-ledger-border rounded-lg px-4 py-2 text-sm text-text-primary focus:border-pulse focus:ring-1 focus:ring-pulse focus:outline-none appearance-none cursor-pointer transition-all">
+                  <label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Currency</label>
+                  <select v-model="form.currency" class="w-full bg-surface border border-outline-variant/15 rounded-lg px-4 py-2 text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-pulse focus:outline-none appearance-none cursor-pointer transition-all">
                     <option v-for="t in ['USDC','USDT','BTC','ETH','SOL']" :key="t" :value="t">{{ t }}</option>
                   </select>
                   <div v-if="form.errors.currency" class="text-red-500 text-xs mt-1">{{ form.errors.currency }}</div>
                 </div>
               </div>
               <div>
-                <label class="block text-xs font-semibold text-text-muted mb-1.5">Customer Email</label>
-                <input v-model="form.customer_email" type="email" placeholder="customer@example.com" class="w-full bg-void border border-ledger-border rounded-lg px-4 py-2 text-sm text-text-primary placeholder:text-text-muted/50 focus:border-pulse focus:ring-1 focus:ring-pulse focus:outline-none transition-all" />
+                <label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Customer Email</label>
+                <input v-model="form.customer_email" type="email" placeholder="customer@example.com" class="w-full bg-surface border border-outline-variant/15 rounded-lg px-4 py-2 text-sm text-on-surface placeholder:text-on-surface-variant/50 focus:border-primary focus:ring-1 focus:ring-pulse focus:outline-none transition-all" />
                 <div v-if="form.errors.customer_email" class="text-red-500 text-xs mt-1">{{ form.errors.customer_email }}</div>
               </div>
               <div>
-                <label class="block text-xs font-semibold text-text-muted mb-1.5">Transaction Purpose</label>
-                <select v-model="form.purpose" class="w-full bg-void border border-ledger-border rounded-lg px-4 py-2 text-sm text-text-primary focus:border-pulse focus:ring-1 focus:ring-pulse focus:outline-none appearance-none cursor-pointer transition-all">
+                <label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Transaction Purpose</label>
+                <select v-model="form.purpose" class="w-full bg-surface border border-outline-variant/15 rounded-lg px-4 py-2 text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-pulse focus:outline-none appearance-none cursor-pointer transition-all">
                   <option value="freelance_payment">Freelance / Contract Payment</option>
                   <option value="investment_return">Investment Return</option>
                   <option value="trading_profit">Trading Profit</option>
@@ -101,20 +101,20 @@
                 </select>
               </div>
               <div>
-                <label class="block text-xs font-semibold text-text-muted mb-1.5">Description / Memo</label>
-                <input v-model="form.memo" type="text" placeholder="e.g., Invoice for web development services" class="w-full bg-void border border-ledger-border rounded-lg px-4 py-2 text-sm text-text-primary placeholder:text-text-muted/50 focus:border-pulse focus:ring-1 focus:ring-pulse focus:outline-none transition-all" />
+                <label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Description / Memo</label>
+                <input v-model="form.memo" type="text" placeholder="e.g., Invoice for web development services" class="w-full bg-surface border border-outline-variant/15 rounded-lg px-4 py-2 text-sm text-on-surface placeholder:text-on-surface-variant/50 focus:border-primary focus:ring-1 focus:ring-pulse focus:outline-none transition-all" />
                 <div v-if="form.errors.memo" class="text-red-500 text-xs mt-1">{{ form.errors.memo }}</div>
               </div>
-              <div class="px-4 py-3 bg-pulse/5 border border-pulse/20 rounded-lg">
-                <div class="flex items-center gap-2 text-xs text-pulse font-medium">
+              <div class="px-4 py-3 bg-primary/5 border border-primary/20 rounded-lg">
+                <div class="flex items-center gap-2 text-xs text-primary font-medium">
                   <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                   A DAT-compliant tax report will be auto-generated when this invoice is verified on-chain.
                 </div>
               </div>
             </div>
-            <div class="flex justify-end gap-3 px-6 py-4 border-t border-ledger-border bg-void/50">
-              <button @click="showModal = false" class="px-5 py-2.5 rounded-lg border border-ledger-border text-text-muted text-sm font-semibold hover:text-text-primary hover:bg-ledger transition-colors">Cancel</button>
-              <button @click="createInvoice" :disabled="!form.amount || form.processing" class="px-5 py-2.5 rounded-lg bg-pulse text-void font-bold text-sm hover:shadow-[0_0_15px] hover:shadow-pulse/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed">Generate Link</button>
+            <div class="flex justify-end gap-3 px-6 py-4 border-t border-outline-variant/15 bg-surface/50">
+              <button @click="showModal = false" class="px-5 py-2.5 rounded-lg border border-outline-variant/15 text-on-surface-variant text-sm font-semibold hover:text-on-surface hover:bg-surface-container-low transition-colors">Cancel</button>
+              <button @click="createInvoice" :disabled="!form.amount || form.processing" class="px-5 py-2.5 rounded-lg bg-primary text-void font-bold text-sm hover:shadow-[0_0_15px] hover:shadow-pulse/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed">Generate Link</button>
             </div>
           </div>
         </div>

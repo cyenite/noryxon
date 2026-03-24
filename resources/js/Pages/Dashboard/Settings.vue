@@ -4,28 +4,28 @@
       <!-- Main Settings -->
       <div class="lg:col-span-2 space-y-6">
         <!-- Business Profile -->
-        <div class="border border-ledger-border bg-void p-6 rounded-xl shadow-sm">
-          <div class="text-sm font-semibold text-text-primary mb-6 flex items-center gap-2">
-            <span class="w-2 h-2 rounded-full bg-pulse"></span>
+        <div class="border border-outline-variant/15 bg-surface p-6 rounded-xl shadow-sm">
+          <div class="text-sm font-semibold text-on-surface mb-6 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-primary"></span>
             Business Profile
           </div>
           <div class="space-y-4">
             <div>
-              <label class="block text-xs font-semibold text-text-muted mb-1.5">Business Name</label>
-              <input v-model="form.business_name" type="text" placeholder="Your Business Name" class="w-full bg-ledger border border-ledger-border rounded-lg px-4 py-2 text-sm text-text-primary focus:border-pulse focus:ring-1 focus:ring-pulse focus:outline-none transition-all" />
+              <label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Business Name</label>
+              <input v-model="form.business_name" type="text" placeholder="Your Business Name" class="w-full bg-surface-container-lowest border border-outline-variant/15 rounded-lg px-4 py-2 text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-pulse focus:outline-none transition-all" />
               <div v-if="form.errors.business_name" class="text-red-500 text-xs mt-1">{{ form.errors.business_name }}</div>
             </div>
             <div>
-              <label class="block text-xs font-semibold text-text-muted mb-1.5">Admin Email</label>
-              <input v-model="form.email" type="email" class="w-full bg-ledger border border-ledger-border rounded-lg px-4 py-2 text-sm text-text-primary focus:border-pulse focus:ring-1 focus:ring-pulse focus:outline-none transition-all" disabled />
+              <label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Admin Email</label>
+              <input v-model="form.email" type="email" class="w-full bg-surface-container-lowest border border-outline-variant/15 rounded-lg px-4 py-2 text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-pulse focus:outline-none transition-all" disabled />
             </div>
             <div>
-              <label class="block text-xs font-semibold text-text-muted mb-1.5">Webhook URL</label>
-              <input v-model="form.webhook_url" type="url" placeholder="https://api.yourdomain.com/webhooks" class="w-full bg-ledger border border-ledger-border rounded-lg px-4 py-2 text-sm text-text-primary focus:border-pulse focus:ring-1 focus:ring-pulse focus:outline-none transition-all" />
+              <label class="block text-xs font-semibold text-on-surface-variant mb-1.5">Webhook URL</label>
+              <input v-model="form.webhook_url" type="url" placeholder="https://api.yourdomain.com/webhooks" class="w-full bg-surface-container-lowest border border-outline-variant/15 rounded-lg px-4 py-2 text-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-pulse focus:outline-none transition-all" />
               <div v-if="form.errors.webhook_url" class="text-red-500 text-xs mt-1">{{ form.errors.webhook_url }}</div>
             </div>
             <div class="pt-2">
-              <button @click="saveProfile" :disabled="form.processing" class="px-5 py-2 mt-2 bg-pulse text-void font-bold rounded-lg text-sm hover:shadow-[0_0_15px] hover:shadow-pulse/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+              <button @click="saveProfile" :disabled="form.processing" class="px-5 py-2 mt-2 bg-primary text-void font-bold rounded-lg text-sm hover:shadow-[0_0_15px] hover:shadow-pulse/40 transition-all disabled:opacity-50 disabled:cursor-not-allowed">
                 Save Changes
               </button>
             </div>
@@ -33,40 +33,40 @@
         </div>
 
         <!-- Security -->
-        <div class="border border-ledger-border bg-void p-6 rounded-xl shadow-sm">
-          <div class="text-sm font-semibold text-text-primary mb-6 flex items-center gap-2">
+        <div class="border border-outline-variant/15 bg-surface p-6 rounded-xl shadow-sm">
+          <div class="text-sm font-semibold text-on-surface mb-6 flex items-center gap-2">
             <span class="w-2 h-2 rounded-full bg-node"></span>
             Security Protocol
           </div>
           <div class="space-y-3">
-            <div class="flex items-center justify-between p-4 border border-ledger-border rounded-xl hover:border-pulse/30 transition-colors">
+            <div class="flex items-center justify-between p-4 border border-outline-variant/15 rounded-xl hover:border-primary/30 transition-colors">
               <div>
-                <div class="text-sm text-text-primary font-bold">Two-Factor Authentication</div>
-                <div class="text-xs font-medium text-text-muted mt-1">Protect your account with TOTP-based 2FA</div>
+                <div class="text-sm text-on-surface font-bold">Two-Factor Authentication</div>
+                <div class="text-xs font-medium text-on-surface-variant mt-1">Protect your account with TOTP-based 2FA</div>
               </div>
               <button 
                 @click="twoFaEnabled = !twoFaEnabled"
                 class="w-12 h-6 rounded-full relative transition-colors cursor-pointer"
-                :class="twoFaEnabled ? 'bg-pulse' : 'bg-ledger-border'"
+                :class="twoFaEnabled ? 'bg-primary' : 'bg-surface-container-lowest-border'"
               >
-                <div class="absolute top-0.5 w-5 h-5 bg-void rounded-full transition-transform shadow" :class="twoFaEnabled ? 'translate-x-6' : 'translate-x-0.5'"></div>
+                <div class="absolute top-0.5 w-5 h-5 bg-surface rounded-full transition-transform shadow" :class="twoFaEnabled ? 'translate-x-6' : 'translate-x-0.5'"></div>
               </button>
             </div>
-            <div class="flex items-center justify-between p-4 border border-ledger-border rounded-xl hover:border-pulse/30 transition-colors">
+            <div class="flex items-center justify-between p-4 border border-outline-variant/15 rounded-xl hover:border-primary/30 transition-colors">
               <div>
-                <div class="text-sm text-text-primary font-bold">IP Whitelist</div>
-                <div class="text-xs font-medium text-text-muted mt-1">Restrict dashboard access to specific IPs</div>
+                <div class="text-sm text-on-surface font-bold">IP Whitelist</div>
+                <div class="text-xs font-medium text-on-surface-variant mt-1">Restrict dashboard access to specific IPs</div>
               </div>
-              <button class="px-4 py-2 rounded-lg border border-ledger-border text-xs font-semibold text-text-muted hover:border-pulse hover:text-pulse hover:bg-ledger transition-colors">
+              <button class="px-4 py-2 rounded-lg border border-outline-variant/15 text-xs font-semibold text-on-surface-variant hover:border-primary hover:text-primary hover:bg-surface-container-low transition-colors">
                 Configure
               </button>
             </div>
-            <div class="flex items-center justify-between p-4 border border-ledger-border rounded-xl hover:border-pulse/30 transition-colors">
+            <div class="flex items-center justify-between p-4 border border-outline-variant/15 rounded-xl hover:border-primary/30 transition-colors">
               <div>
-                <div class="text-sm text-text-primary font-bold">Active Sessions</div>
-                <div class="text-xs font-medium text-text-muted mt-1">2 devices currently logged in</div>
+                <div class="text-sm text-on-surface font-bold">Active Sessions</div>
+                <div class="text-xs font-medium text-on-surface-variant mt-1">2 devices currently logged in</div>
               </div>
-              <button class="px-4 py-2 rounded-lg border border-ledger-border text-xs font-semibold text-text-muted hover:border-red-500 hover:text-red-500 hover:bg-ledger transition-colors">
+              <button class="px-4 py-2 rounded-lg border border-outline-variant/15 text-xs font-semibold text-on-surface-variant hover:border-red-500 hover:text-red-500 hover:bg-surface-container-low transition-colors">
                 Revoke All
               </button>
             </div>
@@ -74,15 +74,15 @@
         </div>
 
         <!-- Danger Zone -->
-        <div class="border border-red-500/30 bg-void p-6 rounded-xl shadow-sm">
+        <div class="border border-red-500/30 bg-surface p-6 rounded-xl shadow-sm">
           <div class="text-sm font-semibold text-red-500 mb-4 flex items-center gap-2">
             <span class="w-2 h-2 rounded-full bg-red-500"></span>
             Danger Zone
           </div>
           <div class="flex items-center justify-between">
             <div>
-              <div class="text-sm text-text-primary font-bold">Delete Account</div>
-              <div class="text-xs font-medium text-text-muted mt-1">Permanently remove all data. This action cannot be undone.</div>
+              <div class="text-sm text-on-surface font-bold">Delete Account</div>
+              <div class="text-xs font-medium text-on-surface-variant mt-1">Permanently remove all data. This action cannot be undone.</div>
             </div>
             <button class="px-4 py-2 rounded-lg border border-red-500/50 text-red-500 text-xs font-semibold hover:bg-red-500 hover:text-void transition-all">
               Delete Account
@@ -93,13 +93,13 @@
 
       <!-- Team Members Sidebar -->
       <div class="space-y-6">
-        <div class="border border-ledger-border bg-void p-6 rounded-xl shadow-sm">
+        <div class="border border-outline-variant/15 bg-surface p-6 rounded-xl shadow-sm">
           <div class="flex items-center justify-between mb-6">
-            <div class="text-sm font-semibold text-text-primary flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-pulse"></span>
+            <div class="text-sm font-semibold text-on-surface flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-primary"></span>
               Team Members
             </div>
-            <button class="px-3 py-1.5 rounded-lg border border-ledger-border text-xs font-semibold text-text-muted hover:border-pulse hover:text-pulse hover:bg-ledger transition-colors">
+            <button class="px-3 py-1.5 rounded-lg border border-outline-variant/15 text-xs font-semibold text-on-surface-variant hover:border-primary hover:text-primary hover:bg-surface-container-low transition-colors">
               + Invite
             </button>
           </div>
@@ -107,22 +107,22 @@
             <div 
               v-for="member in teamMembers" 
               :key="member.id"
-              class="flex items-center gap-3 p-3 border border-ledger-border rounded-xl hover:border-pulse/30 transition-colors"
+              class="flex items-center gap-3 p-3 border border-outline-variant/15 rounded-xl hover:border-primary/30 transition-colors"
             >
-              <div class="w-9 h-9 border border-ledger-border rounded-full flex items-center justify-center font-bold text-xs text-text-muted bg-ledger shrink-0">
+              <div class="w-9 h-9 border border-outline-variant/15 rounded-full flex items-center justify-center font-bold text-xs text-on-surface-variant bg-surface-container-lowest shrink-0">
                 {{ getInitials(member.name) }}
               </div>
               <div class="flex-1 min-w-0">
-                <div class="text-sm text-text-primary font-bold truncate">{{ member.name }}</div>
-                <div class="text-xs font-medium text-text-muted truncate">{{ member.email }}</div>
+                <div class="text-sm text-on-surface font-bold truncate">{{ member.name }}</div>
+                <div class="text-xs font-medium text-on-surface-variant truncate">{{ member.email }}</div>
               </div>
               <span 
                 class="px-2 py-0.5 rounded-md text-[10px] font-semibold tracking-wide shrink-0"
                 :class="{
-                  'text-pulse bg-pulse/10': member.role === 'Admin',
-                  'text-node bg-node/10': member.role === 'Developer',
+                  'text-primary bg-primary/10': member.role === 'Admin',
+                  'text-primary-container bg-node/10': member.role === 'Developer',
                   'text-amber-500 bg-amber-500/10': member.role === 'Analyst',
-                  'text-text-muted bg-text-muted/10': member.role === 'Support',
+                  'text-on-surface-variant bg-text-muted/10': member.role === 'Support',
                 }"
               >
                 {{ member.role }}
@@ -132,17 +132,17 @@
         </div>
 
         <!-- Audit Log Preview -->
-        <div class="border border-ledger-border bg-void p-6 rounded-xl shadow-sm">
-          <div class="text-sm font-semibold text-text-primary mb-4 flex items-center gap-2">
+        <div class="border border-outline-variant/15 bg-surface p-6 rounded-xl shadow-sm">
+          <div class="text-sm font-semibold text-on-surface mb-4 flex items-center gap-2">
             <span class="w-2 h-2 rounded-full bg-node"></span>
             Recent Audit Log
           </div>
-          <div class="space-y-3 text-xs font-medium text-text-muted">
+          <div class="space-y-3 text-xs font-medium text-on-surface-variant">
             <div v-for="log in auditLogs" :key="log.id" class="flex items-start gap-2">
-              <span class="text-pulse shrink-0 font-bold">•</span>
-              <span>{{ log.action }} — <span class="text-text-primary">{{ formatDateLabel(log.created_at) }}</span></span>
+              <span class="text-primary shrink-0 font-bold">•</span>
+              <span>{{ log.action }} — <span class="text-on-surface">{{ formatDateLabel(log.created_at) }}</span></span>
             </div>
-            <div v-if="auditLogs.length === 0" class="text-text-muted/50 text-center py-4">No recent activity.</div>
+            <div v-if="auditLogs.length === 0" class="text-on-surface-variant/50 text-center py-4">No recent activity.</div>
           </div>
         </div>
       </div>
