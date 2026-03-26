@@ -41,7 +41,7 @@ class SettingsController extends Controller
                     'id' => $log->id,
                     'action' => $log->action,
                     'ip' => $log->ip_address,
-                    'date' => $log->created_at->format('M j, Y, g:i a'),
+                    'created_at' => $log->created_at->toISOString(),
                     'metadata' => collect($log->metadata)
                         ->map(fn($v, $k) => "$k: $v")
                         ->join(', '),

@@ -17,6 +17,7 @@ class Invoice extends Model
         'currency',
         'status',
         'memo',
+        'purpose',
         'payment_link',
         'customer_email',
         'paid_at',

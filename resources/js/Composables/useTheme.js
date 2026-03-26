@@ -1,16 +1,23 @@
 import { ref, onMounted, computed } from 'vue';
 import { useNotifications } from './useNotifications';
 
-const ALL_THEMES = ['void', 'corporate', 'terminal', 'neon'];
-const DEFAULT_THEMES = ['void', 'corporate'];
-const currentTheme = ref('void');
+const ALL_THEMES = ['light', 'dark', 'terminal', 'neon'];
+const DEFAULT_THEMES = ['light', 'dark'];
+const currentTheme = ref('light');
 const unlockedThemes = ref([]);
 
 export function useTheme() {
     const { addNotification } = useNotifications();
+
+    const isDark = computed(() => currentTheme.value !== 'light');
+
     const applyTheme = (theme) => {
         if (typeof window !== 'undefined') {
-            document.documentElement.setAttribute('data-theme', theme);
+            if (theme === 'light') {
+                document.documentElement.removeAttribute('data-theme');
+            } else {
+                document.documentElement.setAttribute('data-theme', theme);
+            }
             localStorage.setItem('noryxon-theme', theme);
         }
     };
@@ -26,6 +33,10 @@ export function useTheme() {
         }
     };
 
+    const toggleDark = () => {
+        setTheme(currentTheme.value === 'light' ? 'dark' : 'light');
+    };
+
     const cycleTheme = () => {
         const themes = availableThemes.value;
         const index = themes.indexOf(currentTheme.value);
@@ -39,15 +50,14 @@ export function useTheme() {
             if (typeof window !== 'undefined') {
                 localStorage.setItem('noryxon-unlocked-themes', JSON.stringify(unlockedThemes.value));
             }
-            
-            // Activate it immediately to show them what they found
+
             setTheme(themeName);
-            
+
             const titles = {
                 'terminal': 'Hacker Mode Activated',
                 'neon': 'Synthwave Discovered'
             };
-            
+
             addNotification(
                 titles[themeName] || 'Theme Unlocked',
                 `You found a secret. Keep being curious to unlock perks and discounts in the system.`,
@@ -72,15 +82,19 @@ export function useTheme() {
             if (saved && ALL_THEMES.includes(saved)) {
                 setTheme(saved);
             } else {
-                setTheme('void');
+                // Respect system preference
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                setTheme(prefersDark ? 'dark' : 'light');
             }
         }
     });
 
     return {
         currentTheme,
+        isDark,
         availableThemes,
         setTheme,
+        toggleDark,
         cycleTheme,
         unlockTheme,
         THEMES: ALL_THEMES

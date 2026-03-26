@@ -1,65 +1,70 @@
 <template>
-  <header class="h-16 border-b border-outline-variant/15 bg-surface-container-lowest/80 backdrop-blur-md flex items-center justify-between px-6 sticky top-0 z-30">
-    <!-- Left: Page Title -->
-    <div class="flex items-center gap-4">
-      <div>
-        <h1 class="text-xl font-extrabold text-on-surface tracking-tight font-headline">{{ pageTitle }}</h1>
-        <div v-if="breadcrumb" class="text-[11px] text-on-surface-variant mt-0.5 font-medium flex items-center gap-1 font-mono tracking-wider">
-          {{ breadcrumb.split(' > ').join(' / ') }}
-        </div>
-      </div>
+  <header class="flex justify-between items-center mb-12">
+    <div>
+      <h2 class="text-3xl font-headline font-extrabold text-on-surface tracking-tight">{{ greeting }}, {{ userName }}</h2>
+      <p class="text-on-surface-variant font-medium mt-1">{{ subtitle }}</p>
     </div>
+    <div class="flex items-center gap-3">
+      <!-- Testnet/Mainnet Toggle -->
+      <div class="flex items-center bg-surface-container-lowest px-4 py-2 rounded-full shadow-sm border border-outline-variant/10">
+        <span class="material-symbols-outlined text-primary mr-2 text-lg">account_balance</span>
+        <span class="text-sm font-semibold">{{ isTestnet ? 'TESTNET' : 'MAINNET' }}</span>
+        <button @click="toggleTestnet" class="ml-3 w-10 h-5 rounded-full relative cursor-pointer transition-colors" :class="isTestnet ? 'bg-primary-container/30' : 'bg-surface-container-highest'">
+          <div class="absolute top-0.5 w-4 h-4 bg-primary rounded-full shadow-sm transition-all" :class="isTestnet ? 'right-0.5' : 'left-0.5'"></div>
+        </button>
+      </div>
 
-    <!-- Right: Controls -->
-    <div class="flex items-center gap-4">
-      <!-- Testnet Toggle -->
+      <!-- Dark Mode Toggle -->
       <button
-        @click="toggleTestnet"
-        class="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold transition-all duration-300"
-        :class="isTestnet
-          ? 'bg-primary-container/15 text-primary border border-primary-container/30'
-          : 'bg-surface-container-low text-on-surface-variant hover:text-on-surface hover:bg-surface-container'"
+        @click="toggleDark"
+        class="p-2 rounded-xl text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors"
+        :title="isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
       >
-        <span class="w-2 h-2 rounded-full transition-colors" :class="isTestnet ? 'bg-primary-container' : 'bg-tertiary-container'"></span>
-        {{ isTestnet ? 'Testnet' : 'Mainnet' }}
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">
+          {{ isDark ? 'light_mode' : 'dark_mode' }}
+        </span>
       </button>
 
-      <!-- Theme Toggle -->
-      <ThemeToggle />
-
-      <!-- Notifications Bell -->
+      <!-- Notifications -->
       <button class="relative p-2 rounded-xl text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low transition-colors">
-        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-        </svg>
-        <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-primary-container rounded-full border-2 border-surface-container-lowest"></span>
+        <span class="material-symbols-outlined">notifications</span>
+        <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-primary-container rounded-full border-2 border-surface"></span>
       </button>
 
-      <!-- User Menu -->
-      <div class="flex items-center gap-3 pl-4 border-l border-outline-variant/15 cursor-pointer group">
-        <div class="w-8 h-8 rounded-xl cta-gradient text-white flex items-center justify-center font-bold text-sm shadow-sm shadow-primary/20">
-          {{ $page.props.auth.user.name?.charAt(0) || 'U' }}
-        </div>
-        <div v-if="!compact" class="hidden md:block">
-          <div class="text-sm text-on-surface font-bold leading-none group-hover:text-primary transition-colors">{{ $page.props.auth.user.name }}</div>
-          <div class="text-[11px] text-on-surface-variant mt-0.5">Admin</div>
-        </div>
+      <!-- User Avatar -->
+      <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-primary-fixed shadow-inner cta-gradient flex items-center justify-center text-white font-bold text-lg">
+        {{ userInitial }}
       </div>
     </div>
   </header>
 </template>
 
 <script setup>
-import ThemeToggle from '@/Components/ThemeToggle.vue';
+import { computed } from 'vue';
+import { usePage } from '@inertiajs/vue3';
 import { useDashboard } from '@/Composables/useDashboard';
+import { useTheme } from '@/Composables/useTheme';
 
 defineProps({
   pageTitle: { type: String, default: 'Dashboard' },
   breadcrumb: { type: String, default: '' },
+  subtitle: { type: String, default: 'Your financial ecosystem is fully synchronized.' },
   compact: { type: Boolean, default: false },
 });
 
 const { isTestnet, toggleTestnet } = useDashboard();
+const { isDark, toggleDark } = useTheme();
+const page = usePage();
+
+const userName = computed(() => page.props.auth?.user?.name?.split(' ')[0] || 'User');
+const userInitial = computed(() => page.props.auth?.user?.name?.charAt(0) || 'U');
+
+const greeting = computed(() => {
+  const hour = new Date().getHours();
+  if (hour < 12) return 'Good morning';
+  if (hour < 17) return 'Good afternoon';
+  return 'Good evening';
+});
 </script>
 
 <style scoped>

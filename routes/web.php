@@ -29,6 +29,10 @@ Route::get('/pricing', function () {
     return Inertia::render('Pricing');
 })->name('pricing');
 
+Route::get('/docs', function () {
+    return Inertia::render('Docs');
+})->name('docs');
+
 
 // DASHBOARD ROUTES
 Route::middleware(['auth', 'verified'])->prefix('dashboard')->name('dashboard.')->group(function () {

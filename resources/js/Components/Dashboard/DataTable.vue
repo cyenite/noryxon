@@ -1,7 +1,7 @@
 <template>
-  <div class="border border-outline-variant/15 bg-surface-container-lowest rounded-2xl overflow-hidden shadow-sm">
+  <div class="border border-outline-variant/10 bg-surface-container-lowest rounded-2xl overflow-hidden shadow-sm">
     <!-- Table Header Bar -->
-    <div v-if="title" class="flex items-center justify-between px-6 py-4 border-b border-outline-variant/15">
+    <div v-if="title" class="flex items-center justify-between px-6 py-4 border-b border-outline-variant/10">
       <div class="text-sm font-bold text-on-surface flex items-center gap-2 font-headline">
         <span class="w-1.5 h-1.5 bg-primary-container rounded-full"></span>
         {{ title }}
@@ -13,7 +13,7 @@
     <div class="overflow-x-auto">
       <table class="w-full">
         <thead>
-          <tr class="border-b border-outline-variant/15 bg-surface-container-low/50">
+          <tr class="border-b border-outline-variant/10 bg-surface-container-low/50">
             <th
               v-for="col in columns"
               :key="col.key"
@@ -51,7 +51,7 @@
     </div>
 
     <!-- Pagination -->
-    <div v-if="rows.length > perPage" class="flex items-center justify-between px-6 py-4 border-t border-outline-variant/15">
+    <div v-if="rows.length > perPage" class="flex items-center justify-between px-6 py-4 border-t border-outline-variant/10">
       <div class="text-xs text-on-surface-variant">
         Showing {{ (currentPage - 1) * perPage + 1 }}-{{ Math.min(currentPage * perPage, rows.length) }} of {{ rows.length }}
       </div>
@@ -92,7 +92,7 @@ import { ref, computed } from 'vue';
 const props = defineProps({
   title: { type: String, default: '' },
   columns: { type: Array, required: true },
-  rows: { type: Array, required: true },
+  rows: { type: Array, default: () => [] },
   perPage: { type: Number, default: 10 },
 });
 

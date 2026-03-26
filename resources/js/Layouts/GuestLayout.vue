@@ -117,7 +117,7 @@ onMounted(() => {
       <div class="relative z-10 mt-12 flex items-center gap-6 text-xs text-on-surface-variant font-medium">
         <Link href="/" class="hover:text-primary transition-colors">Home</Link>
         <Link href="/pricing" class="hover:text-primary transition-colors">Pricing</Link>
-        <a href="https://docs.noryxon.com" target="_blank" class="hover:text-primary transition-colors">Docs</a>
+        <Link href="/docs" class="hover:text-primary transition-colors">Docs</Link>
       </div>
     </div>
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-void border-b border-ledger-border overflow-hidden py-2 relative">
+  <div class="bg-surface border-b border-outline-variant/15 overflow-hidden py-2 relative">
     <!-- Overlay gradients for fade effect on edges -->
     <div class="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-void to-transparent z-10 pointer-events-none"></div>
     <div class="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-void to-transparent z-10 pointer-events-none"></div>
@@ -9,15 +9,15 @@
         <div v-for="(item, index) in tickerItems" :key="'first-' + index" class="inline-flex items-center gap-3">
           <!-- Status Indicator -->
           <div class="relative flex h-2 w-2">
-            <span v-if="item.status === 'operational'" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-pulse opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2" :class="item.status === 'operational' ? 'bg-pulse' : 'bg-red-500'"></span>
+            <span v-if="item.status === 'operational'" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2" :class="item.status === 'operational' ? 'bg-primary' : 'bg-red-500'"></span>
           </div>
           
           <div class="font-mono flex items-center gap-4">
-            <span class="text-text-primary font-bold tracking-widest">{{ item.chain }}</span>
-            <span class="text-text-muted text-xs hidden sm:inline-block">BLK: {{ item.block }}</span>
-            <span class="text-text-muted text-xs hidden md:inline-block">HASH: {{ item.hash }}...</span>
-            <span class="text-pulse/70 text-xs">
+            <span class="text-on-surface font-bold tracking-widest">{{ item.chain }}</span>
+            <span class="text-on-surface-variant text-xs hidden sm:inline-block">BLK: {{ item.block }}</span>
+            <span class="text-on-surface-variant text-xs hidden md:inline-block">HASH: {{ item.hash }}...</span>
+            <span class="text-primary/70 text-xs">
               [{{ item.feature }}]
             </span>
           </div>
@@ -28,15 +28,15 @@
       <div class="animate-marquee whitespace-nowrap flex items-center gap-12 group-hover:[animation-play-state:paused] pr-12 absolute top-0">
         <div v-for="(item, index) in tickerItems" :key="'second-' + index" class="inline-flex items-center gap-3">
           <div class="relative flex h-2 w-2">
-            <span v-if="item.status === 'operational'" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-pulse opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2" :class="item.status === 'operational' ? 'bg-pulse' : 'bg-red-500'"></span>
+            <span v-if="item.status === 'operational'" class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2" :class="item.status === 'operational' ? 'bg-primary' : 'bg-red-500'"></span>
           </div>
           
           <div class="font-mono flex items-center gap-4">
-            <span class="text-text-primary font-bold tracking-widest">{{ item.chain }}</span>
-            <span class="text-text-muted text-xs hidden sm:inline-block">BLK: {{ item.block }}</span>
-            <span class="text-text-muted text-xs hidden md:inline-block">HASH: {{ item.hash }}...</span>
-            <span class="text-pulse/70 text-xs">
+            <span class="text-on-surface font-bold tracking-widest">{{ item.chain }}</span>
+            <span class="text-on-surface-variant text-xs hidden sm:inline-block">BLK: {{ item.block }}</span>
+            <span class="text-on-surface-variant text-xs hidden md:inline-block">HASH: {{ item.hash }}...</span>
+            <span class="text-primary/70 text-xs">
               [{{ item.feature }}]
             </span>
           </div>

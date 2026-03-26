@@ -6,17 +6,17 @@
     <!-- SECTION 0: Floating Pill Nav                           -->
     <!-- ═══════════════════════════════════════════════════════ -->
     <nav
-      class="fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-500"
+      class="fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-700 ease-out"
     >
-      <div class="rounded-full px-2 py-2 flex items-center gap-1 transition-all duration-500"
-        :class="navScrolled ? 'glass-nav shadow-lg shadow-on-surface/5 border border-outline-variant/15' : 'bg-transparent'"
+      <div class="rounded-full px-2 py-2 flex items-center gap-1 border transition-all duration-700 ease-out"
+        :class="navScrolled ? 'glass-nav shadow-lg shadow-on-surface/5 border-outline-variant/15' : 'bg-transparent border-transparent shadow-none'"
       >
         <Link href="/" class="px-4 py-2 text-sm font-extrabold text-on-surface tracking-tighter font-headline">Noryxon</Link>
         <div class="h-4 w-px bg-outline-variant/30 hidden md:block"></div>
         <a href="#features" class="hidden md:block px-3 py-1.5 text-xs font-semibold text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-primary/5">Features</a>
         <a href="#how-it-works" class="hidden md:block px-3 py-1.5 text-xs font-semibold text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-primary/5">How It Works</a>
-        <Link href="/pricing" class="hidden md:block px-3 py-1.5 text-xs font-semibold text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-primary/5">Pricing</Link>
-        <a href="https://docs.noryxon.com" target="_blank" class="hidden md:block px-3 py-1.5 text-xs font-semibold text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-primary/5">Docs</a>
+        <a href="#pricing" class="hidden md:block px-3 py-1.5 text-xs font-semibold text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-primary/5">Pricing</a>
+        <Link href="/docs" class="hidden md:block px-3 py-1.5 text-xs font-semibold text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-primary/5">Docs</Link>
         <div class="h-4 w-px bg-outline-variant/30 hidden md:block"></div>
         <Link href="/login" class="hidden md:block px-3 py-1.5 text-xs font-semibold text-on-surface-variant hover:text-primary transition-colors rounded-full">Log In</Link>
         <Link href="/register" class="cta-gradient text-white px-5 py-2 rounded-full text-xs font-bold shadow-sm hover:scale-95 transition-transform duration-200">Get Started</Link>
@@ -83,9 +83,9 @@
                   <span class="relative z-10">Get Started</span>
                   <span class="material-symbols-outlined relative z-10">arrow_forward</span>
                 </Link>
-                <a href="https://docs.noryxon.com" target="_blank" class="border border-outline-variant/30 text-on-surface px-8 py-4 rounded-xl font-bold text-lg hover:bg-surface-container-low hover:border-outline-variant/50 transition-all duration-300">
+                <Link href="/docs" class="border border-outline-variant/30 text-on-surface px-8 py-4 rounded-xl font-bold text-lg hover:bg-surface-container-low hover:border-outline-variant/50 transition-all duration-300">
                   Read Docs
-                </a>
+                </Link>
               </div>
 
               <!-- Animated counters -->
@@ -123,12 +123,12 @@
               <div class="absolute -inset-4 bg-primary-container/8 rounded-3xl blur-3xl"></div>
 
               <!-- The Invoice Document -->
-              <div class="relative bg-surface-container-lowest rounded-2xl shadow-2xl border border-outline-variant/10 overflow-hidden group">
+              <div class="relative bg-surface-container-lowest rounded-2xl shadow-2xl border border-outline-variant/10 overflow-hidden group h-[520px] flex flex-col">
                 <!-- Scan line -->
                 <div class="absolute left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-scan" style="top: -1px; z-index: 20;"></div>
 
                 <!-- Header bar -->
-                <div class="flex items-center justify-between px-6 py-3 bg-surface-container-low border-b border-outline-variant/15">
+                <div class="flex items-center justify-between px-6 py-3 bg-surface-container-low border-b border-outline-variant/15 shrink-0">
                   <div class="flex items-center gap-3">
                     <div class="w-3 h-3 rounded-full bg-error/60"></div>
                     <div class="w-3 h-3 rounded-full bg-primary-container/80"></div>
@@ -141,10 +141,10 @@
                   </div>
                 </div>
 
-                <!-- Invoice Body -->
-                <div class="p-6 md:p-8 font-mono text-sm">
+                <!-- Invoice Body — fixed height, content fills -->
+                <div class="p-6 md:p-8 font-mono text-sm flex-1 flex flex-col">
                   <!-- Row 1: Invoice ID & Status -->
-                  <div class="flex justify-between items-start mb-6 pb-4 border-b border-dashed border-outline-variant/20">
+                  <div class="flex justify-between items-start mb-5 pb-4 border-b border-dashed border-outline-variant/20 shrink-0">
                     <div>
                       <div class="text-[10px] text-on-surface-variant/60 tracking-widest mb-1">INVOICE</div>
                       <div class="text-lg font-black tracking-tight transition-all duration-500" :class="phase >= 1 ? 'text-on-surface' : 'text-on-surface-variant/20'">
@@ -161,7 +161,7 @@
                   </div>
 
                   <!-- Row 2: Transaction details -->
-                  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-5 shrink-0">
                     <div class="transition-all duration-500" :class="phase >= 1 ? 'opacity-100' : 'opacity-20'">
                       <div class="text-[10px] text-on-surface-variant/60 tracking-widest mb-1">AMOUNT</div>
                       <div class="text-on-surface font-bold">{{ heroAmount }} <span class="text-primary">{{ heroToken }}</span></div>
@@ -181,7 +181,7 @@
                   </div>
 
                   <!-- Row 3: Progress bar -->
-                  <div class="mb-6">
+                  <div class="mb-5 shrink-0">
                     <div class="flex justify-between text-[10px] text-on-surface-variant/60 tracking-widest mb-2">
                       <span>INVOICE GENERATION</span>
                       <span>{{ progressPercent }}%</span>
@@ -192,26 +192,76 @@
                     </div>
                   </div>
 
-                  <!-- Row 4: Steps log -->
-                  <div class="space-y-2">
-                    <div v-for="(logEntry, idx) in visibleLogs" :key="idx"
-                      class="flex items-center gap-3 text-xs transition-all duration-300"
-                      :class="idx === visibleLogs.length - 1 && !logEntry.done ? 'text-primary' : 'text-on-surface-variant'">
-                      <span class="w-4 text-center font-bold">{{ logEntry.done ? '>' : '~' }}</span>
-                      <span>{{ logEntry.text }}</span>
-                      <span v-if="!logEntry.done" class="animate-blink">_</span>
-                    </div>
-                  </div>
-
-                  <!-- Row 5: Final output -->
-                  <div v-if="phase >= 4" class="mt-6 pt-4 border-t border-outline-variant/15 flex items-center justify-between animate-fade-in">
-                    <div class="flex items-center gap-3">
-                      <div class="w-8 h-8 bg-primary/10 border border-primary/30 rounded-lg flex items-center justify-center">
-                        <svg class="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                  <!-- Row 4: Fixed-height log area — all 6 slots always rendered -->
+                  <div class="flex-1 flex flex-col justify-between">
+                    <div class="space-y-2">
+                      <div v-for="(logText, idx) in heroLogs" :key="idx"
+                        class="flex items-center gap-3 text-xs transition-all duration-500"
+                        :class="logState(idx)"
+                      >
+                        <span class="w-4 text-center font-bold">{{ logIcon(idx) }}</span>
+                        <span>{{ logText }}</span>
+                        <span v-if="logIcon(idx) === '~'" class="animate-blink">_</span>
                       </div>
-                      <div>
-                        <div class="text-xs text-primary font-bold tracking-wider">INVOICE + TAX REPORT READY</div>
-                        <div class="text-[10px] text-on-surface-variant/60">Compliant documentation generated in {{ heroLatency }}ms</div>
+                    </div>
+
+                    <!-- Bottom: Final output / idle stats -->
+                    <div class="pt-4 border-t border-outline-variant/15 mt-auto">
+                      <!-- Phase 4: Completion -->
+                      <div v-if="phase >= 4" class="flex items-center justify-between animate-fade-in">
+                        <div class="flex items-center gap-3">
+                          <div class="w-8 h-8 bg-primary/10 border border-primary/30 rounded-lg flex items-center justify-center">
+                            <svg class="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                          </div>
+                          <div>
+                            <div class="text-xs text-primary font-bold tracking-wider">INVOICE + TAX REPORT READY</div>
+                            <div class="text-[10px] text-on-surface-variant/60">Compliant documentation generated in {{ heroLatency }}ms</div>
+                          </div>
+                        </div>
+                        <div class="flex gap-2">
+                          <div class="w-7 h-7 bg-surface-container-low rounded-md flex items-center justify-center" title="Download PDF">
+                            <svg class="w-3.5 h-3.5 text-on-surface-variant" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                          </div>
+                          <div class="w-7 h-7 bg-surface-container-low rounded-md flex items-center justify-center" title="View on-chain">
+                            <svg class="w-3.5 h-3.5 text-on-surface-variant" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- Phase 0: Idle — show system stats -->
+                      <div v-else-if="phase === 0" class="flex items-center justify-between text-on-surface-variant/40">
+                        <div class="flex items-center gap-3">
+                          <div class="w-8 h-8 bg-surface-container-low rounded-lg flex items-center justify-center">
+                            <svg class="w-4 h-4 text-on-surface-variant/30" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                          </div>
+                          <div>
+                            <div class="text-xs font-bold tracking-wider">SYSTEM IDLE</div>
+                            <div class="text-[10px]">Awaiting next transaction...</div>
+                          </div>
+                        </div>
+                        <div class="text-[10px] font-mono tracking-wider">UPTIME: 99.99%</div>
+                      </div>
+                      <!-- Phase 1-3: Processing stats -->
+                      <div v-else class="flex items-center justify-between">
+                        <div class="flex items-center gap-4">
+                          <div class="text-center">
+                            <div class="text-[10px] text-on-surface-variant/50 tracking-widest">BLOCKS</div>
+                            <div class="text-xs font-bold text-on-surface tabular-nums">{{ heroBlockConfirms }}</div>
+                          </div>
+                          <div class="w-px h-6 bg-outline-variant/15"></div>
+                          <div class="text-center">
+                            <div class="text-[10px] text-on-surface-variant/50 tracking-widest">GAS</div>
+                            <div class="text-xs font-bold text-on-surface tabular-nums">{{ heroGasPrice }} gwei</div>
+                          </div>
+                          <div class="w-px h-6 bg-outline-variant/15"></div>
+                          <div class="text-center">
+                            <div class="text-[10px] text-on-surface-variant/50 tracking-widest">LATENCY</div>
+                            <div class="text-xs font-bold text-primary tabular-nums">{{ heroLatency }}ms</div>
+                          </div>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                          <span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>
+                          <span class="text-[10px] font-bold text-primary-container tracking-wider">LIVE</span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -431,18 +481,27 @@
       <!-- ═══════════════════════════════════════════════════════ -->
       <section class="py-24 md:py-32 bg-surface-container-low relative overflow-hidden">
         <div class="absolute inset-0 noise-overlay opacity-[0.015] pointer-events-none mix-blend-overlay"></div>
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,var(--color-outline-variant)_1px,transparent_1px),linear-gradient(to_bottom,var(--color-outline-variant)_1px,transparent_1px)] bg-[size:6rem_6rem] opacity-[0.04] pointer-events-none"></div>
         <div class="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
           <div class="reveal text-center mb-16">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/5 border border-primary/15 rounded-full mb-6">
+              <span class="w-1.5 h-1.5 bg-primary rounded-full animate-pulse"></span>
+              <span class="text-primary font-mono text-[10px] font-bold tracking-widest uppercase">Live Developer Console</span>
+            </div>
             <h2 class="text-4xl md:text-5xl font-black text-on-surface tracking-tighter font-headline">Watch It Happen. Live.</h2>
-            <p class="text-primary font-mono mt-4 text-sm tracking-widest uppercase">one_api_call // zero_excuses</p>
+            <p class="text-on-surface-variant mt-4 text-lg max-w-2xl mx-auto leading-relaxed">One API call generates a compliant invoice, triggers on-chain verification, and produces a tax-ready document — all in under 45ms.</p>
           </div>
 
           <div class="reveal grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch relative">
             <!-- Connecting pulse (desktop) -->
-            <div class="hidden lg:block absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-px bg-primary z-0 shadow-[0_0_10px] shadow-primary"></div>
+            <div class="hidden lg:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20 w-12 h-12 items-center justify-center">
+              <div class="w-10 h-10 rounded-full bg-surface-container-lowest border-2 border-primary/30 flex items-center justify-center shadow-lg shadow-primary/10">
+                <span class="material-symbols-outlined text-primary text-lg">sync_alt</span>
+              </div>
+            </div>
 
             <!-- Terminal Side -->
-            <div class="bg-on-surface rounded-2xl shadow-2xl overflow-hidden flex flex-col min-h-[450px] relative group">
+            <div class="bg-on-surface rounded-2xl shadow-2xl overflow-hidden flex flex-col min-h-[480px] relative group">
               <div class="absolute inset-0 rounded-2xl border border-primary/0 group-hover:border-primary/20 transition-all pointer-events-none"></div>
               <div class="bg-on-surface/80 px-4 py-3 flex items-center justify-between border-b border-white/10">
                 <div class="flex items-center gap-2">
@@ -489,8 +548,7 @@
             </div>
 
             <!-- Checkout Preview Side -->
-            <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 shadow-xl flex flex-col justify-center items-center relative min-h-[450px] overflow-hidden group">
-              <!-- Scanning beam -->
+            <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 shadow-xl flex flex-col justify-center items-center relative min-h-[480px] overflow-hidden group">
               <div class="absolute inset-0 overflow-hidden pointer-events-none">
                 <div class="w-full h-1 bg-primary/30 shadow-[0_0_15px] shadow-primary/20 -translate-y-2 group-hover:animate-scan"></div>
               </div>
@@ -508,7 +566,6 @@
                   TRANSFER_EXPECTED: {{ termAmount }} {{ termCurrency }} ({{ termChain.toUpperCase() }})
                 </p>
 
-                <!-- Simulated QR -->
                 <div class="relative w-48 h-48 mx-auto mb-8 bg-surface border border-outline-variant/20 flex items-center justify-center p-2 rounded-xl">
                   <div class="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-on-surface/40 rounded-tl-lg"></div>
                   <div class="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-on-surface/40 rounded-tr-lg"></div>
@@ -517,19 +574,13 @@
 
                   <div class="w-full h-full flex flex-col items-center justify-center transition-all" :class="{'opacity-10 blur-sm': termIsComplete}">
                     <div class="grid grid-cols-6 gap-1 w-28 h-28">
-                      <div v-for="i in 36" :key="'qr-'+i"
-                        class="rounded-sm"
-                        :class="qrPattern[i-1] ? 'bg-on-surface' : 'bg-outline-variant/20'"
-                      ></div>
+                      <div v-for="i in 36" :key="'qr-'+i" class="rounded-sm" :class="qrPattern[i-1] ? 'bg-on-surface' : 'bg-outline-variant/20'"></div>
                     </div>
                   </div>
 
-                  <!-- Success Checkmark -->
                   <div v-if="termIsComplete" class="absolute inset-0 flex items-center justify-center">
                     <div class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center animate-pop-in shadow-[0_0_30px] shadow-primary/40">
-                      <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
+                      <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
                     </div>
                   </div>
                 </div>
@@ -546,56 +597,126 @@
               </div>
             </div>
           </div>
+
+          <!-- SDK Language Pills -->
+          <div class="reveal flex flex-wrap justify-center gap-3 mt-12">
+            <div v-for="sdk in ['TypeScript', 'Python', 'Go', 'PHP', 'Rust', 'Ruby']" :key="sdk" class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest border border-outline-variant/10 rounded-full text-xs font-semibold text-on-surface-variant hover:border-primary/30 hover:text-primary transition-colors cursor-default">
+              <span class="w-2 h-2 rounded-full bg-primary/40"></span>
+              {{ sdk }}
+            </div>
+          </div>
         </div>
       </section>
 
       <!-- ═══════════════════════════════════════════════════════ -->
       <!-- SECTION 6: Compliance Spotlight                       -->
       <!-- ═══════════════════════════════════════════════════════ -->
-      <section class="py-24 md:py-32 bg-surface-container-high relative overflow-hidden" data-section="compliance">
-        <div class="max-w-7xl mx-auto px-6 md:px-8 flex flex-col md:flex-row items-center gap-16">
-          <!-- Audit Log Card -->
-          <div class="reveal w-full md:w-1/2">
-            <div class="bg-surface p-8 rounded-2xl shadow-xl border border-outline-variant/10">
-              <div class="flex items-center justify-between mb-8">
-                <div class="flex items-center gap-2">
-                  <div class="w-3 h-3 rounded-full bg-error"></div>
-                  <div class="w-3 h-3 rounded-full bg-primary-container"></div>
-                  <div class="w-3 h-3 rounded-full bg-tertiary-container"></div>
+      <section class="py-24 md:py-32 bg-void relative overflow-hidden" data-section="compliance">
+        <!-- Background layers -->
+        <div class="absolute inset-0 noise-overlay opacity-[0.03] pointer-events-none mix-blend-overlay"></div>
+        <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:5rem_5rem] pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-6 md:px-8">
+          <!-- Section Header -->
+          <div class="reveal text-center mb-20">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-pulse/10 border border-pulse/20 rounded-full mb-6">
+              <span class="material-symbols-outlined text-pulse text-sm" style="font-variation-settings: 'FILL' 1;">shield</span>
+              <span class="text-pulse font-mono text-[10px] font-bold tracking-widest uppercase">Enterprise-Grade Compliance</span>
+            </div>
+            <h2 class="text-4xl md:text-6xl font-black text-text-primary tracking-tighter font-headline leading-[0.95]">Regulatory Resilience<br/>by Design</h2>
+            <p class="text-text-muted mt-6 text-lg max-w-2xl mx-auto leading-relaxed">Don't let changing regulations slow your growth. Noryxon provides the cryptographic breadcrumbs required by modern tax authorities — without compromising the decentralized ethos.</p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16">
+            <!-- Audit Log Card — wide -->
+            <div class="reveal lg:col-span-7">
+              <div class="bg-ledger p-8 rounded-2xl border border-ledger-border shadow-2xl h-full">
+                <div class="flex items-center justify-between mb-6">
+                  <div class="flex items-center gap-2">
+                    <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                    <div class="w-3 h-3 rounded-full bg-pulse/80"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <span class="w-1.5 h-1.5 bg-pulse rounded-full animate-pulse"></span>
+                    <span class="text-[10px] font-mono text-text-muted tracking-widest uppercase">audit_log_v2.json — LIVE</span>
+                  </div>
                 </div>
-                <span class="text-xs font-mono text-on-surface-variant">audit_log_v2.json</span>
+                <div class="space-y-3 font-mono text-xs text-text-muted overflow-hidden min-h-[160px]">
+                  <p v-for="(log, idx) in displayedComplianceLogs" :key="'cl-'+idx" class="transition-opacity duration-500" :class="log.color === 'text-tertiary' ? 'text-green-400' : log.color === 'text-primary' ? 'text-pulse' : 'text-text-muted/80'">
+                    {{ log.text }}
+                  </p>
+                  <p class="animate-blink text-text-muted/40">_</p>
+                </div>
+                <!-- Log footer -->
+                <div class="mt-6 pt-4 border-t border-ledger-border flex items-center justify-between">
+                  <span class="font-mono text-[10px] text-text-muted/60">ENTRIES_COMMITTED: {{ complianceVisible ? formatCompact(auditLogs) : '0' }}</span>
+                  <span class="font-mono text-[10px] text-green-400/80">STATUS: IMMUTABLE</span>
+                </div>
               </div>
-              <div class="space-y-4 font-mono text-xs text-on-surface-variant overflow-hidden min-h-[140px]">
-                <p v-for="(log, idx) in displayedComplianceLogs" :key="'cl-'+idx" :class="log.color" class="transition-opacity duration-500">
-                  {{ log.text }}
-                </p>
-                <p class="animate-blink text-on-surface-variant/40">_</p>
+            </div>
+
+            <!-- Stats Column -->
+            <div class="reveal lg:col-span-5 grid grid-cols-2 gap-4">
+              <div class="bg-ledger border border-ledger-border rounded-2xl p-6 flex flex-col justify-between group hover:border-pulse/30 transition-colors">
+                <span class="material-symbols-outlined text-pulse text-2xl mb-4">speed</span>
+                <div>
+                  <p class="font-black text-pulse text-3xl mb-1 font-headline tracking-tighter">{{ complianceVisible ? uptimeSLA.toFixed(1) + '%' : '0%' }}</p>
+                  <p class="text-[10px] font-bold uppercase tracking-widest text-text-muted">Uptime SLA</p>
+                </div>
+              </div>
+              <div class="bg-ledger border border-ledger-border rounded-2xl p-6 flex flex-col justify-between group hover:border-pulse/30 transition-colors">
+                <span class="material-symbols-outlined text-pulse text-2xl mb-4">receipt_long</span>
+                <div>
+                  <p class="font-black text-text-primary text-3xl mb-1 font-headline tracking-tighter">{{ complianceVisible ? formatCompact(auditLogs) : '0' }}</p>
+                  <p class="text-[10px] font-bold uppercase tracking-widest text-text-muted">Audit Entries</p>
+                </div>
+              </div>
+              <div class="bg-ledger border border-ledger-border rounded-2xl p-6 flex flex-col justify-between group hover:border-pulse/30 transition-colors">
+                <span class="material-symbols-outlined text-green-400 text-2xl mb-4">description</span>
+                <div>
+                  <p class="font-black text-green-400 text-3xl mb-1 font-headline tracking-tighter">{{ complianceVisible ? formatCompact(datReports) : '0' }}</p>
+                  <p class="text-[10px] font-bold uppercase tracking-widest text-text-muted">DAT Reports</p>
+                </div>
+              </div>
+              <div class="bg-ledger border border-ledger-border rounded-2xl p-6 flex flex-col justify-between group hover:border-pulse/30 transition-colors">
+                <span class="material-symbols-outlined text-text-primary text-2xl mb-4">bolt</span>
+                <div>
+                  <p class="font-black text-text-primary text-3xl mb-1 font-headline tracking-tighter">&lt; 45ms</p>
+                  <p class="text-[10px] font-bold uppercase tracking-widest text-text-muted">Avg Latency</p>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Stats -->
-          <div class="reveal w-full md:w-1/2 space-y-8">
-            <h2 class="text-4xl font-black text-on-surface tracking-tighter leading-tight font-headline">Regulatory Resilience by Design</h2>
-            <p class="text-lg text-on-surface-variant leading-relaxed">
-              Don't let changing regulations slow your growth. Noryxon provides the cryptographic breadcrumbs required by modern tax authorities without compromising on the decentralized ethos.
-            </p>
-            <div class="grid grid-cols-2 gap-6">
-              <div class="p-6 bg-surface-container-lowest rounded-xl">
-                <p class="font-black text-primary text-2xl mb-1 font-headline">{{ complianceVisible ? uptimeSLA.toFixed(1) + '%' : '0%' }}</p>
-                <p class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Uptime SLA</p>
+          <!-- Compliance trust badges -->
+          <div class="reveal grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="flex items-center gap-3 bg-ledger border border-ledger-border rounded-xl px-5 py-4 hover:border-pulse/20 transition-colors">
+              <span class="material-symbols-outlined text-pulse" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+              <div>
+                <p class="text-xs font-bold text-text-primary">SOC 2 Type II</p>
+                <p class="text-[10px] text-text-muted">Audit Compliant</p>
               </div>
-              <div class="p-6 bg-surface-container-lowest rounded-xl">
-                <p class="font-black text-primary text-2xl mb-1 font-headline">{{ complianceVisible ? formatCompact(auditLogs) : '0' }}</p>
-                <p class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Audit Log Entries</p>
+            </div>
+            <div class="flex items-center gap-3 bg-ledger border border-ledger-border rounded-xl px-5 py-4 hover:border-pulse/20 transition-colors">
+              <span class="material-symbols-outlined text-pulse" style="font-variation-settings: 'FILL' 1;">lock</span>
+              <div>
+                <p class="text-xs font-bold text-text-primary">AES-256</p>
+                <p class="text-[10px] text-text-muted">End-to-End Encryption</p>
               </div>
-              <div class="p-6 bg-surface-container-lowest rounded-xl">
-                <p class="font-black text-tertiary text-2xl mb-1 font-headline">{{ complianceVisible ? formatCompact(datReports) : '0' }}</p>
-                <p class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">DAT Reports</p>
+            </div>
+            <div class="flex items-center gap-3 bg-ledger border border-ledger-border rounded-xl px-5 py-4 hover:border-pulse/20 transition-colors">
+              <span class="material-symbols-outlined text-pulse" style="font-variation-settings: 'FILL' 1;">gavel</span>
+              <div>
+                <p class="text-xs font-bold text-text-primary">GDPR Ready</p>
+                <p class="text-[10px] text-text-muted">Data Protection</p>
               </div>
-              <div class="p-6 bg-surface-container-lowest rounded-xl">
-                <p class="font-black text-on-surface text-2xl mb-1 font-headline">&lt; 45ms</p>
-                <p class="text-[10px] font-bold uppercase tracking-widest text-on-surface-variant">Avg Latency</p>
+            </div>
+            <div class="flex items-center gap-3 bg-ledger border border-ledger-border rounded-xl px-5 py-4 hover:border-pulse/20 transition-colors">
+              <span class="material-symbols-outlined text-pulse" style="font-variation-settings: 'FILL' 1;">policy</span>
+              <div>
+                <p class="text-xs font-bold text-text-primary">No Custody</p>
+                <p class="text-[10px] text-text-muted">Zero Fund Exposure</p>
               </div>
             </div>
           </div>
@@ -605,51 +726,136 @@
       <!-- ═══════════════════════════════════════════════════════ -->
       <!-- SECTION 7: Pricing                                    -->
       <!-- ═══════════════════════════════════════════════════════ -->
-      <section class="py-24 md:py-32 bg-surface">
-        <div class="max-w-5xl mx-auto px-6 md:px-8 text-center mb-16">
-          <h2 class="reveal text-4xl md:text-5xl font-black text-on-surface tracking-tighter mb-4 font-headline">Transparent Pricing for Scaling</h2>
-          <p class="reveal text-on-surface-variant">Simple tiers designed for solo developers and enterprise node operators alike.</p>
-        </div>
-        <div class="max-w-4xl mx-auto px-6 md:px-8 grid md:grid-cols-2 gap-8">
-          <!-- Developer Tier -->
-          <div class="reveal relative p-10 rounded-2xl bg-surface-container-lowest border border-outline-variant/20 shadow-sm flex flex-col hover:-translate-y-2 hover:shadow-2xl transition-all duration-300">
-            <div class="mb-8">
-              <h3 class="text-xl font-bold mb-2 font-headline">Developer Tier</h3>
-              <p class="text-on-surface-variant text-sm">Ideal for early-stage startups and builders.</p>
+      <section id="pricing" class="py-24 md:py-32 bg-surface relative overflow-hidden">
+        <div class="absolute w-[600px] h-[600px] -top-60 -right-60 bg-primary-container/5 rounded-full blur-[120px] pointer-events-none"></div>
+        <div class="absolute w-[400px] h-[400px] -bottom-40 -left-40 bg-tertiary-container/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+        <div class="max-w-6xl mx-auto px-6 md:px-8 relative z-10">
+          <div class="text-center mb-20">
+            <div class="reveal inline-flex items-center gap-2 px-4 py-1.5 bg-primary/5 border border-primary/15 rounded-full mb-6">
+              <span class="material-symbols-outlined text-primary text-sm">payments</span>
+              <span class="text-primary font-mono text-[10px] font-bold tracking-widest uppercase">Transparent Pricing</span>
             </div>
-            <div class="mb-8">
-              <span class="text-5xl font-black tracking-tighter font-headline">Free</span>
-              <span class="text-on-surface-variant ml-2">up to $10k/mo</span>
-            </div>
-            <ul class="space-y-4 mb-10 flex-grow">
-              <li class="flex items-center gap-3 text-sm font-medium"><span class="material-symbols-outlined text-primary">done</span>1% Fee after $10k volume</li>
-              <li class="flex items-center gap-3 text-sm font-medium"><span class="material-symbols-outlined text-primary">done</span>Access to 12+ Chains</li>
-              <li class="flex items-center gap-3 text-sm font-medium"><span class="material-symbols-outlined text-primary">done</span>Basic DAT Reporting</li>
-              <li class="flex items-center gap-3 text-sm font-medium"><span class="material-symbols-outlined text-primary">done</span>API &amp; Webhook Access</li>
-            </ul>
-            <Link href="/register" class="w-full py-4 rounded-xl font-bold border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all text-center block">Start Building</Link>
+            <h2 class="reveal text-4xl md:text-6xl font-black text-on-surface tracking-tighter font-headline leading-[0.95]">Built to Scale<br/>With You</h2>
+            <p class="reveal text-on-surface-variant mt-6 text-lg max-w-xl mx-auto leading-relaxed">Start free. Pay only when you grow. No hidden fees, no lock-in, no surprises.</p>
           </div>
 
-          <!-- Node Operator Tier -->
-          <div class="reveal relative p-10 rounded-2xl bg-on-surface text-surface shadow-2xl flex flex-col overflow-hidden hover:-translate-y-2 hover:shadow-[0_25px_60px_-15px] hover:shadow-primary/20 transition-all duration-300">
-            <div class="absolute top-0 right-0 p-4">
-              <span class="bg-primary text-white text-[10px] font-black px-3 py-1 rounded-full uppercase animate-pulse-slow">Enterprise</span>
+          <div class="grid md:grid-cols-3 gap-6 items-stretch">
+            <!-- Starter -->
+            <div class="reveal relative p-8 rounded-2xl bg-surface-container-lowest border border-outline-variant/15 shadow-sm flex flex-col hover:-translate-y-2 hover:shadow-xl hover:border-primary/20 transition-all duration-300">
+              <div class="mb-6">
+                <div class="w-10 h-10 rounded-xl bg-surface-container-low flex items-center justify-center mb-4">
+                  <span class="material-symbols-outlined text-primary">code</span>
+                </div>
+                <h3 class="text-lg font-bold font-headline">Starter</h3>
+                <p class="text-on-surface-variant text-sm mt-1">For indie developers and early projects.</p>
+              </div>
+              <div class="mb-6">
+                <span class="text-5xl font-black tracking-tighter font-headline">Free</span>
+                <span class="text-on-surface-variant text-sm ml-1">forever</span>
+              </div>
+              <div class="text-xs text-on-surface-variant mb-6 pb-6 border-b border-outline-variant/10">Up to $10,000/month in documented volume</div>
+              <ul class="space-y-3 mb-8 flex-grow">
+                <li class="flex items-center gap-2.5 text-sm"><span class="material-symbols-outlined text-primary text-lg">check_circle</span>12+ Blockchain Networks</li>
+                <li class="flex items-center gap-2.5 text-sm"><span class="material-symbols-outlined text-primary text-lg">check_circle</span>Basic DAT Reporting</li>
+                <li class="flex items-center gap-2.5 text-sm"><span class="material-symbols-outlined text-primary text-lg">check_circle</span>REST API + Webhooks</li>
+                <li class="flex items-center gap-2.5 text-sm"><span class="material-symbols-outlined text-primary text-lg">check_circle</span>Community Support</li>
+                <li class="flex items-center gap-2.5 text-sm text-on-surface-variant/50"><span class="material-symbols-outlined text-on-surface-variant/30 text-lg">remove</span>White-label</li>
+                <li class="flex items-center gap-2.5 text-sm text-on-surface-variant/50"><span class="material-symbols-outlined text-on-surface-variant/30 text-lg">remove</span>Dedicated Support</li>
+              </ul>
+              <Link href="/register" class="w-full py-3.5 rounded-xl font-bold border-2 border-primary text-primary hover:bg-primary hover:text-white transition-all text-center block text-sm">Start Building</Link>
             </div>
-            <div class="mb-8">
-              <h3 class="text-xl font-bold mb-2 font-headline">Node Operator</h3>
-              <p class="text-surface/60 text-sm">For institutional volume and white-label needs.</p>
+
+            <!-- Pro — Highlighted -->
+            <div class="reveal relative p-8 rounded-2xl bg-surface-container-lowest border-2 border-primary shadow-xl shadow-primary/10 flex flex-col hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 md:-mt-4 md:mb-[-16px]">
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+                <span class="bg-primary text-white text-[10px] font-black px-4 py-1 rounded-full uppercase tracking-wider shadow-lg shadow-primary/30">Most Popular</span>
+              </div>
+              <div class="mb-6 mt-2">
+                <div class="w-10 h-10 rounded-xl cta-gradient flex items-center justify-center mb-4">
+                  <span class="material-symbols-outlined text-white">rocket_launch</span>
+                </div>
+                <h3 class="text-lg font-bold font-headline">Pro</h3>
+                <p class="text-on-surface-variant text-sm mt-1">For growing businesses and serious builders.</p>
+              </div>
+              <div class="mb-6">
+                <span class="text-5xl font-black tracking-tighter font-headline">0.5%</span>
+                <span class="text-on-surface-variant text-sm ml-1">per transaction</span>
+              </div>
+              <div class="text-xs text-on-surface-variant mb-6 pb-6 border-b border-outline-variant/10">Unlimited documented volume</div>
+              <ul class="space-y-3 mb-8 flex-grow">
+                <li class="flex items-center gap-2.5 text-sm font-medium"><span class="material-symbols-outlined text-primary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>Everything in Starter</li>
+                <li class="flex items-center gap-2.5 text-sm font-medium"><span class="material-symbols-outlined text-primary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>Advanced DAT + Tax Reports</li>
+                <li class="flex items-center gap-2.5 text-sm font-medium"><span class="material-symbols-outlined text-primary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>Multi-Wallet Support</li>
+                <li class="flex items-center gap-2.5 text-sm font-medium"><span class="material-symbols-outlined text-primary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>Priority Email Support</li>
+                <li class="flex items-center gap-2.5 text-sm font-medium"><span class="material-symbols-outlined text-primary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>Team Collaboration (5 seats)</li>
+                <li class="flex items-center gap-2.5 text-sm font-medium"><span class="material-symbols-outlined text-primary text-lg" style="font-variation-settings: 'FILL' 1;">check_circle</span>Custom Webhook Filters</li>
+              </ul>
+              <Link href="/register" class="w-full py-3.5 rounded-xl font-bold cta-gradient text-white shadow-lg shadow-primary/20 hover:scale-[1.02] transition-all text-center block text-sm">Get Started</Link>
             </div>
-            <div class="mb-8">
-              <span class="text-5xl font-black tracking-tighter font-headline">Custom</span>
-              <span class="text-surface/60 ml-2">Quoted volume</span>
+
+            <!-- Enterprise -->
+            <div class="reveal relative p-8 rounded-2xl bg-on-surface text-surface shadow-2xl flex flex-col overflow-hidden hover:-translate-y-2 hover:shadow-[0_25px_60px_-15px] hover:shadow-primary/20 transition-all duration-300">
+              <div class="absolute top-0 right-0 p-4">
+                <span class="bg-pulse text-void text-[10px] font-black px-3 py-1 rounded-full uppercase animate-pulse-slow">Enterprise</span>
+              </div>
+              <div class="mb-6">
+                <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center mb-4">
+                  <span class="material-symbols-outlined text-pulse">domain</span>
+                </div>
+                <h3 class="text-lg font-bold font-headline">Node Operator</h3>
+                <p class="text-surface/50 text-sm mt-1">For institutional volume and white-label needs.</p>
+              </div>
+              <div class="mb-6">
+                <span class="text-5xl font-black tracking-tighter font-headline">Custom</span>
+                <span class="text-surface/50 text-sm ml-1">quoted</span>
+              </div>
+              <div class="text-xs text-surface/40 mb-6 pb-6 border-b border-white/10">Volume-based enterprise pricing</div>
+              <ul class="space-y-3 mb-8 flex-grow">
+                <li class="flex items-center gap-2.5 text-sm"><span class="material-symbols-outlined text-tertiary-fixed text-lg" style="font-variation-settings: 'FILL' 1;">verified</span>Everything in Pro</li>
+                <li class="flex items-center gap-2.5 text-sm"><span class="material-symbols-outlined text-tertiary-fixed text-lg" style="font-variation-settings: 'FILL' 1;">verified</span>Private Instance Deployment</li>
+                <li class="flex items-center gap-2.5 text-sm"><span class="material-symbols-outlined text-tertiary-fixed text-lg" style="font-variation-settings: 'FILL' 1;">verified</span>Dedicated Compliance Officer</li>
+                <li class="flex items-center gap-2.5 text-sm"><span class="material-symbols-outlined text-tertiary-fixed text-lg" style="font-variation-settings: 'FILL' 1;">verified</span>White-Label Dashboard</li>
+                <li class="flex items-center gap-2.5 text-sm"><span class="material-symbols-outlined text-tertiary-fixed text-lg" style="font-variation-settings: 'FILL' 1;">verified</span>24/7 Priority Support + SLA</li>
+                <li class="flex items-center gap-2.5 text-sm"><span class="material-symbols-outlined text-tertiary-fixed text-lg" style="font-variation-settings: 'FILL' 1;">verified</span>Custom Integrations</li>
+              </ul>
+              <button class="w-full py-3.5 rounded-xl font-bold bg-white/10 text-white border border-white/20 hover:bg-white/20 transition-all text-center text-sm">Contact Sales</button>
             </div>
-            <ul class="space-y-4 mb-10 flex-grow">
-              <li class="flex items-center gap-3 text-sm font-medium"><span class="material-symbols-outlined text-tertiary-fixed">verified</span>Private Instance Deployment</li>
-              <li class="flex items-center gap-3 text-sm font-medium"><span class="material-symbols-outlined text-tertiary-fixed">verified</span>Unlimited Volume Caps</li>
-              <li class="flex items-center gap-3 text-sm font-medium"><span class="material-symbols-outlined text-tertiary-fixed">verified</span>Dedicated Compliance Officer</li>
-              <li class="flex items-center gap-3 text-sm font-medium"><span class="material-symbols-outlined text-tertiary-fixed">verified</span>24/7 Priority Node Support</li>
-            </ul>
-            <button class="w-full py-4 rounded-xl font-bold cta-gradient text-white shadow-lg shadow-black/20 hover:scale-[1.02] transition-transform">Contact Sales</button>
+          </div>
+
+          <!-- Pricing footer -->
+          <div class="reveal mt-16 text-center">
+            <p class="text-on-surface-variant text-sm">All plans include <span class="font-semibold text-on-surface">zero custody risk</span>, <span class="font-semibold text-on-surface">instant settlement tracking</span>, and <span class="font-semibold text-on-surface">sovereign key management</span>.</p>
+            <div class="flex flex-wrap justify-center gap-6 mt-6">
+              <div class="flex items-center gap-2 text-xs text-on-surface-variant">
+                <span class="material-symbols-outlined text-tertiary text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
+                No credit card required
+              </div>
+              <div class="flex items-center gap-2 text-xs text-on-surface-variant">
+                <span class="material-symbols-outlined text-tertiary text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
+                Cancel anytime
+              </div>
+              <div class="flex items-center gap-2 text-xs text-on-surface-variant">
+                <span class="material-symbols-outlined text-tertiary text-sm" style="font-variation-settings: 'FILL' 1;">verified</span>
+                SOC 2 compliant
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════════════════════════════════════ -->
+      <!-- SECTION 7.5: Trusted By / Social Proof                -->
+      <!-- ═══════════════════════════════════════════════════════ -->
+      <section class="py-16 bg-surface-container-low border-y border-outline-variant/10">
+        <div class="max-w-6xl mx-auto px-6 md:px-8">
+          <p class="reveal text-center text-xs font-bold text-on-surface-variant/60 uppercase tracking-[0.2em] mb-10">Trusted by teams building the future of finance</p>
+          <div class="reveal flex flex-wrap justify-center items-center gap-x-16 gap-y-6 opacity-40">
+            <span class="text-2xl font-black tracking-tighter text-on-surface font-headline">Phantom</span>
+            <span class="text-2xl font-black tracking-tighter text-on-surface font-headline">Alchemy</span>
+            <span class="text-2xl font-black tracking-tighter text-on-surface font-headline">Chainlink</span>
+            <span class="text-2xl font-black tracking-tighter text-on-surface font-headline">Moralis</span>
+            <span class="text-2xl font-black tracking-tighter text-on-surface font-headline">QuickNode</span>
           </div>
         </div>
       </section>
@@ -671,35 +877,88 @@
           <div class="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-white/30 group-hover:w-12 group-hover:h-12 transition-all duration-500"></div>
 
           <div class="relative z-10">
-            <h2 class="text-4xl sm:text-5xl md:text-7xl font-black text-white tracking-tighter mb-8 leading-tight font-headline">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 border border-white/20 rounded-full mb-8 backdrop-blur-sm">
+              <span class="w-1.5 h-1.5 bg-white rounded-full animate-pulse"></span>
+              <span class="text-white/80 font-mono text-[10px] font-bold tracking-widest uppercase">Deploy in Under 5 Minutes</span>
+            </div>
+            <h2 class="text-4xl sm:text-5xl md:text-7xl font-black text-white tracking-tighter mb-6 leading-[0.95] font-headline">
               Ready to bridge the gap<br/>between crypto and compliance?
             </h2>
+            <p class="text-white/60 text-lg max-w-2xl mx-auto mb-10 leading-relaxed">Join thousands of developers and businesses using Noryxon to generate compliant invoices, track on-chain payments, and automate tax documentation.</p>
             <div class="flex flex-col sm:flex-row justify-center gap-4">
               <Link href="/register" class="bg-white text-primary px-10 py-5 rounded-xl font-black text-lg shadow-xl hover:scale-105 transition-transform duration-300 inline-block">Start For Free</Link>
-              <a href="https://docs.noryxon.com" target="_blank" class="bg-white/10 text-white border border-white/30 backdrop-blur-sm px-10 py-5 rounded-xl font-black text-lg hover:bg-white/20 transition-colors inline-block">Book a Demo</a>
+              <Link href="/docs" class="bg-white/10 text-white border border-white/30 backdrop-blur-sm px-10 py-5 rounded-xl font-black text-lg hover:bg-white/20 transition-colors inline-block">Read the Docs</Link>
             </div>
-            <p class="mt-8 font-mono text-[10px] text-white/40 tracking-widest uppercase">Noryxon does not custody funds. We generate documentation only.</p>
+            <p class="mt-10 font-mono text-[10px] text-white/30 tracking-widest uppercase">No custody of funds &middot; Non-custodial documentation engine &middot; SOC 2 compliant</p>
           </div>
         </div>
       </section>
     </main>
 
     <!-- ═══════════════════════════════════════════════════════ -->
-    <!-- SECTION 9: Footer — Minimal Dark                      -->
+    <!-- SECTION 9: Footer                                      -->
     <!-- ═══════════════════════════════════════════════════════ -->
-    <footer class="bg-on-surface py-12 px-6 md:px-8">
-      <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-        <div class="flex items-center gap-4">
-          <span class="text-surface/80 text-sm font-extrabold tracking-tighter font-headline">Noryxon</span>
-          <span class="text-surface/40 text-xs">&copy; {{ new Date().getFullYear() }} All rights reserved.</span>
+    <footer class="bg-on-surface relative overflow-hidden">
+      <div class="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:5rem_5rem] pointer-events-none"></div>
+
+      <div class="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
+        <!-- Main Footer Grid -->
+        <div class="py-16 grid grid-cols-2 md:grid-cols-5 gap-10">
+          <!-- Brand Column -->
+          <div class="col-span-2">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-8 h-8 cta-gradient rounded-lg flex items-center justify-center text-white font-bold text-sm">N</div>
+              <span class="text-surface/90 text-lg font-extrabold tracking-tighter font-headline">Noryxon</span>
+            </div>
+            <p class="text-surface/40 text-sm leading-relaxed max-w-xs mb-6">The non-custodial digital asset invoicing and compliance engine trusted by developers worldwide.</p>
+            <div class="flex items-center gap-2">
+              <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+              <span class="text-green-400 text-xs font-bold uppercase tracking-wider">All Systems Operational</span>
+            </div>
+          </div>
+
+          <!-- Product -->
+          <div>
+            <h4 class="text-surface/60 text-[10px] font-bold uppercase tracking-[0.15em] mb-5">Product</h4>
+            <ul class="space-y-3">
+              <li><a href="#features" class="text-surface/40 hover:text-pulse text-sm transition-colors">Features</a></li>
+              <li><Link href="/pricing" class="text-surface/40 hover:text-pulse text-sm transition-colors">Pricing</Link></li>
+              <li><a href="#" class="text-surface/40 hover:text-pulse text-sm transition-colors">Changelog</a></li>
+              <li><a href="#" class="text-surface/40 hover:text-pulse text-sm transition-colors">Integrations</a></li>
+            </ul>
+          </div>
+
+          <!-- Developers -->
+          <div>
+            <h4 class="text-surface/60 text-[10px] font-bold uppercase tracking-[0.15em] mb-5">Developers</h4>
+            <ul class="space-y-3">
+              <li><Link href="/docs" class="text-surface/40 hover:text-pulse text-sm transition-colors">Documentation</Link></li>
+              <li><Link href="/developer" class="text-surface/40 hover:text-pulse text-sm transition-colors">API Reference</Link></li>
+              <li><a href="#" class="text-surface/40 hover:text-pulse text-sm transition-colors">SDKs</a></li>
+              <li><a href="#" class="text-surface/40 hover:text-pulse text-sm transition-colors">Status</a></li>
+            </ul>
+          </div>
+
+          <!-- Company -->
+          <div>
+            <h4 class="text-surface/60 text-[10px] font-bold uppercase tracking-[0.15em] mb-5">Company</h4>
+            <ul class="space-y-3">
+              <li><a href="#" class="text-surface/40 hover:text-pulse text-sm transition-colors">About</a></li>
+              <li><a href="#" class="text-surface/40 hover:text-pulse text-sm transition-colors">Blog</a></li>
+              <li><a href="#" class="text-surface/40 hover:text-pulse text-sm transition-colors">Careers</a></li>
+              <li><a href="#" class="text-surface/40 hover:text-pulse text-sm transition-colors">Contact</a></li>
+            </ul>
+          </div>
         </div>
-        <div class="flex flex-wrap justify-center gap-6">
-          <a href="#" class="text-surface/40 hover:text-primary-container text-xs tracking-wide transition-colors">Legal</a>
-          <a href="#" class="text-surface/40 hover:text-primary-container text-xs tracking-wide transition-colors">Privacy</a>
-          <a href="#" class="text-surface/40 hover:text-primary-container text-xs tracking-wide transition-colors">Twitter</a>
-          <a href="#" class="text-surface/40 hover:text-primary-container text-xs tracking-wide transition-colors">GitHub</a>
-          <Link href="/developer" class="text-surface/40 hover:text-primary-container text-xs tracking-wide transition-colors">Dev Portal</Link>
-          <span class="text-tertiary-container text-xs font-bold">SDK Status: Operational</span>
+
+        <!-- Bottom Bar -->
+        <div class="py-6 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+          <span class="text-surface/30 text-xs">&copy; {{ new Date().getFullYear() }} Noryxon Inc. All rights reserved.</span>
+          <div class="flex items-center gap-6">
+            <a href="#" class="text-surface/30 hover:text-surface/60 text-xs transition-colors">Privacy Policy</a>
+            <a href="#" class="text-surface/30 hover:text-surface/60 text-xs transition-colors">Terms of Service</a>
+            <a href="#" class="text-surface/30 hover:text-surface/60 text-xs transition-colors">Cookie Policy</a>
+          </div>
         </div>
       </div>
     </footer>
@@ -721,8 +980,22 @@ const heroToken = ref('USDC');
 const heroChain = ref('Ethereum');
 const displayHash = ref('0x0000...0000');
 const heroLatency = ref('0');
+const heroBlockConfirms = ref(0);
+const heroGasPrice = ref(0);
 const visibleLogs = ref([]);
 const progressPercent = computed(() => [0, 25, 50, 75, 100][phase.value] || 0);
+
+// Log slot helpers — all 6 slots always rendered, styled by phase
+const logState = (idx) => {
+  if (idx < phase.value) return 'text-on-surface-variant'; // completed
+  if (idx === phase.value && phase.value > 0) return 'text-on-surface font-semibold'; // active
+  return 'text-on-surface-variant/20'; // future / idle
+};
+const logIcon = (idx) => {
+  if (idx < phase.value) return '>'; // completed
+  if (idx === phase.value && phase.value > 0) return '~'; // active (with blinking cursor)
+  return ''; // future
+};
 
 const orbitChains = ref([
   { chain: 'ETH', posX: -5, posY: 20, active: false },
@@ -907,42 +1180,34 @@ const runHeroSimulation = () => {
   currentInvoiceId.value = generateInvoiceId();
   displayHash.value = '0x0000...0000';
   heroLatency.value = (Math.random() * 30 + 35).toFixed(0);
+  heroBlockConfirms.value = 0;
+  heroGasPrice.value = Math.floor(Math.random() * 40 + 12);
 
   orbitChains.value.forEach((o, i) => o.active = i === chainIdx % orbitChains.value.length);
 
   timeouts.push(setTimeout(() => {
     phase.value = 1;
-    visibleLogs.value = [{ text: heroLogs[0], done: false }];
+    heroBlockConfirms.value = 1;
   }, 600));
 
   timeouts.push(setTimeout(() => {
     scrambleHash();
-    visibleLogs.value = [{ text: heroLogs[0], done: true }, { text: heroLogs[1], done: false }];
+    heroBlockConfirms.value = 4;
   }, 1200));
 
   timeouts.push(setTimeout(() => {
     phase.value = 2;
-    visibleLogs.value = [
-      { text: heroLogs[0], done: true },
-      { text: heroLogs[1], done: true },
-      { text: heroLogs[2], done: false },
-    ];
+    heroBlockConfirms.value = 12;
   }, 2200));
 
   timeouts.push(setTimeout(() => {
     phase.value = 3;
-    visibleLogs.value = [
-      { text: heroLogs[0], done: true },
-      { text: heroLogs[1], done: true },
-      { text: heroLogs[2], done: true },
-      { text: heroLogs[3], done: true },
-      { text: heroLogs[4], done: false },
-    ];
+    heroBlockConfirms.value = 24;
   }, 3500));
 
   timeouts.push(setTimeout(() => {
     phase.value = 4;
-    visibleLogs.value = heroLogs.map(text => ({ text, done: true }));
+    heroBlockConfirms.value = 32;
     orbitChains.value.forEach(o => o.active = false);
   }, 5000));
 

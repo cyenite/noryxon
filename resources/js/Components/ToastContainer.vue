@@ -11,9 +11,9 @@
       <div 
         v-for="notification in notifications" 
         :key="notification.id"
-        class="pointer-events-auto bg-void border p-4 shadow-2xl flex items-start gap-4 relative overflow-hidden"
+        class="pointer-events-auto bg-surface border p-4 shadow-2xl flex items-start gap-4 relative overflow-hidden"
         :class="{
-          'border-pulse shadow-[0_0_15px_var(--theme-pulse)]': notification.type === 'success',
+          'border-primary shadow-[0_0_15px_var(--theme-pulse)]': notification.type === 'success',
           'border-node shadow-[0_0_15px_var(--theme-node)]': notification.type === 'info',
           'border-red-500 shadow-[0_0_15px_rgba(239,68,68,0.5)]': notification.type === 'error'
         }"
@@ -27,17 +27,17 @@
         ></div>
         
         <div class="mt-1">
-          <svg v-if="notification.type === 'success'" class="w-5 h-5 text-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-          <svg v-if="notification.type === 'info'" class="w-5 h-5 text-node" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          <svg v-if="notification.type === 'success'" class="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          <svg v-if="notification.type === 'info'" class="w-5 h-5 text-primary-container" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
           <svg v-if="notification.type === 'error'" class="w-5 h-5 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
         </div>
         
         <div class="flex-1">
-          <h4 class="font-bold text-sm text-text-primary tracking-widest uppercase mb-1">{{ notification.title }}</h4>
-          <p class="font-mono text-xs text-text-muted leading-relaxed">{{ notification.message }}</p>
+          <h4 class="font-bold text-sm text-on-surface tracking-widest uppercase mb-1">{{ notification.title }}</h4>
+          <p class="font-mono text-xs text-on-surface-variant leading-relaxed">{{ notification.message }}</p>
         </div>
         
-        <button @click="removeNotification(notification.id)" class="text-text-muted hover:text-text-primary transition-colors">
+        <button @click="removeNotification(notification.id)" class="text-on-surface-variant hover:text-on-surface transition-colors">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
         </button>
       </div>

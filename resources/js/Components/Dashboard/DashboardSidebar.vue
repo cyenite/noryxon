@@ -1,85 +1,102 @@
 <template>
   <aside
-    class="fixed left-0 top-0 h-screen border-r border-outline-variant/15 bg-surface-container-lowest z-40 flex flex-col transition-all duration-300 select-none"
-    :class="collapsed ? 'w-16' : 'w-60'"
+    class="hidden md:flex fixed left-0 top-0 h-screen bg-surface-container-low flex-col z-40 transition-all duration-300 select-none border-r border-outline-variant/5"
+    :class="collapsed ? 'w-[72px] px-3 py-6' : 'w-64 p-6'"
   >
     <!-- Logo -->
-    <div class="h-16 flex items-center border-b border-outline-variant/15 px-4 shrink-0">
-      <Link :href="type === 'merchant' ? '/dashboard' : '/developer'" class="flex items-center gap-2 overflow-hidden w-full">
-        <div class="w-7 h-7 cta-gradient rounded-lg flex items-center justify-center shrink-0 text-white font-bold text-sm shadow-sm shadow-primary/20">
+    <div class="mb-8" :class="collapsed ? 'flex justify-center' : ''">
+      <Link :href="type === 'merchant' ? '/dashboard' : '/developer'" class="flex items-center gap-3 overflow-hidden">
+        <div class="w-9 h-9 cta-gradient rounded-lg flex items-center justify-center shrink-0 text-white font-bold text-sm shadow-sm shadow-primary/20">
           N
         </div>
-        <Transition
-          enter-active-class="transition-all duration-200 ease-out"
-          enter-from-class="opacity-0 -translate-x-4"
-          enter-to-class="opacity-100 translate-x-0"
-          leave-active-class="transition-all duration-150 ease-in"
-          leave-from-class="opacity-100"
-          leave-to-class="opacity-0"
-        >
-          <div v-if="!collapsed" class="whitespace-nowrap ml-1">
-            <div class="font-extrabold text-base text-on-surface leading-tight tracking-tight font-headline">Noryxon</div>
-            <div class="text-[11px] text-on-surface-variant font-medium">
-              {{ type === 'merchant' ? 'Invoice Vault' : 'Dev Portal' }}
-            </div>
-          </div>
-        </Transition>
+        <div v-if="!collapsed" class="min-w-0">
+          <h1 class="text-lg font-extrabold text-on-surface tracking-tighter font-headline">Noryxon Vault</h1>
+          <p class="text-[10px] text-on-surface-variant/70 uppercase tracking-widest mt-0.5">
+            {{ type === 'merchant' ? 'Premium Digital Assets' : 'Developer Portal' }}
+          </p>
+        </div>
       </Link>
     </div>
 
-    <!-- Testnet Banner -->
-    <div
-      v-if="isTestnet"
-      class="mx-3 mt-3 py-1.5 text-center text-[11px] font-semibold rounded-lg shrink-0 bg-primary-container/10 text-primary border border-primary-container/30"
-    >
-      {{ collapsed ? '!' : 'Testnet Mode' }}
-    </div>
-
     <!-- Navigation -->
-    <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-1">
+    <nav class="flex-1 space-y-1 overflow-y-auto">
       <Link
         v-for="item in navItems"
         :key="item.href"
         :href="item.href"
-        class="flex items-center gap-3 px-3 py-2.5 text-sm rounded-xl transition-all duration-200 relative group/nav font-medium"
-        :class="isActive(item.href)
-          ? 'text-primary bg-primary/8 shadow-sm'
-          : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low'"
+        class="flex items-center text-sm font-medium rounded-lg transition-colors duration-200 ease-linear relative group/nav"
+        :class="[
+          isActive(item.href)
+            ? 'bg-surface-container-lowest text-primary shadow-sm'
+            : 'text-on-surface-variant/60 hover:bg-surface-container-lowest/50',
+          collapsed ? 'justify-center px-0 py-3' : 'gap-3 px-4 py-3'
+        ]"
+        :title="collapsed ? item.label : ''"
       >
-        <div class="w-5 h-5 flex items-center justify-center shrink-0" v-html="item.icon"></div>
-        <Transition
-          enter-active-class="transition-all duration-200 ease-out"
-          enter-from-class="opacity-0"
-          enter-to-class="opacity-100"
-          leave-active-class="transition-all duration-150 ease-in"
-          leave-from-class="opacity-100"
-          leave-to-class="opacity-0"
-        >
-          <span v-if="!collapsed" class="whitespace-nowrap">{{ item.label }}</span>
-        </Transition>
-
-        <!-- Active indicator -->
-        <div v-if="isActive(item.href)" class="absolute right-0 top-1/2 -translate-y-1/2 w-1 h-5 rounded-l-full cta-gradient"></div>
+        <span class="material-symbols-outlined text-xl shrink-0">{{ item.icon }}</span>
+        <span v-if="!collapsed" class="whitespace-nowrap">{{ item.label }}</span>
 
         <!-- Tooltip for collapsed mode -->
         <div
           v-if="collapsed"
-          class="absolute left-full ml-3 px-3 py-1.5 bg-surface-container-lowest border border-outline-variant/20 text-on-surface text-xs rounded-lg shadow-lg whitespace-nowrap opacity-0 group-hover/nav:opacity-100 pointer-events-none transition-opacity z-50"
+          class="absolute left-full ml-3 px-3 py-1.5 bg-surface-container-lowest border border-outline-variant/10 text-on-surface text-xs rounded-lg shadow-lg whitespace-nowrap opacity-0 group-hover/nav:opacity-100 pointer-events-none transition-opacity z-50 font-medium"
         >
           {{ item.label }}
         </div>
       </Link>
     </nav>
 
-    <!-- Collapse Toggle -->
-    <div class="border-t border-outline-variant/15 p-3 shrink-0">
+    <!-- Bottom Section -->
+    <div class="pt-6 mt-6 border-t border-outline-variant/10 space-y-1">
+      <!-- CTA Button -->
       <button
-        @click="collapsed = !collapsed"
-        class="w-full flex items-center justify-center gap-2 px-3 py-2 text-sm text-on-surface-variant hover:text-on-surface hover:bg-surface-container-low rounded-xl transition-colors font-medium"
+        v-if="!collapsed"
+        class="w-full cta-gradient text-white py-3 rounded-lg font-semibold flex items-center justify-center gap-2 mb-4 shadow-lg shadow-primary/10 hover:shadow-xl hover:shadow-primary/20 transition-all active:scale-95"
       >
-        <svg class="w-4 h-4 transition-transform duration-300" :class="collapsed ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 19l-7-7 7-7m8 14l-7-7 7-7" />
-        </svg>
+        <span class="material-symbols-outlined text-sm">add</span>
+        Create Invoice
+      </button>
+      <button
+        v-else
+        class="w-full cta-gradient text-white py-2.5 rounded-lg flex items-center justify-center mb-4 shadow-lg shadow-primary/10 hover:shadow-xl transition-all active:scale-95 group/cta relative"
+      >
+        <span class="material-symbols-outlined text-lg">add</span>
+        <div class="absolute left-full ml-3 px-3 py-1.5 bg-surface-container-lowest border border-outline-variant/10 text-on-surface text-xs rounded-lg shadow-lg whitespace-nowrap opacity-0 group-hover/cta:opacity-100 pointer-events-none transition-opacity z-50 font-medium">
+          Create Invoice
+        </div>
+      </button>
+
+      <!-- Support & Settings -->
+      <Link
+        href="#"
+        class="flex items-center text-on-surface-variant/60 hover:bg-surface-container-lowest/50 transition-colors rounded-lg text-sm font-medium relative group/bottom"
+        :class="collapsed ? 'justify-center px-0 py-3' : 'gap-3 px-4 py-3'"
+      >
+        <span class="material-symbols-outlined text-xl">help_outline</span>
+        <span v-if="!collapsed">Support</span>
+        <div v-if="collapsed" class="absolute left-full ml-3 px-3 py-1.5 bg-surface-container-lowest border border-outline-variant/10 text-on-surface text-xs rounded-lg shadow-lg whitespace-nowrap opacity-0 group-hover/bottom:opacity-100 pointer-events-none transition-opacity z-50 font-medium">
+          Support
+        </div>
+      </Link>
+      <Link
+        :href="route('profile.edit')"
+        class="flex items-center text-on-surface-variant/60 hover:bg-surface-container-lowest/50 transition-colors rounded-lg text-sm font-medium relative group/bottom"
+        :class="collapsed ? 'justify-center px-0 py-3' : 'gap-3 px-4 py-3'"
+      >
+        <span class="material-symbols-outlined text-xl">settings</span>
+        <span v-if="!collapsed">Settings</span>
+        <div v-if="collapsed" class="absolute left-full ml-3 px-3 py-1.5 bg-surface-container-lowest border border-outline-variant/10 text-on-surface text-xs rounded-lg shadow-lg whitespace-nowrap opacity-0 group-hover/bottom:opacity-100 pointer-events-none transition-opacity z-50 font-medium">
+          Settings
+        </div>
+      </Link>
+
+      <!-- Collapse Toggle -->
+      <button
+        @click="emit('update:collapsed', !collapsed)"
+        class="w-full flex items-center justify-center px-3 py-2 text-sm text-on-surface-variant/60 hover:text-on-surface hover:bg-surface-container-lowest/50 rounded-lg transition-colors font-medium mt-2"
+        :class="collapsed ? '' : 'gap-2'"
+      >
+        <span class="material-symbols-outlined text-xl transition-transform duration-300" :class="collapsed ? 'rotate-180' : ''">chevron_left</span>
         <span v-if="!collapsed">Collapse</span>
       </button>
     </div>
@@ -87,16 +104,18 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { computed } from 'vue';
 import { Link, usePage } from '@inertiajs/vue3';
 import { useDashboard } from '@/Composables/useDashboard';
 
 const props = defineProps({
   type: { type: String, default: 'merchant' },
+  collapsed: { type: Boolean, default: false },
 });
 
+const emit = defineEmits(['update:collapsed']);
+
 const { isTestnet } = useDashboard();
-const collapsed = ref(false);
 const page = usePage();
 
 const isActive = (href) => {
@@ -108,20 +127,19 @@ const isActive = (href) => {
 };
 
 const merchantNav = [
-  { label: 'Overview', href: '/dashboard', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>' },
-  { label: 'Wallets', href: '/dashboard/wallets', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 12a2.25 2.25 0 00-2.25-2.25H15a3 3 0 110-6h5.25A2.25 2.25 0 0121 6v6zm0 0v6a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 18V6a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 6m-3 6h.008v.008H18V12z"/></svg>' },
-  { label: 'Live Monitor', href: '/dashboard/live-monitor', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>' },
-  { label: 'Analytics', href: '/dashboard/analytics', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>' },
-  { label: 'Invoices', href: '/dashboard/invoices', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>' },
-  { label: 'Settings', href: '/dashboard/settings', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>' },
+  { label: 'Dashboard', href: '/dashboard', icon: 'dashboard' },
+  { label: 'Invoices', href: '/dashboard/invoices', icon: 'description' },
+  { label: 'Wallets', href: '/dashboard/wallets', icon: 'account_balance_wallet' },
+  { label: 'Live Monitor', href: '/dashboard/live-monitor', icon: 'monitoring' },
+  { label: 'Analytics', href: '/dashboard/analytics', icon: 'assessment' },
 ];
 
 const developerNav = [
-  { label: 'Overview', href: '/developer', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>' },
-  { label: 'API Keys', href: '/developer/api-keys', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>' },
-  { label: 'Playground', href: '/developer/playground', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>' },
-  { label: 'Webhooks', href: '/developer/webhooks', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>' },
-  { label: 'Sandbox', href: '/developer/sandbox', icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>' },
+  { label: 'Overview', href: '/developer', icon: 'terminal' },
+  { label: 'API Keys', href: '/developer/api-keys', icon: 'key' },
+  { label: 'Playground', href: '/developer/playground', icon: 'code' },
+  { label: 'Webhooks', href: '/developer/webhooks', icon: 'webhook' },
+  { label: 'Sandbox', href: '/developer/sandbox', icon: 'science' },
 ];
 
 const navItems = computed(() => props.type === 'merchant' ? merchantNav : developerNav);

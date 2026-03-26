@@ -30,7 +30,8 @@ class DeveloperOverviewController extends Controller
                 'sdkDownloads' => 3241,
                 'avgResponseTime' => '45ms',
                 'uptimePercent' => 99.99,
-            ]
+            ],
+            'recentActivity' => [],
         ]);
     }
 }

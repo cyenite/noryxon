@@ -1,22 +1,19 @@
 <template>
-  <div class="group relative bg-surface-container-lowest border border-outline-variant/15 p-5 rounded-2xl transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 hover:border-primary/20 hover:-translate-y-0.5 overflow-hidden">
-    <!-- Hover glow -->
-    <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
-
+  <div class="group relative bg-surface-container-lowest border border-outline-variant/10 p-6 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-primary/5 overflow-hidden">
     <div class="flex items-start justify-between mb-3">
-      <div class="text-sm text-on-surface-variant font-medium">{{ label }}</div>
+      <div class="text-xs font-label text-on-surface-variant uppercase tracking-wider">{{ label }}</div>
       <div
         v-if="change !== undefined"
-        class="text-[11px] font-bold px-2 py-0.5 rounded-lg"
+        class="text-[10px] font-bold px-2 py-0.5 rounded-full"
         :class="change >= 0
-          ? 'text-tertiary bg-tertiary-container/15'
-          : 'text-error bg-error/10'"
+          ? 'text-on-tertiary-container bg-tertiary-container/20'
+          : 'text-on-error-container bg-error-container/20'"
       >
         {{ change >= 0 ? '+' : '' }}{{ change }}%
       </div>
     </div>
 
-    <div class="text-3xl font-extrabold text-on-surface mb-1 tracking-tight font-headline">
+    <div class="text-2xl font-bold text-on-surface tracking-tight font-headline">
       {{ displayValue }}
     </div>
 
